@@ -1,14 +1,20 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Hero.Tests
 {
-    [TestClass]
     public class AbilityTests
     {
-        [TestMethod]
-        public void TestMethod1()
+        [SetUp]
+        public void Initialize()
         {
+            
+        }
+
+        [Test]
+        public void TestAbilityHasNameProperty()
+        {
+            Ability ability = new Ability("ability");
+            Assert.AreEqual("ability", ability.Name);
         }
     }
 }
