@@ -1,4 +1,6 @@
-﻿namespace Hero.Interfaces
+﻿using DotNetStandard.Interfaces;
+
+namespace Hero.Interfaces
 {
-    interface IRole : IIdentifiable<int>, INameable { }
+    public interface IRole : IIdentifiable<int>, INameable { }
 }

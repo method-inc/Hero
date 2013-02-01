@@ -1,5 +1,5 @@
 ﻿using System;
-using Hero.Interfaces;
+using DotNetStandard.Interfaces;
 
 namespace Hero
 {
