@@ -14,7 +14,7 @@
     <copyright>Copyright 2013</copyright>
     <tags>Repository</tags>
     <dependencies>
-      <dependency id="DotNetStandard" version="0.0.3" />
+      <dependency id="DotNetStandard.dll" version="0.0.3" />
     </dependencies>
   </metadata>
 </package>
