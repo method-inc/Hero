@@ -1,8 +1,9 @@
 ﻿using System;
+using Hero.Interfaces;
 
 namespace Hero
 {
-    public class Ability
+    public class Ability : INameable
     {
         private readonly string _name;
         public string Name
