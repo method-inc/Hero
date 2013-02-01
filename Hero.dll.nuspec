@@ -14,7 +14,10 @@
     <copyright>Copyright 2013</copyright>
     <tags>Repository</tags>
     <dependencies>
-      <dependency id="DotNetStandard.dll" version="0.0.3" />
+      <dependency id="DotNetStandard.dll" version="0.0.4" />
     </dependencies>
   </metadata>
+  <files>
+    <file src="Hero\bin\Release\*.dll" target="lib" />
+  </files>
 </package>
