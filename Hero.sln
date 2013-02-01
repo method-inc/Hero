@@ -3,6 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hero", "Hero\Hero.csproj", "{D45B59B6-EDA1-4727-B1C0-4FB6857A3398}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hero.Tests", "Hero.Tests\Hero.Tests.csproj", "{9657D5F8-6156-4F4F-B42B-1C2D95FA1121}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hero.Services", "Hero.Services\Hero.Services.csproj", "{A762AAE7-E543-4291-99BD-A5AC21BBC80B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{20EF58D6-55BD-4402-B524-BBF6749DCD82}"
+	ProjectSection(SolutionItems) = preProject
+		SolutionInfo.cs = SolutionInfo.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +22,14 @@ Global
 		{D45B59B6-EDA1-4727-B1C0-4FB6857A3398}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D45B59B6-EDA1-4727-B1C0-4FB6857A3398}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D45B59B6-EDA1-4727-B1C0-4FB6857A3398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9657D5F8-6156-4F4F-B42B-1C2D95FA1121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9657D5F8-6156-4F4F-B42B-1C2D95FA1121}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9657D5F8-6156-4F4F-B42B-1C2D95FA1121}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9657D5F8-6156-4F4F-B42B-1C2D95FA1121}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A762AAE7-E543-4291-99BD-A5AC21BBC80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A762AAE7-E543-4291-99BD-A5AC21BBC80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A762AAE7-E543-4291-99BD-A5AC21BBC80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A762AAE7-E543-4291-99BD-A5AC21BBC80B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
