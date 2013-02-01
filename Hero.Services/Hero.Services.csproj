@@ -42,7 +42,15 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
-    <Compile Include="AuthorizationService.cs" />
+    <Compile Include="AbilityAuthorizationService.cs" />
+    <Compile Include="Interfaces\IAbilityAuthorizationService.cs" />
+    <Compile Include="Interfaces\IAuthorizationService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hero\Hero.csproj">
+      <Project>{D45B59B6-EDA1-4727-B1C0-4FB6857A3398}</Project>
+      <Name>Hero</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

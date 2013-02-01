@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Hero.Tests
 {
@@ -8,6 +9,12 @@ namespace Hero.Tests
         public void Initialize()
         {
             
+        }
+
+        [Test]
+        public void TestAbilityWithNullNameThrowException()
+        {
+            Assert.Throws<ArgumentNullException>(() => new Ability(null));
         }
 
         [Test]
