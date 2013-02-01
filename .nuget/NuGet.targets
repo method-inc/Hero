@@ -21,7 +21,7 @@
         <!-- The official NuGet package source (https://nuget.org/api/v2/) will be excluded if package sources are specified and it does not appear in the list -->
         <!--
             <PackageSource Include="https://nuget.org/api/v2/" />
-            <PackageSource Include="https://my-nuget-source/nuget/" />
+            <PackageSource Include="http://skookum.cloudapp.net/httpAuth/app/nuget/v1/FeedService.svc/" />
         -->
     </ItemGroup>
 
