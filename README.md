@@ -1,15 +1,12 @@
-# hero
+# Hero
 
-hero is an ability based authorization module for .NET
+Ability based authorization for .Net projects. It will generate a Nuget package that can be downloaded as a 3rd party dll via Visual Studio.
 
-## Usage
+# Installation
 
-Once completed hero will be available via [nuget](http://nuget.org/)
+You can install this module via Nuget. The Nuget package is available from the [Skookum Nuget Server](http://skookum.cloudapp.net/guestAuth/app/nuget/v1/FeedService.svc/)
 
-## Documentation
+# License
 
-More coming
+This project is licensed under the [MIT License](http://opensource.org/licenses/MIT)
 
-## License
-
-hero is released under the [MIT](http://opensource.org/licenses/MIT) license
