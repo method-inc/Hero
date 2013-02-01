@@ -18,6 +18,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Hero\bin\Release\*.dll" target="lib" />
+    <file src="lib\*.dll" target="lib" />
   </files>
 </package>
