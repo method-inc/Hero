@@ -1,7 +1,11 @@
-﻿namespace Hero.Services.Interfaces
+﻿using Hero.Interfaces;
+
+namespace Hero.Services.Interfaces
 {
     public interface IAbilityAuthorizationService
     {
-        bool Authorize(Ability ability);
+        bool Authorize(IRole role, Ability ability);
+        void RegisterAbility(IRole role, Ability ability);
+        void UnregisterAbility(IRole role, Ability ability);
     }
 }

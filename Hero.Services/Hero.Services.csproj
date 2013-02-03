@@ -48,6 +48,7 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="AbilityAuthorizationService.cs" />
+    <Compile Include="AuthorizationService.cs" />
     <Compile Include="Interfaces\IAbilityAuthorizationService.cs" />
     <Compile Include="Interfaces\IAuthorizationService.cs" />
   </ItemGroup>

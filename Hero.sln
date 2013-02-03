@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hero.Services", "Hero.Servi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{20EF58D6-55BD-4402-B524-BBF6749DCD82}"
 	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
 		SolutionInfo.cs = SolutionInfo.cs
 	EndProjectSection
 EndProject

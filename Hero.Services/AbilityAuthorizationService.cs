@@ -1,22 +1,42 @@
-﻿using Hero.Services.Interfaces;
+﻿using System.Collections.Generic;
+using Hero.Interfaces;
+using Hero.Services.Interfaces;
 
 namespace Hero.Services
 {
-    public abstract class AbilityAuthorizationService : IAuthorizationService, IAbilityAuthorizationService
+    public class AbilityAuthorizationService : AuthorizationService, IAbilityAuthorizationService
     {
-        public virtual bool Authorize(string abilityName)
+        // TODO Make this generate an event?
+        private readonly RoleAbilityMap _roleAbilityMap;
+
+        public AbilityAuthorizationService()
         {
-            return _Authorize(new Ability(abilityName));
+            _roleAbilityMap = new RoleAbilityMap();
         }
 
-        public virtual bool Authorize(Ability ability)
+        public bool Authorize(IRole role, Ability ability)
         {
-            return _Authorize(ability);
+            return _Authorize(role, ability);
         }
 
-        private static bool _Authorize(Ability ability)
+        public void RegisterAbility(IRole role, Ability ability)
         {
-            return false;
+            if (_roleAbilityMap.ContainsKey(role))
+                _roleAbilityMap[role].Add(ability);
+            _roleAbilityMap.Add(role, new HashSet<Ability> {ability});
+        }
+
+        public void UnregisterAbility(IRole role, Ability ability)
+        {
+            if (!_roleAbilityMap.ContainsKey(role))
+                return;
+            _roleAbilityMap.Remove(role);
+        }
+
+        private bool _Authorize(IRole role, Ability ability)
+        {
+            return _roleAbilityMap.ContainsKey(role) &&
+                   _roleAbilityMap[role].Contains(ability);
         }
     }
 }
