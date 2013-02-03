@@ -20,3 +20,7 @@ This project is licensed under the [MIT License](http://opensource.org/licenses/
 + Add database support for roles and abilities?
 + Add ability to generate current roles/ability matrix data structure
 + Do we even want to save abilities in the database? Should we always just generate it via reflection?
+
+# Examples
+
+See tests for examples right now. Will add offical examples later.
