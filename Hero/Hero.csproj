@@ -51,6 +51,7 @@
     <Compile Include="Interfaces\IRole.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="RoleAbility.cs" />
     <Compile Include="RoleAbilityMap.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
