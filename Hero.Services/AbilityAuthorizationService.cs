@@ -6,7 +6,6 @@ namespace Hero.Services
 {
     public class AbilityAuthorizationService : AuthorizationService, IAbilityAuthorizationService
     {
-        // TODO Make this generate an event?
         private readonly RoleAbilityMap _roleAbilityMap;
 
         public AbilityAuthorizationService()
@@ -23,14 +22,15 @@ namespace Hero.Services
         {
             if (_roleAbilityMap.ContainsKey(role))
                 _roleAbilityMap[role].Add(ability);
-            _roleAbilityMap.Add(role, new HashSet<Ability> {ability});
+            else
+                _roleAbilityMap.Add(role, new HashSet<Ability> {ability});
         }
 
         public void UnregisterAbility(IRole role, Ability ability)
         {
             if (!_roleAbilityMap.ContainsKey(role))
                 return;
-            _roleAbilityMap.Remove(role);
+            _roleAbilityMap[role].Remove(ability);
         }
 
         private bool _Authorize(IRole role, Ability ability)

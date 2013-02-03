@@ -5,10 +5,12 @@ namespace Hero.Tests
 {
     public class AbilityTests
     {
+        private Ability _ability;
+
         [SetUp]
         public void Initialize()
         {
-            
+            _ability = new Ability("ability");
         }
 
         [Test]
@@ -20,8 +22,7 @@ namespace Hero.Tests
         [Test]
         public void TestAbilityHasNameProperty()
         {
-            Ability ability = new Ability("ability");
-            Assert.AreEqual("ability", ability.Name);
+            Assert.AreEqual("ability", _ability.Name);
         }
     }
 }
