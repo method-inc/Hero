@@ -40,6 +40,11 @@
     <Reference Include="DotNetStandard">
       <HintPath>..\packages\DotNetStandard.dll.0.4\lib\DotNetStandard.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetStandard.Vent, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetStandard.dll.0.7\lib\DotNetStandard.Vent.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
@@ -62,6 +67,8 @@
     </Compile>
     <Compile Include="AbilityTests.cs" />
     <Compile Include="AbilityAuthorizationServiceTests.cs" />
+    <Compile Include="Models\Consumer.cs" />
+    <Compile Include="RoleAbilityTests.cs" />
     <Compile Include="UserTests.cs" />
     <Compile Include="RoleTests.cs" />
   </ItemGroup>

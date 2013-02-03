@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using DotNetStandard.Vent;
 using Hero.Interfaces;
+using Hero.Services.Events;
 using Hero.Services.Interfaces;
 
 namespace Hero.Services
@@ -24,6 +26,11 @@ namespace Hero.Services
                 _roleAbilityMap[role].Add(ability);
             else
                 _roleAbilityMap.Add(role, new HashSet<Ability> {ability});
+
+            EventAggregator.Instance.Trigger(
+                new RegisterAbilityEvent(), 
+                new RoleAbility(role, ability)
+            );
         }
 
         public void UnregisterAbility(IRole role, Ability ability)
@@ -31,6 +38,11 @@ namespace Hero.Services
             if (!_roleAbilityMap.ContainsKey(role))
                 return;
             _roleAbilityMap[role].Remove(ability);
+
+            EventAggregator.Instance.Trigger(
+                new UnregisterAbilityEvent(), 
+                new RoleAbility(role, ability)
+            );
         }
 
         private bool _Authorize(IRole role, Ability ability)

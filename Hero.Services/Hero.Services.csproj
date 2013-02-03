@@ -32,8 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetStandard">
-      <HintPath>..\packages\DotNetStandard.dll.0.4\lib\DotNetStandard.dll</HintPath>
+    <Reference Include="DotNetStandard, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetStandard.dll.0.7\lib\DotNetStandard.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetStandard.Vent">
+      <HintPath>..\packages\DotNetStandard.dll.0.7\lib\DotNetStandard.Vent.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,6 +53,8 @@
     </Compile>
     <Compile Include="AbilityAuthorizationService.cs" />
     <Compile Include="AuthorizationService.cs" />
+    <Compile Include="Events\UnregisterAbilityEvent.cs" />
+    <Compile Include="Events\RegisterAbilityEvent.cs" />
     <Compile Include="Interfaces\IAbilityAuthorizationService.cs" />
     <Compile Include="Interfaces\IAuthorizationService.cs" />
   </ItemGroup>
