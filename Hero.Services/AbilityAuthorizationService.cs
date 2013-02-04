@@ -29,7 +29,7 @@ namespace Hero.Services
 
             EventAggregator.Instance.Trigger(
                 new RegisterAbilityEvent(), 
-                new RoleAbility(role, ability)
+                new []{new RoleAbility(role, ability)}
             );
         }
 
@@ -41,7 +41,7 @@ namespace Hero.Services
 
             EventAggregator.Instance.Trigger(
                 new UnregisterAbilityEvent(), 
-                new RoleAbility(role, ability)
+                new []{new RoleAbility(role, ability)}
             );
         }
 

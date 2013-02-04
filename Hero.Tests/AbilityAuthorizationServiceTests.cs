@@ -132,10 +132,10 @@ namespace Hero.Tests
             _authorizationService.RegisterAbility(_role1, _ability1);
             Assert.True(_authorizationService.Authorize(_role1, _ability1));
             Assert.AreEqual(1, _consumer.Counter);
-            Assert.AreEqual(new RoleAbility(_role1, _ability1), _consumer.Param);
+            Assert.AreEqual(new RoleAbility(_role1, _ability1), _consumer.Param[0]);
             _authorizationService.UnregisterAbility(_role1, _ability1);
             Assert.AreEqual(0, _consumer.Counter);
-            Assert.AreEqual(new RoleAbility(_role1, _ability1), _consumer.Param);
+            Assert.AreEqual(new RoleAbility(_role1, _ability1), _consumer.Param[0]);
         }
     }
 }

@@ -13,10 +13,9 @@ This project is licensed under the [MIT License](http://opensource.org/licenses/
 # TODO
 
 + Write unit tests
-+ Setup pub sub for registration
 + Add attributes for methods and classes
 + Add some ability to specify sub method level abilities?
-+ Add fluent interface to configure abilities and roles
++ Add fluent interface to configure abilities and roles?
 + Add database support for roles and abilities?
 + Add ability to generate current roles/ability matrix data structure
 + Do we even want to save abilities in the database? Should we always just generate it via reflection?
