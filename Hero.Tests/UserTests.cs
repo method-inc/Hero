@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using Hero.Interfaces;
+using NUnit.Framework;
 
 namespace Hero.Tests
 {
@@ -6,25 +8,27 @@ namespace Hero.Tests
     {
         private User _user1;
         private User _user2;
+        private HashSet<IRole> _roles;
 
         [SetUp]
         public void Initialize()
         {
-            _user1 = new User(1, "User1");
-            _user2 = new User(2, "User2");
+            _roles = new HashSet<IRole>();
+            _user1 = new User(1, "User1", _roles);
+            _user2 = new User(2, "User2", _roles);
         }
 
         [Test]
         public void TestUsersAreEqual()
         {
-            User userOne = new User(1, "User1");
+            User userOne = new User(1, "User1", _roles);
             Assert.AreEqual(userOne, _user1);
         }
 
         [Test]
         public void TestUsersEqualityOperator()
         {
-            User userOne = new User(1, "User1");
+            User userOne = new User(1, "User1", _roles);
             Assert.True(userOne == _user1);
         }
 
@@ -92,6 +96,23 @@ namespace Hero.Tests
         public void TestUserHashCodeNotEquals()
         {
             Assert.AreNotEqual(_user1.GetHashCode(), _user2.GetHashCode());
+        }
+
+        [Test]
+        public void TestUserHasRoleReturnsTrue()
+        {
+            IRole role = new Role(1, "Role1");
+            _roles.Add(role);
+            Assert.True(_user1.Is(role));
+        }
+
+        [Test]
+        public void TestUserDoesNotHaveRoleReturnsFalse()
+        {
+            IRole role = new Role(1, "Role1");
+            IRole roleTwo = new Role(2, "Role2");
+            _roles.Add(role);
+            Assert.False(_user1.Is(roleTwo));
         }
     }
 }

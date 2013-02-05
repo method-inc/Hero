@@ -1,4 +1,6 @@
-﻿using Hero.Interfaces;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Hero.Interfaces;
 
 namespace Hero
 {
@@ -6,11 +8,18 @@ namespace Hero
     {
         public int Id { get; private set; }
         public string Name { get; private set; }
+        public IEnumerable<IRole> Roles { get; private set; }
 
-        public User(int id, string name)
+        public User(int id, string name, IEnumerable<IRole> roles)
         {
             Id = id;
             Name = name;
+            Roles = roles;
+        }
+
+        public bool Is(IRole role)
+        {
+            return Roles.Contains(role);
         }
 
         public bool Equals(User other)
