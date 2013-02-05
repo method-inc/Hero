@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Hero.dll</id>
+    <id>Hero</id>
     <version>0.0.1</version>
     <authors>Skookum</authors>
     <owners>Skookum</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/Skookum/Hero</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Ability based authorization</description>
-    <releaseNotes>Initial Project Creation</releaseNotes>
+    <releaseNotes>Ability based authorization</releaseNotes>
     <copyright>Copyright 2013</copyright>
-    <tags>Repository</tags>
+    <tags>Authorization, Ability, Role, User</tags>
     <dependencies>
       <dependency id="DotNetStandard.dll" version="0.0.4" />
+      <dependency id="WebActivator" version="1.5" />
     </dependencies>
   </metadata>
   <files>
