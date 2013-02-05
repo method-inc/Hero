@@ -34,11 +34,11 @@
   <ItemGroup>
     <Reference Include="DotNetStandard, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetStandard.dll.0.10\lib\DotNetStandard.dll</HintPath>
+      <HintPath>..\packages\DotNetStandard.0.15\lib\DotNetStandard.dll</HintPath>
     </Reference>
     <Reference Include="DotNetStandard.Vent, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetStandard.dll.0.10\lib\DotNetStandard.Vent.dll</HintPath>
+      <HintPath>..\packages\DotNetStandard.0.15\lib\DotNetStandard.Vent.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

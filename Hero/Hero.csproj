@@ -32,8 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetStandard">
-      <HintPath>..\packages\DotNetStandard.dll.0.4\lib\DotNetStandard.dll</HintPath>
+    <Reference Include="DotNetStandard, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetStandard.0.15\lib\DotNetStandard.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetStandard.Vent">
+      <HintPath>..\packages\DotNetStandard.0.15\lib\DotNetStandard.Vent.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
