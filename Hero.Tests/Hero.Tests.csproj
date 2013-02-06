@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="AbilityTests.cs" />
     <Compile Include="AbilityAuthorizationServiceTests.cs" />
+    <Compile Include="HeroConfigurationTests.cs" />
     <Compile Include="Models\Consumer.cs" />
     <Compile Include="RoleAbilityTests.cs" />
     <Compile Include="UserTests.cs" />
@@ -77,6 +78,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Hero.Configuration\Hero.Configuration.csproj">
+      <Project>{2D0BC875-C86F-45CE-9979-12205AFE8AA2}</Project>
+      <Name>Hero.Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Hero.Services\Hero.Services.csproj">
       <Project>{A762AAE7-E543-4291-99BD-A5AC21BBC80B}</Project>
       <Name>Hero.Services</Name>
