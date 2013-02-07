@@ -10,7 +10,7 @@ namespace Hero.Tests
 {
     public class HeroConfigurationTests
     {
-        private HeroConfiguration _configuration;
+        private HeroConfig _config;
         private IAbilityAuthorizationService _authorizationService;
         private IUser _user;
         private IRole _adminRole;
@@ -29,32 +29,32 @@ namespace Hero.Tests
                     new Ability("Ability3")
                 };
 
-            _configuration = new HeroConfiguration();
-            _configuration.Initialize(_authorizationService, _user, _adminRole, _adminAbilities);
+            _config = new HeroConfig();
+            _config.Assign(_authorizationService, _user, _adminRole, _adminAbilities);
         }
 
         [Test]
         public void TestHeroConfigurationThrowsExceptionWithNullAuthorizationService()
         {
-            Assert.Throws<ArgumentNullException>(() => _configuration.Initialize(null, _user, _adminRole, _adminAbilities));
+            Assert.Throws<ArgumentNullException>(() => _config.Assign(null, _user, _adminRole, _adminAbilities));
         }
 
         [Test]
         public void TestHeroConfigurationThrowsExceptionWithNullUser()
         {
-            Assert.Throws<ArgumentNullException>(() => _configuration.Initialize(_authorizationService, null, _adminRole, _adminAbilities));
+            Assert.Throws<ArgumentNullException>(() => _config.Assign(_authorizationService, null, _adminRole, _adminAbilities));
         }
 
         [Test]
         public void TestHeroConfigurationThrowsExceptionWithNullRole()
         {
-            Assert.Throws<ArgumentNullException>(() => _configuration.Initialize(_authorizationService, _user, null, _adminAbilities));
+            Assert.Throws<ArgumentNullException>(() => _config.Assign(_authorizationService, _user, null, _adminAbilities));
         }
 
         [Test]
         public void TestHeroConfigurationThrowsExceptionWithNullAbilities()
         {
-            Assert.Throws<ArgumentNullException>(() => _configuration.Initialize(_authorizationService, _user, _adminRole, null));
+            Assert.Throws<ArgumentNullException>(() => _config.Assign(_authorizationService, _user, _adminRole, null));
         }
 
         [Test]

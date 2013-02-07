@@ -52,7 +52,7 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
-    <Compile Include="HeroConfiguration.cs" />
+    <Compile Include="HeroConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hero.Services\Hero.Services.csproj">

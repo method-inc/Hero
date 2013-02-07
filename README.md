@@ -14,10 +14,11 @@ This project is licensed under the [MIT License](http://opensource.org/licenses/
 
 ## Infrastructure
 + The developer may also want to define an role => ability relationship via code. 
-    - This should be done in a centralized configuration section
-    - This would be the default configuration essentially
-    - Need to setup Nuget to generate this file and give instructions on how to use it or inject in the correct place depending on the project
-    - Defining roles would require its own permissions (Admin)
+    - This should be done in a centralized configuration section...Done
+    - This would be the default configuration essentially...Done
+    - Need to setup Nuget to generate this file and give instructions on how to use it or inject in the correct place depending on the project...Done
+    - Defining roles would require its own permissions (Admin)...Done
+    - Need to give them a place to put their own config without overwriting it on update...Done
 + Create attributes for methods and classes. This will be how developers can set authorization to code based on roles.
     - Need to create a single attribute that would access the central authorization service
     - Might want a central place like a WebAttribute instead because really want to assume they don't have access by default.
