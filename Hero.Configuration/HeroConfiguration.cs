@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Hero; //do not remove this
 using Hero.Interfaces;
 using Hero.Services.Interfaces;
 

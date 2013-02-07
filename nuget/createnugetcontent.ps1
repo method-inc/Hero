@@ -5,5 +5,5 @@ Rename-Item -Force "$args\nuget\Content\App_Start\HeroConfiguration.cs" "$args\n
 $original_file = "$args\nuget\Content\App_Start\HeroConfiguration.cs.pp"
 $destination_file = "$args\nuget\Content\App_Start\HeroConfiguration.cs.pp"
 (Get-Content $original_file) | Foreach-Object {
-    $_ -replace 'namespace Hero.Configuration', 'namespace $rootnamespace$.App_Start'
+    $_ -replace 'namespace Hero.Configuration', 'namespace $rootnamespace$'
     } | Set-Content $destination_file
