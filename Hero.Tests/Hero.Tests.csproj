@@ -66,6 +66,9 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+	<Compile Include="..\SolutionVersionInfo.cs">
+      <Link>Properties\SolutionVersionInfo.cs</Link>
+    </Compile>
     <Compile Include="AbilityTests.cs" />
     <Compile Include="AbilityAuthorizationServiceTests.cs" />
     <Compile Include="HeroConfigurationTests.cs" />
