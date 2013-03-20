@@ -74,9 +74,9 @@ namespace Hero.Attributes
                 return false;
             }
 
-            isAuthenticated = TokenCacheStrategy.Instance.Validate(token);
+            isAuthenticated = TokenCache.Instance.Validate(token);
 
-            User user = TokenCacheStrategy.Instance.GetCachedObject(token) as User;
+            User user = TokenCache.Instance.GetCachedObject(token) as User;
 
             if (user == null)
                 return false;
