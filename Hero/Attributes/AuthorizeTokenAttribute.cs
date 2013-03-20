@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
-using DotNetStandard.CacheStrategies;
+using DotNetStandard.Cache;
 
 namespace Hero.Attributes
 {
