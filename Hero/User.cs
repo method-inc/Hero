@@ -22,6 +22,11 @@ namespace Hero
             return Roles.Contains(role);
         }
 
+        public bool Is(string roleName)
+        {
+            return Roles.Any(r => r.Name == roleName);
+        }
+
         public bool Equals(User other)
         {
             if (ReferenceEquals(null, other)) return false;

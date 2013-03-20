@@ -45,6 +45,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,11 +64,14 @@
       <Link>Properties\SolutionVersionInfo.cs</Link>
     </Compile>
     <Compile Include="Ability.cs" />
+    <Compile Include="Attributes\AuthorizeTokenAttribute.cs" />
+    <Compile Include="Attributes\RequireHttpsAttribute.cs" />
     <Compile Include="Interfaces\IRole.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="RoleAbility.cs" />
     <Compile Include="RoleAbilityMap.cs" />
+    <Compile Include="TokenAuthorizationCache.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
