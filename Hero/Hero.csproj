@@ -36,13 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetStandard, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetStandard.0.15\lib\DotNetStandard.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetStandard.Vent">
-      <HintPath>..\packages\DotNetStandard.0.15\lib\DotNetStandard.Vent.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
@@ -71,7 +64,6 @@
     <Compile Include="Role.cs" />
     <Compile Include="RoleAbility.cs" />
     <Compile Include="RoleAbilityMap.cs" />
-    <Compile Include="TokenAuthorizationCache.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using DotNetStandard.CacheStrategies;
 
 namespace Hero.Attributes
 {
@@ -73,9 +74,9 @@ namespace Hero.Attributes
                 return false;
             }
 
-            isAuthenticated = TokenAuthenticationCache.Instance.Validate(token);
+            isAuthenticated = TokenCacheStrategy.Instance.Validate(token);
 
-            User user = TokenAuthenticationCache.Instance.GetCachedObject(token) as User;
+            User user = TokenCacheStrategy.Instance.GetCachedObject(token) as User;
 
             if (user == null)
                 return false;
