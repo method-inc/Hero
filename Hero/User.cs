@@ -8,23 +8,11 @@ namespace Hero
     {
         public int Id { get; private set; }
         public string Name { get; private set; }
-        public IEnumerable<IRole> Roles { get; private set; }
 
-        public User(int id, string name, IEnumerable<IRole> roles)
+        public User(int id, string name)
         {
             Id = id;
             Name = name;
-            Roles = roles;
-        }
-
-        public bool Is(IRole role)
-        {
-            return Roles.Contains(role);
-        }
-
-        public bool Is(string roleName)
-        {
-            return Roles.Any(r => r.Name == roleName);
         }
 
         public bool Equals(User other)

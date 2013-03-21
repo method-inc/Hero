@@ -11,15 +11,12 @@ namespace Hero.Configuration
         private int _defaultTokenAuthorizationCacheTimeout = 15;
 
         /// <summary>
-        /// If the user is of the given role, the role is assigned
-        /// the given abilities.
+        /// Assign a set of abilities to a role.
         /// </summary>
         /// <param name="authorizationService">Ability based authorization service that manages role and abilities. Assumed to be a single instance</param>
-        /// <param name="user">The current user logged into the system</param>
         /// <param name="role">The role that is to be inspected and if nescessary configured</param>
         /// <param name="abilities">The abilities to assign the role if nescessary</param>
-        public void Assign(IAbilityAuthorizationService authorizationService, IUser user,
-                                  IRole role, IEnumerable<Ability> abilities)
+        public void AssignAbilitiesToRole(IAbilityAuthorizationService authorizationService, IRole role, IEnumerable<Ability> abilities)
         {
             // This method is intended to be used from the Global.asax.cs or
             // similar. It should only be done from there to encourage a centralized
@@ -34,17 +31,40 @@ namespace Hero.Configuration
 
             if (authorizationService == null)
                 throw new ArgumentNullException("authorizationService");
-            if (user == null)
-                throw new ArgumentNullException("user");
             if (role == null)
                 throw new ArgumentNullException("role");
             if (abilities == null)
                 throw new ArgumentNullException("abilities");
 
-            if (!user.Is(role)) return;
-
             foreach (Ability ability in abilities)
                 authorizationService.RegisterAbility(role, ability);
+        }
+
+        /// <summary>
+        /// Assign a set of roles to a user
+        /// </summary>
+        /// <param name="authorizationService"></param>
+        /// <param name="user"></param>
+        /// <param name="roles"></param>
+        public void AssignRolesToUser(IAbilityAuthorizationService authorizationService, IUser user, IEnumerable<IRole> roles)
+        {
+            // This method is intended to be used from the Global.asax.cs or
+            // similar. It should only be done from there to encourage a centralized
+            // place to assign roles.
+            //
+            // The method is designed with dependency injection in mind which should allow
+            // any method of configuring roles and abilities (i.e. pulling roles from the database,
+            // or abilities through refection)
+
+            if (authorizationService == null)
+                throw new ArgumentNullException("authorizationService");
+            if (user == null)
+                throw new ArgumentNullException("user");
+            if (roles == null)
+                throw new ArgumentNullException("roles");
+
+            foreach (IRole role in roles)
+                authorizationService.RegisterRole(user, role);
         }
 
         public int AuthorizationCacheTimeout { get { return _defaultTokenAuthorizationCacheTimeout; } set { _defaultTokenAuthorizationCacheTimeout = value; } }

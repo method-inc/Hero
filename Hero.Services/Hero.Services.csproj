@@ -43,6 +43,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,9 +62,13 @@
       <Link>Properties\SolutionVersionInfo.cs</Link>
     </Compile>
     <Compile Include="AbilityAuthorizationService.cs" />
+    <Compile Include="Attributes\AbilityAuthorizationAttribute.cs" />
+    <Compile Include="Attributes\TokenAuthorizationAttribute.cs" />
     <Compile Include="AuthorizationService.cs" />
+    <Compile Include="Events\RegisterRoleEvent.cs" />
     <Compile Include="Events\UnregisterAbilityEvent.cs" />
     <Compile Include="Events\RegisterAbilityEvent.cs" />
+    <Compile Include="Events\UnregisterRoleEvent.cs" />
     <Compile Include="Interfaces\IAbilityAuthorizationService.cs" />
     <Compile Include="Interfaces\IAuthorizationService.cs" />
   </ItemGroup>

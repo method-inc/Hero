@@ -5,14 +5,19 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using DotNetStandard.Cache;
+using Hero.Services.Interfaces;
 
-namespace Hero.Attributes
+namespace Hero.Services.Attributes
 {
-    public class AuthorizeTokenAttribute : AuthorizeAttribute
+    public class AbilityAuthorizationAttribute : AuthorizeAttribute
     {
+        public Ability Ability { get; set; }
+        private IAbilityAuthorizationService _authorizationService { get; set; }
+
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             if (actionContext == null)
@@ -57,59 +62,22 @@ namespace Hero.Attributes
             return true;
         }
 
-        public virtual bool AuthorizeRequest(HttpRequestMessage request)
+        public bool AuthorizeRequest(HttpRequestMessage request)
         {
             bool isAuthenticated = false;
             bool isAuthorized = false;
 
-            if (!request.Headers.Contains("Authorization-Token"))
-            {
-                return false;
-            }
+            var currentUser = HttpContext.Current.User.Identity;
 
-            string token = request.Headers.GetValues("Authorization-Token").FirstOrDefault();
-
-            if (string.IsNullOrEmpty(token))
-            {
-                return false;
-            }
-
-            isAuthenticated = TokenCache.Instance.Validate(token);
-
-            User user = TokenCache.Instance.GetCachedObject(token) as User;
-
-            if (user == null)
+            if (currentUser == null)
                 return false;
 
-            foreach (string role in RolesSplit)
-            {
-                if (user.Is(role))
-                {
-                    isAuthorized = true;
-                }
-            }
+            isAuthenticated = currentUser.IsAuthenticated;
 
-            return isAuthenticated && (isAuthorized || !RolesSplit.Any());
+            User user = new User(currentUser.Name.GetHashCode(), currentUser.Name);
+            isAuthorized = _authorizationService.Authorize(user, Ability);
+
+            return isAuthenticated && isAuthorized;
         }
-
-        protected string[] RolesSplit
-        {
-            get { return SplitStrings(Roles); }
-        }
-
-        protected string[] UsersSplit
-        {
-            get { return SplitStrings(Users); }
-        }
-
-        protected static string[] SplitStrings(string input)
-        {
-            if (string.IsNullOrWhiteSpace(input)) return new string[0];
-            var result = input.Split(',')
-                .Where(s => !String.IsNullOrWhiteSpace(s.Trim()));
-            return result.Select(s => s.Trim()).ToArray();
-        }
-
-        
     }
 }

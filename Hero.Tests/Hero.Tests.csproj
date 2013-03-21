@@ -73,8 +73,10 @@
     <Compile Include="AbilityTests.cs" />
     <Compile Include="AbilityAuthorizationServiceTests.cs" />
     <Compile Include="HeroConfigurationTests.cs" />
-    <Compile Include="Models\Consumer.cs" />
+    <Compile Include="Models\AbilityConsumer.cs" />
+    <Compile Include="Models\RoleConsumer.cs" />
     <Compile Include="RoleAbilityTests.cs" />
+    <Compile Include="UserRoleTests.cs" />
     <Compile Include="UserTests.cs" />
     <Compile Include="RoleTests.cs" />
   </ItemGroup>

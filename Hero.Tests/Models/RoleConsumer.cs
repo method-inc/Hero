@@ -3,16 +3,16 @@ using Hero.Services.Events;
 
 namespace Hero.Tests.Models
 {
-    public class Consumer
+    public class RoleConsumer
     {
         private readonly EventAggregator _vent = EventAggregator.Instance;
         public int Counter { get; set; }
         public dynamic Param { get; set; }
-        public Consumer()
+        public RoleConsumer()
         {
             Counter = 0;
-            _vent.Subscribe(new RegisterAbilityEvent(), Increase);
-            _vent.Subscribe(new UnregisterAbilityEvent(), Decrease);
+            _vent.Subscribe(new RegisterRoleEvent(), Increase);
+            _vent.Subscribe(new UnregisterRoleEvent(), Decrease);
         }
 
         public void Increase(dynamic param)
