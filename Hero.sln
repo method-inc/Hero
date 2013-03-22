@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{8BAF37
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hero.IntegrationTest", "Hero.IntegrationTest\Hero.IntegrationTest.csproj", "{5DF47F1C-FE96-4031-B219-7C22F4E57936}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hero.Attributes", "Hero.Attributes\Hero.Attributes.csproj", "{D101D920-6348-4BE1-A7F3-A1D00DA21D2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{5DF47F1C-FE96-4031-B219-7C22F4E57936}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DF47F1C-FE96-4031-B219-7C22F4E57936}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DF47F1C-FE96-4031-B219-7C22F4E57936}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D101D920-6348-4BE1-A7F3-A1D00DA21D2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D101D920-6348-4BE1-A7F3-A1D00DA21D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D101D920-6348-4BE1-A7F3-A1D00DA21D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D101D920-6348-4BE1-A7F3-A1D00DA21D2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,5 +9,10 @@ namespace Hero.Services
         {
             throw new NotImplementedException();
         }
+
+        public virtual string SerializeAbilities()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

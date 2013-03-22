@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2D0BC875-C86F-45CE-9979-12205AFE8AA2}</ProjectGuid>
+    <ProjectGuid>{D101D920-6348-4BE1-A7F3-A1D00DA21D2C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hero.Configuration</RootNamespace>
-    <AssemblyName>Hero.Configuration</AssemblyName>
+    <RootNamespace>Hero.Attributes</RootNamespace>
+    <AssemblyName>Hero.Attributes</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -23,7 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,19 +31,22 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetStandard, Version=0.0.22.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DotNetStandard">
       <HintPath>..\packages\DotNetStandard.0.0.22\lib\DotNetStandard.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetStandard.Vent, Version=0.0.22.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DotNetStandard.Vent">
       <HintPath>..\packages\DotNetStandard.0.0.22\lib\DotNetStandard.Vent.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,25 +60,28 @@
     <Compile Include="..\SolutionVersionInfo.cs">
       <Link>Properties\SolutionVersionInfo.cs</Link>
     </Compile>
-    <Compile Include="HeroConfig.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hero.Services\Hero.Services.csproj">
-      <Project>{A762AAE7-E543-4291-99BD-A5AC21BBC80B}</Project>
-      <Name>Hero.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hero\Hero.csproj">
-      <Project>{D45B59B6-EDA1-4727-B1C0-4FB6857A3398}</Project>
-      <Name>Hero</Name>
-    </ProjectReference>
+    <Compile Include="AbilityMvcAuthorizationAttribute.cs" />
+    <Compile Include="AbilityWebApiAuthorizationAttribute.cs" />
+    <Compile Include="TokenWebApiAuthorizationAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hero.Configuration\Hero.Configuration.csproj">
+      <Project>{2d0bc875-c86f-45ce-9979-12205afe8aa2}</Project>
+      <Name>Hero.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hero.Services\Hero.Services.csproj">
+      <Project>{a762aae7-e543-4291-99bd-a5ac21bbc80b}</Project>
+      <Name>Hero.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hero\Hero.csproj">
+      <Project>{d45b59b6-eda1-4727-b1c0-4fb6857a3398}</Project>
+      <Name>Hero</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)*.dll" "$(ProjectDir)\..\nuget\lib" &amp;&amp; powershell -file "$(SolutionDir)/nuget/createnugetcontent.ps1" $(SolutionDir)</PostBuildEvent>
-  </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

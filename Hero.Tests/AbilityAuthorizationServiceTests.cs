@@ -252,5 +252,17 @@ namespace Hero.Tests
             Assert.AreEqual(0, _roleConsumer.Counter);
             Assert.AreEqual(new UserRole(_user1, _role1), _roleConsumer.Param[0]);
         }
+
+        [Test]
+        public void TestSerializationOfAbilitiesAndUsers()
+        {
+            _authorizationService.RegisterAbility(_role1, _ability1);
+            _authorizationService.RegisterAbility(_role1, _ability2);
+            _authorizationService.RegisterRole(_user1, _role1);
+            _authorizationService.RegisterRole(_user1, _role2);
+
+            string mockJson = "{\"Abilities\":[{\"Name\":\"Ability1\"},{\"Name\":\"Ability2\"}],\"Roles\":[{\"Id\":1,\"Name\":\"Role1\"},{\"Id\":2,\"Name\":\"Role2\"}],\"Users\":[{\"Id\":1,\"Name\":\"User1\"}],\"RoleToAbilities\":[{\"Item1\":{\"Id\":1,\"Name\":\"Role1\"},\"Item2\":{\"Name\":\"Ability1\"}},{\"Item1\":{\"Id\":1,\"Name\":\"Role1\"},\"Item2\":{\"Name\":\"Ability2\"}}],\"UserToRoles\":[{\"Item1\":{\"Id\":1,\"Name\":\"User1\"},\"Item2\":{\"Id\":1,\"Name\":\"Role1\"}},{\"Item1\":{\"Id\":1,\"Name\":\"User1\"},\"Item2\":{\"Id\":2,\"Name\":\"Role2\"}}]}";
+            Assert.AreEqual(mockJson, _authorizationService.SerializeAbilities());
+        }
     }
 }

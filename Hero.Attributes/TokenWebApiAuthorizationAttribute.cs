@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using DotNetStandard.Cache;
+using Hero.Configuration;
 
-namespace Hero.Services.Attributes
+namespace Hero.Attributes
 {
-    public class TokenAuthorizationAttribute : AuthorizeAttribute
+    public class TokenWebApiAuthorizationAttribute : AuthorizeAttribute
     {
         public override void OnAuthorization(HttpActionContext actionContext)
         {
@@ -81,14 +82,13 @@ namespace Hero.Services.Attributes
             if (user == null)
                 return false;
 
-            ///TODO Fix this so it utilizes the service to lookup the role
-            /*foreach (string role in RolesSplit)
+            foreach (string role in RolesSplit)
             {
-                if (user.Is(role))
+                if (HeroConfig.AuthorizationService.GetRolesForUser(user).Any(r => r.Name == role))
                 {
                     isAuthorized = true;
                 }
-            }*/
+            }
 
             return isAuthenticated && (isAuthorized || !RolesSplit.Any());
         }

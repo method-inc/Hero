@@ -11,7 +11,6 @@ namespace Hero.Tests
 {
     public class HeroConfigurationTests
     {
-        private HeroConfig _config;
         private IAbilityAuthorizationService _authorizationService;
         private IUser _user;
         private IRole _adminRole;
@@ -30,27 +29,26 @@ namespace Hero.Tests
                     new Ability("Ability3")
                 };
 
-            _config = new HeroConfig();
-            _config.AssignAbilitiesToRole(_authorizationService, _adminRole, _adminAbilities);
-            _config.AssignRolesToUser(_authorizationService, _user, new[] { _adminRole });
+            HeroConfig.AssignAbilitiesToRole(_authorizationService, _adminRole, _adminAbilities);
+            HeroConfig.AssignRolesToUser(_authorizationService, _user, new[] { _adminRole });
         }
 
         [Test]
         public void TestHeroConfigurationThrowsExceptionWithNullAuthorizationServiceForAssignAbility()
         {
-            Assert.Throws<ArgumentNullException>(() => _config.AssignAbilitiesToRole(null, _adminRole, _adminAbilities));
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.AssignAbilitiesToRole(null, _adminRole, _adminAbilities));
         }
 
         [Test]
         public void TestHeroConfigurationThrowsExceptionWithNullRoleForAssignAbility()
         {
-            Assert.Throws<ArgumentNullException>(() => _config.AssignAbilitiesToRole(_authorizationService, null, _adminAbilities));
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.AssignAbilitiesToRole(_authorizationService, null, _adminAbilities));
         }
 
         [Test]
         public void TestHeroConfigurationThrowsExceptionWithNullAbilitiesForAssignAbility()
         {
-            Assert.Throws<ArgumentNullException>(() => _config.AssignAbilitiesToRole(_authorizationService, _adminRole, null));
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.AssignAbilitiesToRole(_authorizationService, _adminRole, null));
         }
 
         [Test]
@@ -63,19 +61,19 @@ namespace Hero.Tests
         [Test]
         public void TestHeroConfigurationThrowsExceptionWithNullAuthorizationServiceForAssignRole()
         {
-            Assert.Throws<ArgumentNullException>(() => _config.AssignRolesToUser(null, _user, new[] { _adminRole }));
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.AssignRolesToUser(null, _user, new[] { _adminRole }));
         }
 
         [Test]
         public void TestHeroConfigurationThrowsExceptionWithNullUserForAssignRole()
         {
-            Assert.Throws<ArgumentNullException>(() => _config.AssignRolesToUser(_authorizationService, null, new[] { _adminRole }));
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.AssignRolesToUser(_authorizationService, null, new[] { _adminRole }));
         }
 
         [Test]
         public void TestHeroConfigurationThrowsExceptionWithNullRoleForAssignRole()
         {
-            Assert.Throws<ArgumentNullException>(() => _config.AssignRolesToUser(_authorizationService, _user, null));
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.AssignRolesToUser(_authorizationService, _user, null));
         }
 
         [Test]

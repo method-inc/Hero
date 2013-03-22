@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
-using DotNetStandard.Cache;
-using Hero.Services.Interfaces;
+using Hero.Configuration;
+using Hero.Services;
 
-namespace Hero.Services.Attributes
+namespace Hero.Attributes
 {
-    public class AbilityAuthorizationAttribute : AuthorizeAttribute
+    public class AbilityWebApiAuthorizationAttribute : AuthorizeAttribute
     {
-        public Ability Ability { get; set; }
-        private IAbilityAuthorizationService _authorizationService { get; set; }
+        public string Ability { get; set; }
 
         public override void OnAuthorization(HttpActionContext actionContext)
         {
+            
             if (actionContext == null)
                 throw new ArgumentNullException("actionContext");
 
@@ -32,6 +32,7 @@ namespace Hero.Services.Attributes
 
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
+            
             if (actionContext == null)
                 throw new ArgumentNullException("actionContext");
 
@@ -40,6 +41,7 @@ namespace Hero.Services.Attributes
 
         private HttpResponseMessage CreateUnauthorizedResponse(HttpRequestMessage request)
         {
+            
             var result = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.Unauthorized,
@@ -51,6 +53,7 @@ namespace Hero.Services.Attributes
 
         private static bool AuthorizationDisabled(HttpActionContext actionContext)
         {
+            
             //support new AllowAnonymousAttribute
             if (!actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any())
             {
@@ -64,6 +67,7 @@ namespace Hero.Services.Attributes
 
         public bool AuthorizeRequest(HttpRequestMessage request)
         {
+            
             bool isAuthenticated = false;
             bool isAuthorized = false;
 
@@ -75,7 +79,7 @@ namespace Hero.Services.Attributes
             isAuthenticated = currentUser.IsAuthenticated;
 
             User user = new User(currentUser.Name.GetHashCode(), currentUser.Name);
-            isAuthorized = _authorizationService.Authorize(user, Ability);
+            isAuthorized = HeroConfig.AuthorizationService.Authorize(user, new Ability(Ability));
 
             return isAuthenticated && isAuthorized;
         }
