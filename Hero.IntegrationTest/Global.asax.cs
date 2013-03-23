@@ -39,14 +39,15 @@ namespace Hero.IntegrationTest
             IRole toDoAdminRole = new Role("ToDoAdmin".GetHashCode(), "ToDoAdmin");
             IUser toDoBasicUser = new User("ToDoBasicUser".GetHashCode(), "ToDoBasicUser");
             IUser toDoAdminUser = new User("ToDoAdminUser".GetHashCode(), "ToDoAdminUser");
-            Ability toDoIndexAbility = new Ability("ToDoIndex");
+            Ability toDoViewAbility = new Ability("ToDoView");
             Ability toDoCreateAbility = new Ability("ToDoCreate");
             Ability toDoDeleteAbility = new Ability("ToDoDelete");
-
+            Ability toDoEditAbility = new Ability("ToDoEdit");
+            Ability manageAbility = new Ability("Manage", new[]{toDoCreateAbility, toDoEditAbility, toDoDeleteAbility, toDoViewAbility});
 
             //abilitites
-            HeroConfig.AssignAbilitiesToRole(service, toDoBasicRole, new[] { toDoIndexAbility });
-            HeroConfig.AssignAbilitiesToRole(service, toDoAdminRole, new[] { toDoIndexAbility, toDoCreateAbility, toDoDeleteAbility });
+            HeroConfig.AssignAbilitiesToRole(service, toDoBasicRole, new[] { toDoViewAbility });
+            HeroConfig.AssignAbilitiesToRole(service, toDoAdminRole, new[] { manageAbility });
 
             //roles
             HeroConfig.AssignRolesToUser(service, toDoBasicUser, new[] { toDoBasicRole });
