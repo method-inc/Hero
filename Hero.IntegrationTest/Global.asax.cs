@@ -37,8 +37,8 @@ namespace Hero.IntegrationTest
             //setup users, roles, and abilities
             IRole toDoBasicRole = new Role("ToDoBasic".GetHashCode(), "ToDoBasic");
             IRole toDoAdminRole = new Role("ToDoAdmin".GetHashCode(), "ToDoAdmin");
-            IUser toDoBasicUser = new User("ToDoBasicUser".GetHashCode(), "ToDoBasicUser");
-            IUser toDoAdminUser = new User("ToDoAdminUser".GetHashCode(), "ToDoAdminUser");
+            IUser toDoBasicUser = new User("ToDoBasicUser", "ToDoBasicUser");
+            IUser toDoAdminUser = new User("ToDoAdminUser", "ToDoAdminUser");
             Ability toDoViewAbility = new Ability("View");
             Ability toDoCreateAbility = new Ability("Create");
             Ability toDoDeleteAbility = new Ability("Delete");

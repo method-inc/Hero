@@ -4,8 +4,6 @@ using DotNetStandard.Vent;
 using Hero.Interfaces;
 using Hero.Services.Events;
 using Hero.Services.Interfaces;
-using Hero.Services.Models;
-using Newtonsoft.Json;
 
 namespace Hero.Services
 {
@@ -28,12 +26,6 @@ namespace Hero.Services
         public bool Authorize(IUser user, Ability ability)
         {
             return GetRolesForUser(user).Any(role => _Authorize(role, ability));
-        }
-
-        public override string SerializeAbilities()
-        {
-            MappingDataContainer mappingDataContainer = new MappingDataContainer(_roleAbilityMap, _userRoleMap);
-            return JsonConvert.SerializeObject(mappingDataContainer);
         }
 
         public void RegisterAbility(IRole role, Ability ability)

@@ -78,7 +78,7 @@ namespace Hero.Attributes
 
             isAuthenticated = currentUser.IsAuthenticated;
 
-            User user = new User(currentUser.Name.GetHashCode(), currentUser.Name);
+            User user = new User(currentUser.Name, currentUser.Name);
             isAuthorized = HeroConfig.AuthorizationService.Authorize(user, new Ability(Ability));
 
             return isAuthenticated && isAuthorized;

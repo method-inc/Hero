@@ -41,9 +41,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DotNetStandard.0.0.22\lib\DotNetStandard.Vent.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
@@ -72,7 +69,6 @@
     <Compile Include="Events\UnregisterRoleEvent.cs" />
     <Compile Include="Interfaces\IAbilityAuthorizationService.cs" />
     <Compile Include="Interfaces\IAuthorizationService.cs" />
-    <Compile Include="Models\MappingDataContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hero\Hero.csproj">

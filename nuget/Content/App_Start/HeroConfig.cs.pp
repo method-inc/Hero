@@ -20,8 +20,21 @@ namespace $rootnamespace$
         /// </summary>
         /// <param name="authorizationService">Ability based authorization service that manages role and abilities. Assumed to be a single instance</param>
         /// <param name="role">The role that is to be inspected and if nescessary configured</param>
+        /// <param name="ability">The ability to assign the role if nescessary</param>
+        public static void RegisterAbility(IAbilityAuthorizationService authorizationService, IRole role,
+                                           Ability ability)
+        {
+            RegisterAbilities(authorizationService, role, new List<Ability> {ability});
+        }
+
+        /// <summary>
+        /// Assign a set of abilities to a role.
+        /// </summary>
+        /// <param name="authorizationService">Ability based authorization service that manages role and abilities. Assumed to be a single instance</param>
+        /// <param name="role">The role that is to be inspected and if nescessary configured</param>
         /// <param name="abilities">The abilities to assign the role if nescessary</param>
-        public static void RegisterAbilities(IAbilityAuthorizationService authorizationService, IRole role, IEnumerable<Ability> abilities)
+        public static void RegisterAbilities(IAbilityAuthorizationService authorizationService, IRole role, 
+                                             IEnumerable<Ability> abilities)
         {
             // This method is intended to be used from the Global.asax.cs or
             // similar. It should only be done from there to encourage a centralized
@@ -50,8 +63,21 @@ namespace $rootnamespace$
         /// </summary>
         /// <param name="authorizationService">Ability based authorization service that manages role and abilities. Assumed to be a single instance</param>
         /// <param name="role">The role that is to be inspected and if nescessary configured</param>
+        /// <param name="ability">The abilities to assign the role if nescessary</param>
+        public static void UnregisterAbility(IAbilityAuthorizationService authorizationService, IRole role,
+                                               Ability ability)
+        {
+            UnregisterAbilities(authorizationService, role, new List<Ability> {ability});
+        }
+
+        /// <summary>
+        /// Unassign a set of abilities to a role.
+        /// </summary>
+        /// <param name="authorizationService">Ability based authorization service that manages role and abilities. Assumed to be a single instance</param>
+        /// <param name="role">The role that is to be inspected and if nescessary configured</param>
         /// <param name="abilities">The abilities to assign the role if nescessary</param>
-        public static void UnregisterAbilities(IAbilityAuthorizationService authorizationService, IRole role, IEnumerable<Ability> abilities)
+        public static void UnregisterAbilities(IAbilityAuthorizationService authorizationService, IRole role, 
+                                               IEnumerable<Ability> abilities)
         {
             // This method is intended to be used from the Global.asax.cs or
             // similar. It should only be done from there to encourage a centralized
@@ -80,8 +106,21 @@ namespace $rootnamespace$
         /// </summary>
         /// <param name="authorizationService"></param>
         /// <param name="user"></param>
+        /// <param name="role"></param>
+        public static void RegisterRole(IAbilityAuthorizationService authorizationService, IUser user,
+                                        IRole role)
+        {
+            RegisterRoles(authorizationService, user, new List<IRole> {role});
+        }
+
+        /// <summary>
+        /// Assign a set of roles to a user
+        /// </summary>
+        /// <param name="authorizationService"></param>
+        /// <param name="user"></param>
         /// <param name="roles"></param>
-        public static void RegisterRoles(IAbilityAuthorizationService authorizationService, IUser user, IEnumerable<IRole> roles)
+        public static void RegisterRoles(IAbilityAuthorizationService authorizationService, IUser user, 
+                                         IEnumerable<IRole> roles)
         {
             // This method is intended to be used from the Global.asax.cs or
             // similar. It should only be done from there to encourage a centralized
@@ -107,8 +146,21 @@ namespace $rootnamespace$
         /// </summary>
         /// <param name="authorizationService"></param>
         /// <param name="user"></param>
+        /// <param name="role"></param>
+        public static void UnregisterRole(IAbilityAuthorizationService authorizationService, IUser user,
+                                          IRole role)
+        {
+            UnregisterRoles(authorizationService, user, new List<IRole> {role});
+        }
+
+        /// <summary>
+        /// Unassign a set of roles to a user
+        /// </summary>
+        /// <param name="authorizationService"></param>
+        /// <param name="user"></param>
         /// <param name="roles"></param>
-        public static void UnregisterRoles(IAbilityAuthorizationService authorizationService, IUser user, IEnumerable<IRole> roles)
+        public static void UnregisterRoles(IAbilityAuthorizationService authorizationService, IUser user, 
+                                           IEnumerable<IRole> roles)
         {
             // This method is intended to be used from the Global.asax.cs or
             // similar. It should only be done from there to encourage a centralized

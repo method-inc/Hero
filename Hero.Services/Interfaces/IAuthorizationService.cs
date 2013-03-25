@@ -3,6 +3,5 @@
     public interface IAuthorizationService
     {
         bool Authorize(string entity);
-        string SerializeAbilities();
     }
 }

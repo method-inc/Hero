@@ -21,16 +21,19 @@ namespace Hero.Tests
         {
             _authorizationService = new AbilityAuthorizationService();
             _adminRole = new Role(1, "Administrator");
-            _user = new User(1, "User");
+            _user = new User("User", "User");
             _adminAbilities = new List<Ability>
                 {
                     new Ability("Ability1"),
-                    new Ability("Ability2"),
-                    new Ability("Ability3")
+                    new Ability("Ability2")
                 };
 
+            Ability abilityThree = new Ability("Ability3");
+
+            HeroConfig.Initialize(_authorizationService);
             HeroConfig.RegisterAbilities(_authorizationService, _adminRole, _adminAbilities);
-            HeroConfig.RegisterRoles(_authorizationService, _user, new[] { _adminRole });
+            HeroConfig.RegisterAbility(_authorizationService, _adminRole, abilityThree);
+            HeroConfig.RegisterRole(_authorizationService, _user, _adminRole);
         }
 
         [Test]
@@ -49,6 +52,24 @@ namespace Hero.Tests
         public void TestHeroConfigurationThrowsExceptionWithNullAbilitiesForAssignAbility()
         {
             Assert.Throws<ArgumentNullException>(() => HeroConfig.RegisterAbilities(_authorizationService, _adminRole, null));
+        }
+
+        [Test]
+        public void TestHeroConfigurationThrowsExceptionWithNullAuthorizationServiceForUnassignAbility()
+        {
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.UnregisterAbilities(null, _adminRole, _adminAbilities));
+        }
+
+        [Test]
+        public void TestHeroConfigurationThrowsExceptionWithNullRoleForUnassignAbility()
+        {
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.UnregisterAbilities(_authorizationService, null, _adminAbilities));
+        }
+
+        [Test]
+        public void TestHeroConfigurationThrowsExceptionWithNullAbilitiesForUnassignAbility()
+        {
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.UnregisterAbilities(_authorizationService, _adminRole, null));
         }
 
         [Test]
@@ -77,9 +98,43 @@ namespace Hero.Tests
         }
 
         [Test]
+        public void TestHeroConfigurationThrowsExceptionWithNullAuthorizationServiceForUnassignRole()
+        {
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.UnregisterRoles(null, _user, new[] { _adminRole }));
+        }
+
+        [Test]
+        public void TestHeroConfigurationThrowsExceptionWithNullUserForUnassignRole()
+        {
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.UnregisterRoles(_authorizationService, null, new[] { _adminRole }));
+        }
+
+        [Test]
+        public void TestHeroConfigurationThrowsExceptionWithNullRoleForUnassignRole()
+        {
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.UnregisterRoles(_authorizationService, _user, null));
+        }
+
+        [Test]
         public void TestHeroConfigurationProvidesDefaultRoles()
         {
             Assert.True(_authorizationService.GetRolesForUser(_user).Any(r => r.Equals(_adminRole)));
+        }
+
+        [Test]
+        public void TestHeroConfigurationCanUnregisterAbility()
+        {
+            HeroConfig.UnregisterAbility(_authorizationService, _adminRole, new Ability("Ability1"));
+
+            foreach (Ability ability in _adminAbilities.Except(new List<Ability>{new Ability("Ability1")}))
+                Assert.True(_authorizationService.Authorize(_adminRole, ability));
+        }
+
+        [Test]
+        public void TestHeroConfigurationCanUnregisterRole()
+        {
+            HeroConfig.UnregisterRole(_authorizationService, _user, _adminRole);
+            Assert.True(!_authorizationService.GetRolesForUser(_user).Any());
         }
     }
 }

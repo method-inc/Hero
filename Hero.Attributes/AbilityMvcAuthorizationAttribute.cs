@@ -29,7 +29,7 @@ namespace Hero.Attributes
 
             isAuthenticated = httpContext.User.Identity.IsAuthenticated;
 
-            User user = new User(httpContext.User.Identity.Name.GetHashCode(), httpContext.User.Identity.Name);
+            User user = new User(httpContext.User.Identity.Name, httpContext.User.Identity.Name);
             isAuthorized = HeroConfig.AuthorizationService.Authorize(user, new Ability(Ability));
 
             return isAuthenticated && isAuthorized;
