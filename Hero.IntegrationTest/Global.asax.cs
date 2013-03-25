@@ -39,19 +39,19 @@ namespace Hero.IntegrationTest
             IRole toDoAdminRole = new Role("ToDoAdmin".GetHashCode(), "ToDoAdmin");
             IUser toDoBasicUser = new User("ToDoBasicUser".GetHashCode(), "ToDoBasicUser");
             IUser toDoAdminUser = new User("ToDoAdminUser".GetHashCode(), "ToDoAdminUser");
-            Ability toDoViewAbility = new Ability("ToDoView");
-            Ability toDoCreateAbility = new Ability("ToDoCreate");
-            Ability toDoDeleteAbility = new Ability("ToDoDelete");
-            Ability toDoEditAbility = new Ability("ToDoEdit");
+            Ability toDoViewAbility = new Ability("View");
+            Ability toDoCreateAbility = new Ability("Create");
+            Ability toDoDeleteAbility = new Ability("Delete");
+            Ability toDoEditAbility = new Ability("Edit");
             Ability manageAbility = new Ability("Manage", new[]{toDoCreateAbility, toDoEditAbility, toDoDeleteAbility, toDoViewAbility});
 
             //abilitites
-            HeroConfig.AssignAbilitiesToRole(service, toDoBasicRole, new[] { toDoViewAbility });
-            HeroConfig.AssignAbilitiesToRole(service, toDoAdminRole, new[] { manageAbility });
+            HeroConfig.RegisterAbilities(service, toDoBasicRole, new[] { toDoViewAbility });
+            HeroConfig.RegisterAbilities(service, toDoAdminRole, new[] { manageAbility });
 
             //roles
-            HeroConfig.AssignRolesToUser(service, toDoBasicUser, new[] { toDoBasicRole });
-            HeroConfig.AssignRolesToUser(service, toDoAdminUser, new[] { toDoAdminRole });
+            HeroConfig.RegisterRoles(service, toDoBasicUser, new[] { toDoBasicRole });
+            HeroConfig.RegisterRoles(service, toDoAdminUser, new[] { toDoAdminRole });
         }
     }
 }

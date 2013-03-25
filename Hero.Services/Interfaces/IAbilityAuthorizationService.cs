@@ -10,6 +10,7 @@ namespace Hero.Services.Interfaces
         void RegisterAbility(IRole role, Ability ability);
         void UnregisterAbility(IRole role, Ability ability);
         void RegisterRole(IUser user, IRole role);
+        void UnregisterRole(IUser user, IRole role);
         IEnumerable<IRole> GetRolesForUser(IUser user);
         IEnumerable<Ability> GetAbilitiesForRole(IRole role);
     }

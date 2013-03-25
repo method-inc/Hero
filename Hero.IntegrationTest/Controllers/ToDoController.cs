@@ -10,7 +10,7 @@ using Hero.IntegrationTest.Models;
 
 namespace Hero.IntegrationTest.Controllers
 {
-    [AbilityMvcAuthorization(Ability = "ToDoView")]
+    [AbilityMvcAuthorization(Ability = "View")]
     public class ToDoController : Controller
     {
         private ToDoDbContext db = new ToDoDbContext();
@@ -39,7 +39,7 @@ namespace Hero.IntegrationTest.Controllers
         //
         // GET: /ToDo/Create
 
-        [AbilityMvcAuthorization(Ability = "Manage")]
+        [AbilityMvcAuthorization(Ability = "Create")]
         public ActionResult Create()
         {
             return View();
@@ -50,7 +50,7 @@ namespace Hero.IntegrationTest.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AbilityMvcAuthorization(Ability = "Manage")]
+        [AbilityMvcAuthorization(Ability = "Create")]
         public ActionResult Create(ToDo todo)
         {
             if (ModelState.IsValid)
@@ -65,7 +65,7 @@ namespace Hero.IntegrationTest.Controllers
 
         //
         // GET: /ToDo/Edit/5
-        [AbilityMvcAuthorization(Ability = "Manage")]
+        [AbilityMvcAuthorization(Ability = "Edit")]
         public ActionResult Edit(int id = 0)
         {
             ToDo todo = db.Items.Find(id);
@@ -81,7 +81,7 @@ namespace Hero.IntegrationTest.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AbilityMvcAuthorization(Ability = "Manage")]
+        [AbilityMvcAuthorization(Ability = "Edit")]
         public ActionResult Edit(ToDo todo)
         {
             if (ModelState.IsValid)
@@ -95,7 +95,7 @@ namespace Hero.IntegrationTest.Controllers
 
         //
         // GET: /ToDo/Delete/5
-        [AbilityMvcAuthorization(Ability = "Manage")]
+        [AbilityMvcAuthorization(Ability = "Delete")]
         public ActionResult Delete(int id = 0)
         {
             ToDo todo = db.Items.Find(id);
@@ -111,7 +111,7 @@ namespace Hero.IntegrationTest.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [AbilityMvcAuthorization(Ability = "Manage")]
+        [AbilityMvcAuthorization(Ability = "Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             ToDo todo = db.Items.Find(id);
