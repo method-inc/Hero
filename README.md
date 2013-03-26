@@ -2,6 +2,12 @@
 
 Ability based authorization for .Net projects. It will generate a Nuget package that can be downloaded as a 3rd party dll via Visual Studio.
 
+# Status
+
+<a href="http://skookum.cloudapp.net/viewType.html?buildTypeId=bt8&guest=1">
+    <img src="http://skookum.cloudapp.net/app/rest/builds/buildType:(id:bt8)/statusIcon"/>
+</a>
+
 # Installation
 
 You can install this module via Nuget. The Nuget package is available from the [Skookum Nuget Server](http://skookum.cloudapp.net/guestAuth/app/nuget/v1/FeedService.svc/)
