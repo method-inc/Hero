@@ -276,11 +276,109 @@ namespace Hero.Tests
         }
 
         [Test]
+        public void TestGetAbilitiesForRoleNameThatExists()
+        {
+            _authorizationService.RegisterAbility(_role1, _ability1);
+            _authorizationService.RegisterAbility(_role1, _ability2);
+            IEnumerable<Ability> abilitiesForRole = _authorizationService.GetAbilitiesForRole("Role1");
+            Assert.AreEqual(2, abilitiesForRole.Count());
+            Assert.True(new List<Ability> {_ability1, _ability2}.SequenceEqual(abilitiesForRole));
+        }
+
+        [Test]
+        public void TestGetAbilitiesForRoleNameThatDoesNotExist()
+        {
+            _authorizationService.RegisterAbility(_role1, _ability1);
+            _authorizationService.RegisterAbility(_role1, _ability2);
+            IEnumerable<Ability> abilitiesForRole = _authorizationService.GetAbilitiesForRole("Role2");
+            Assert.AreEqual(0, abilitiesForRole.Count());
+        }
+
+        [Test]
+        public void TestGetRolesForUserThatDoesExist()
+        {
+            _authorizationService.RegisterRole(_user1, _role1);
+            _authorizationService.RegisterRole(_user1, _role2);
+            IEnumerable<IRole> rolesForUser = _authorizationService.GetRolesForUser(_user1);
+            Assert.AreEqual(2, rolesForUser.Count());
+            Assert.True(new List<IRole> {_role1, _role2}.SequenceEqual(rolesForUser));
+        }
+
+        [Test]
         public void TestGetRolesForUserThatDoesNotExist()
         {
             _authorizationService.RegisterRole(_user1, _role1);
             _authorizationService.RegisterRole(_user1, _role2);
             IEnumerable<IRole> rolesForUser = _authorizationService.GetRolesForUser(_user2);
+            Assert.AreEqual(0, rolesForUser.Count());
+        }
+
+        [Test]
+        public void TestGetRolesForUserNameThatDoesExist()
+        {
+            _authorizationService.RegisterRole(_user1, _role1);
+            _authorizationService.RegisterRole(_user1, _role2);
+            IEnumerable<IRole> rolesForUser = _authorizationService.GetRolesForUser("User1");
+            Assert.AreEqual(2, rolesForUser.Count());
+            Assert.True(new List<IRole> {_role1, _role2}.SequenceEqual(rolesForUser));
+        }
+
+        [Test]
+        public void TestGetAbilitiesForUserThatDoesExist()
+        {
+            _authorizationService.RegisterRole(_user1, _role1);
+            _authorizationService.RegisterRole(_user1, _role2);
+            _authorizationService.RegisterAbility(_role1, _ability1);
+            _authorizationService.RegisterAbility(_role1, _ability2);
+            _authorizationService.RegisterAbility(_role2, _ability3);
+            IEnumerable<Ability> abilitiesForUser = _authorizationService.GetAbilitiesForUser(_user1);
+            Assert.AreEqual(3, abilitiesForUser.Count());
+            Assert.True(new List<Ability> {_ability1, _ability2, _ability3}.SequenceEqual(abilitiesForUser));
+        }
+
+        [Test]
+        public void TestGetAbilitiesForUserThatDoesNotExist()
+        {
+            _authorizationService.RegisterRole(_user1, _role1);
+            _authorizationService.RegisterRole(_user1, _role2);
+            _authorizationService.RegisterAbility(_role1, _ability1);
+            _authorizationService.RegisterAbility(_role1, _ability2);
+            _authorizationService.RegisterAbility(_role2, _ability3);
+            IEnumerable<Ability> abilitiesForUser = _authorizationService.GetAbilitiesForUser(_user2);
+            Assert.AreEqual(0, abilitiesForUser.Count());
+        }
+
+        [Test]
+        public void TestGetAbilitiesForUserNameThatDoesExist()
+        {
+            _authorizationService.RegisterRole(_user1, _role1);
+            _authorizationService.RegisterRole(_user1, _role2);
+            _authorizationService.RegisterAbility(_role1, _ability1);
+            _authorizationService.RegisterAbility(_role1, _ability2);
+            _authorizationService.RegisterAbility(_role2, _ability3);
+            IEnumerable<Ability> abilitiesForUser = _authorizationService.GetAbilitiesForUser("User1");
+            Assert.AreEqual(3, abilitiesForUser.Count());
+            Assert.True(new List<Ability> {_ability1, _ability2, _ability3}.SequenceEqual(abilitiesForUser));
+        }
+
+        [Test]
+        public void TestGetAbilitiesForUserNameThatDoesNotExist()
+        {
+            _authorizationService.RegisterRole(_user1, _role1);
+            _authorizationService.RegisterRole(_user1, _role2);
+            _authorizationService.RegisterAbility(_role1, _ability1);
+            _authorizationService.RegisterAbility(_role1, _ability2);
+            _authorizationService.RegisterAbility(_role2, _ability3);
+            IEnumerable<Ability> abilitiesForUser = _authorizationService.GetAbilitiesForUser("User2");
+            Assert.AreEqual(0, abilitiesForUser.Count());
+        }
+
+        [Test]
+        public void TestGetRolesForUserNameThatDoesNotExist()
+        {
+            _authorizationService.RegisterRole(_user1, _role1);
+            _authorizationService.RegisterRole(_user1, _role2);
+            IEnumerable<IRole> rolesForUser = _authorizationService.GetRolesForUser("User2");
             Assert.AreEqual(0, rolesForUser.Count());
         }
 

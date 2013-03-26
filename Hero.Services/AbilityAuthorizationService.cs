@@ -104,6 +104,11 @@ namespace Hero.Services
                    _roleAbilityMap[role].Contains(ability);
         }
 
+        public IEnumerable<IRole> GetRolesForUser(string userName)
+        {
+            return GetRolesForUser(new User(userName));
+        }
+
         public IEnumerable<IRole> GetRolesForUser(IUser user)
         {
             var retVal = new HashSet<IRole>();
@@ -113,6 +118,11 @@ namespace Hero.Services
             return new List<IRole>();
         }
 
+        public IEnumerable<Ability> GetAbilitiesForRole(string roleName)
+        {
+            return GetAbilitiesForRole(new Role(roleName));
+        }
+
         public IEnumerable<Ability> GetAbilitiesForRole(IRole role)
         {
             var retVal = new HashSet<Ability>();
@@ -120,6 +130,32 @@ namespace Hero.Services
                 return retVal;
 
             return new List<Ability>();
+        }
+
+        public IEnumerable<Ability> GetAbilitiesForUser(string userName)
+        {
+            return GetAbilitiesForUser(new User(userName));
+        }
+
+        public IEnumerable<Ability> GetAbilitiesForUser(IUser user)
+        {
+            var abilities = new HashSet<Ability>();
+            var roles = new HashSet<IRole>();
+
+            if (!_userRoleMap.TryGetValue(user, out roles))
+                return new List<Ability>();
+
+            foreach (var role in roles)
+            {
+                var roleAbilities = new HashSet<Ability>();
+                if (_roleAbilityMap.TryGetValue(role, out roleAbilities))
+                {
+                    foreach (var ability in roleAbilities)
+                        abilities.Add(ability);
+                }
+            }
+
+            return abilities;
         }
     }
 }
