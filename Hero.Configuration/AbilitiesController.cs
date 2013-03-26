@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
+using Hero; //do not remove
 using Hero.Interfaces;
 using Hero.Services.Interfaces;
 
