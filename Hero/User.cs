@@ -1,17 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using Hero.Interfaces;
 
 namespace Hero
 {
-    public class User : IUser
+    public class User : IUser, IEquatable<User>
     {
-        public string Id { get; private set; }
+        public string Id { get {return Name;} }
         public string Name { get; private set; }
 
-        public User(string id, string name)
+        public User(string name)
         {
-            Id = id;
             Name = name;
         }
 
@@ -26,7 +24,7 @@ namespace Hero
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((User) obj);
         }
 

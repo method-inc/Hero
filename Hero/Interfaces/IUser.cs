@@ -2,5 +2,5 @@
 
 namespace Hero.Interfaces
 {
-    public interface IUser : IIdentifiable<string>, INameable{ }
+    public interface IUser : IIdentifiable<string>, INameable { }
 }

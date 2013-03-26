@@ -10,21 +10,21 @@ namespace Hero.Tests
         [SetUp]
         public void Initialize()
         {
-            _role1 = new Role(1, "Role1");
-            _role2 = new Role(2, "Role2");
+            _role1 = new Role("Role1");
+            _role2 = new Role("Role2");
         }
 
         [Test]
         public void TestRolesAreEqual()
         {
-            Role roleOne = new Role(1, "Role1");
+            Role roleOne = new Role("Role1");
             Assert.AreEqual(roleOne, _role1);
         }
 
         [Test]
         public void TestRolesEqualityOperator()
         {
-            Role roleOne = new Role(1, "Role1");
+            Role roleOne = new Role("Role1");
             Assert.True(roleOne == _role1);
         }
 

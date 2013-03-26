@@ -2,5 +2,5 @@
 
 namespace Hero.Interfaces
 {
-    public interface IRole : IIdentifiable<int>, INameable { }
+    public interface IRole : IIdentifiable<string>, INameable { }
 }

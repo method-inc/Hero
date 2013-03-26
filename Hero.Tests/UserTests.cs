@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Hero.Interfaces;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Hero.Tests
 {
@@ -12,21 +10,21 @@ namespace Hero.Tests
         [SetUp]
         public void Initialize()
         {
-            _user1 = new User("User1", "User1");
-            _user2 = new User("User2", "User2");
+            _user1 = new User("User1");
+            _user2 = new User("User2");
         }
 
         [Test]
         public void TestUsersAreEqual()
         {
-            User userOne = new User("User1", "User1");
+            User userOne = new User("User1");
             Assert.AreEqual(userOne, _user1);
         }
 
         [Test]
         public void TestUsersEqualityOperator()
         {
-            User userOne = new User("User1", "User1");
+            User userOne = new User("User1");
             Assert.True(userOne == _user1);
         }
 

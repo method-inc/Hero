@@ -5,12 +5,11 @@ namespace Hero
 {
     public class Role : IRole, IEquatable<Role>
     {
-        public int Id { get; private set; }
+        public string Id { get { return Name; } }
         public string Name { get; private set; }
 
-        public Role(int id, string name)
+        public Role(string name)
         {
-            Id = id;
             Name = name;
         }
 
@@ -25,13 +24,13 @@ namespace Hero
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((Role) obj);
         }
 
         public override int GetHashCode()
         {
-            return Id;
+            return Id.GetHashCode();
         }
 
         public static bool operator ==(Role left, Role right)

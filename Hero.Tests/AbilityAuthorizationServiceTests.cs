@@ -25,10 +25,10 @@ namespace Hero.Tests
         [SetUp]
         public void Initialize()
         {
-            _role1 = new Role(1, "Role1");
-            _role2 = new Role(2, "Role2");
-            _user1 = new User("User1", "User1");
-            _user2 = new User("User2", "User2");
+            _role1 = new Role("Role1");
+            _role2 = new Role("Role2");
+            _user1 = new User("User1");
+            _user2 = new User("User2");
             _ability1 = new Ability("Ability1");
             _ability2 = new Ability("Ability2");
             _ability3 = new Ability("Ability3");

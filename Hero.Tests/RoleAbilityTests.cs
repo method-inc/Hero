@@ -15,8 +15,8 @@ namespace Hero.Tests
         [SetUp]
         public void Initialize()
         {
-            _role1 = new Role(1, "Role1");
-            _role2 = new Role(2, "Role2");
+            _role1 = new Role("Role1");
+            _role2 = new Role("Role2");
             _ability1 = new Ability("Ability1");
             _ability2 = new Ability("Ability2");
             _roleAbility1 = new RoleAbility(_role1, _ability1);
@@ -26,7 +26,7 @@ namespace Hero.Tests
         [Test]
         public void TestRoleAbilitysAreEqual()
         {
-            Role roleOne = new Role(1, "Role1");
+            Role roleOne = new Role("Role1");
             Ability abilityOne = new Ability("Ability1");
             RoleAbility roleAbilityOne = new RoleAbility(roleOne, abilityOne);
             Assert.AreEqual(roleAbilityOne, _roleAbility1);
@@ -35,7 +35,7 @@ namespace Hero.Tests
         [Test]
         public void TestRoleAbilitysEqualityOperator()
         {
-            Role roleOne = new Role(1, "Role1");
+            Role roleOne = new Role("Role1");
             Ability abilityOne = new Ability("Ability1");
             RoleAbility roleAbilityOne = new RoleAbility(roleOne, abilityOne);
             Assert.True(roleAbilityOne == _roleAbility1);

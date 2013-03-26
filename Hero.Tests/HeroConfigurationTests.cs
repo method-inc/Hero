@@ -20,8 +20,8 @@ namespace Hero.Tests
         public void Initialize()
         {
             _authorizationService = new AbilityAuthorizationService();
-            _adminRole = new Role(1, "Administrator");
-            _user = new User("User", "User");
+            _adminRole = new Role("Administrator");
+            _user = new User("User");
             _adminAbilities = new List<Ability>
                 {
                     new Ability("Ability1"),
