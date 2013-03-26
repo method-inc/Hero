@@ -77,6 +77,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Hero.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /Q /Y "$(TargetDir)*.dll" "$(ProjectDir)\..\nuget\lib" &amp;&amp; powershell -file "$(SolutionDir)/nuget/createnugetcontent.ps1" $(SolutionDir)</PostBuildEvent>
