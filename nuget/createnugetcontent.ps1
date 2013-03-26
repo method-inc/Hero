@@ -6,6 +6,10 @@ Copy-Item "$args\Hero.Configuration\AbilitiesController.cs" "$args\nuget\Content
 Remove-Item "$args\nuget\Content\Controllers\AbilitiesController.cs.pp"
 Rename-Item -Force "$args\nuget\Content\Controllers\AbilitiesController.cs" "$args\nuget\Content\Controllers\AbilitiesController.cs.pp"
 
+Copy-Item "$args\Hero.Configuration\Hero.js" "$args\nuget\Content\Scripts"
+Remove-Item "$args\nuget\Content\Scripts\Hero.js.pp"
+Rename-Item -Force "$args\nuget\Content\Scripts\Hero.js" "$args\nuget\Content\Scripts\Hero.js.pp"
+
 $original_file = "$args\nuget\Content\App_Start\HeroConfig.cs.pp"
 $destination_file = "$args\nuget\Content\App_Start\HeroConfig.cs.pp"
 (Get-Content $original_file) | Foreach-Object {
