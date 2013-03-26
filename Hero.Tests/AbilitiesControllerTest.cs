@@ -29,7 +29,6 @@ namespace Hero.Tests
         [Test]
         public void TestControllerWithEmptyServiceThrowException()
         {
-            Assert.False(true);
             Assert.Throws<ArgumentNullException>(() => new AbilitiesController(null));
         }
 
