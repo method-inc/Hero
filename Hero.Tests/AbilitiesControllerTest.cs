@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Hero.Configuration;
+using Hero.Frontend;
 using Hero.Interfaces;
 using Hero.Services.Interfaces;
 using Moq;
@@ -23,13 +24,8 @@ namespace Hero.Tests
         {
             _Setup();
             _authorizationServiceMock = new Mock<IAbilityAuthorizationService>();
-            _controller = new AbilitiesController(_authorizationServiceMock.Object);
-        }
-
-        [Test]
-        public void TestControllerWithEmptyServiceThrowException()
-        {
-            Assert.Throws<ArgumentNullException>(() => new AbilitiesController(null));
+            _controller = new AbilitiesController();
+            HeroConfig.Initialize(_authorizationServiceMock.Object);
         }
 
         [Test]

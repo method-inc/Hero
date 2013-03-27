@@ -2,10 +2,10 @@
     //private instance data
     var heroOptions = {};
     var instance = {};
-
+    
     heroOptions.endpoint = "http://localhost/Abilities/";
     instance.options = heroOptions;
-
+    
     //private functions
     var extend = function (optionsToMerge) {
         for (var i in optionsToMerge) {
@@ -15,7 +15,7 @@
         }
     };
 
-    var deserializeAbilityList = function (abilityObjList) {
+    var deserializeAbilityList = function(abilityObjList) {
         var retArray = [];
         for (var index in abilityObjList) {
             retArray.push(deserializeAbility(abilityObjList[index]));
@@ -24,9 +24,9 @@
         return retArray;
     };
 
-    var deserializeAbility = function (abilityObj) {
+    var deserializeAbility = function(abilityObj) {
         var ability = hero.Ability(abilityObj.Name, []);
-
+        
         for (var childIndex in abilityObj.Children) {
             ability.children.push(new hero.Ability(abilityObj.Children[childIndex].Name, []));
         }
@@ -43,7 +43,7 @@
         return retArray;
     };
 
-    var deserializeRole = function (roleObj) {
+    var deserializeRole = function(roleObj) {
         return hero.Role(roleObj.Name);
     };
 
@@ -65,18 +65,18 @@
         extend(options);
         return this;
     };
-
+    
     hero.registerAbility = function (ability, action) {
         return this;
     };
-
+    
     //public API (actions)
 
-    hero.authorizeUser = function (ability) {
+    hero.authorizeUser = function(ability) {
 
     };
 
-    hero.registerAbility = function (ability, object) {
+    hero.registerAbility = function(ability, object) {
 
     };
 
@@ -103,14 +103,14 @@
                 //deserialize the ability objects
                 options.then(deserializeAbilityList(resp));
             })
-            .fail(function (err, msg) {
+            .fail(function(err, msg) {
                 options.then(err, msg);
             })
-            .always(function (resp) {
+            .always(function(resp) {
                 if (options.always)
                     options.always(resp);
             });
-
+        
         return this;
     };
 

@@ -90,6 +90,10 @@
       <Project>{2D0BC875-C86F-45CE-9979-12205AFE8AA2}</Project>
       <Name>Hero.Configuration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Hero.Frontend\Hero.Frontend.csproj">
+      <Project>{f0ae2d4c-cc0f-41d7-b48a-4f4df2eadc86}</Project>
+      <Name>Hero.Frontend</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Hero.Services\Hero.Services.csproj">
       <Project>{A762AAE7-E543-4291-99BD-A5AC21BBC80B}</Project>
       <Name>Hero.Services</Name>
