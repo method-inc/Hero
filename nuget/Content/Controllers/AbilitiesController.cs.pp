@@ -8,19 +8,28 @@ namespace $rootnamespace$
 {
     public class AbilitiesController : Controller
     {
-        public IEnumerable<Ability> GetAbilitiesForRole(string roleName)
+        public JsonResult GetAbilitiesForRole(string id)
         {
-            return HeroConfig.AuthorizationService.GetAbilitiesForRole(roleName);
+            return Json(HeroConfig.AuthorizationService.GetAbilitiesForRole(id), JsonRequestBehavior.AllowGet);
         }
 
-        public IEnumerable<Ability> GetAbilitiesForUser(string userName)
+        public JsonResult GetAbilitiesForUser(string id)
         {
-            return HeroConfig.AuthorizationService.GetAbilitiesForUser(userName);
+            return Json(HeroConfig.AuthorizationService.GetAbilitiesForUser(id), JsonRequestBehavior.AllowGet);
         }
 
-        public IEnumerable<IRole> GetRolesForUser(string userName)
+        public JsonResult GetRolesForUser(string id)
         {
-            return HeroConfig.AuthorizationService.GetRolesForUser(userName);
+            return Json(HeroConfig.AuthorizationService.GetRolesForUser(id), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult AuthorizeCurrentUser(string id, IUser user = null)
+        {
+            if(user == null)
+                user = new User(HttpContext.User.Identity.Name);
+
+            return Json(HeroConfig.AuthorizationService.Authorize(user, new Ability(id)), JsonRequestBehavior.AllowGet);
         }
     }
 }

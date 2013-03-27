@@ -22,5 +22,12 @@ namespace Hero.IntegrationTest
         {
             return Json(HeroConfig.AuthorizationService.GetRolesForUser(id), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult AuthorizeCurrentUser(string id)
+        {
+            User user = new User(HttpContext.User.Identity.Name);
+            return Json(HeroConfig.AuthorizationService.Authorize(user, new Ability(id)), JsonRequestBehavior.AllowGet);
+        }
     }
 }

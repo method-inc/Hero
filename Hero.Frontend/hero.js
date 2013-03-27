@@ -72,12 +72,37 @@
 
     //public API (actions)
 
-    hero.authorizeUser = function (ability) {
+    /* getAbilititesForUser
+     * options.user: User object
+     * options.then: callback to perform action when the request completes successfully.  Parameters are (bool)
+     * options.fail: callback to perform an action on a request failure.  Parameters are (error, message)
+     * options.always (optional): callback to perform when the request is over (failure or success). Parameters are (response)
+     */
+    hero.authorizeCurrentUser = function (options) {
+        if (!options.ability)
+            throw "You must provide a ability to the options list.";
+        if (!options.then)
+            throw "You must provide a then callback to the options list.";
+        if (!options.fail)
+            throw "You must provide a fail callback to the options list.";
 
-    };
+        reqwest({
+            url: instance.options.endpoint + "AuthorizeCurrentUser/" + options.ability.abilityName,
+            type: 'json'
+        })
+            .then(function (resp) {
+                //resp will be a boolean.
+                options.then(resp);
+            })
+            .fail(function (err, msg) {
+                options.then(err, msg);
+            })
+            .always(function (resp) {
+                if (options.always)
+                    options.always(resp);
+            });
 
-    hero.registerAbility = function (ability, object) {
-
+        return this;
     };
 
     /* getAbilititesForUser
