@@ -31,5 +31,10 @@ namespace Hero.Frontend
 
             return Json(HeroConfig.AuthorizationService.Authorize(user, new Ability(id)), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetCurrentUser()
+        {
+            return Json(HttpContext.User.Identity.Name, JsonRequestBehavior.AllowGet);
+        }
     }
 }

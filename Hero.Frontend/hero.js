@@ -2,6 +2,7 @@
     //private instance data
     var heroOptions = {};
     var instance = {};
+    var currentUser = {};
 
     heroOptions.endpoint = "http://localhost/Abilities/";
     instance.options = heroOptions;
@@ -48,8 +49,24 @@
     };
 
     //Public Model Types
-    hero.User = function (name) {
-        return { userName: name };
+    hero.User = function (name, abilitites) {
+        return {
+            userName: name,
+            abilitites: abilitites,
+            isAuthorized: function (ability) {
+                if (!ability || !ability.abilityName) {
+                    throw "You must provide an ability to the isAuthorized function.";
+                }
+
+                for (var currAbilityIndex in this.abilitites) {
+                    if (this.abilitites[currAbilityIndex].abilityName === ability.abilityName) {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        };
     };
 
     hero.Role = function (name) {
@@ -63,23 +80,116 @@
     //public API (configuration)
     hero.configure = function (options) {
         extend(options);
+
+        hero.getCurrentUser(
+            {
+                then: function (userName) {
+                    currentUser = hero.User(userName);
+
+                    //now that we have the current user, populate the abilitites.
+                    hero.getAbilititesForUser({
+                        user: currentUser,
+                        then: function (abilities) {
+                            currentUser.abilitites = abilities;
+                        },
+                        fail: function (err, msg) {
+                            console.log(msg);
+                        }
+                    });
+                },
+                fail: function (err, msg) { console.log(msg); }
+            });
+
         return this;
     };
 
-    hero.registerAbility = function (ability, action) {
+    /**
+      * The registration can take a true object or a function as the second paramter
+      * If only an object and no function are passed, it will register itself with every function off the object
+      */
+    hero.registerAbility = function (ability, target, fn) {
+
+        if (!ability || !ability.abilityName)
+            throw "You must pass a Hero.Ability as the first parameter for registration.";
+        if (!target || !(target instanceof Object))
+            throw "You must pass an object as the target.";
+        if (!fn || !(fn instanceof Function)) {
+            //if they dont' pass a function assume they want every function on that object registerd
+            for (var potentialFunctionIndex in target) {
+                if (target[potentialFunctionIndex] instanceof Function) {
+                    hero.registerAbility(ability, target, target[potentialFunctionIndex]);
+                }
+            }
+        }
+
+        //if we are running registration the second time
+        //you need to use the original function.
+        if (fn.trueName) {
+            fn = fn.originalFunction;
+        }
+
+        target[fn.name] = function () {
+            debugger;
+            var that = this;
+            var thatArguments = arguments;
+
+            var isAuthorized = currentUser.isAuthorized(ability);
+
+            if (isAuthorized) {
+                return fn.apply(that, thatArguments);
+            } else {
+                return "UserNotAuthorized";
+            }
+        };
+
+        //setup the option of re-registering
+        target[fn.name].trueName = fn.name;
+        target[fn.name].originalFunction = fn;
+
         return this;
     };
 
     //public API (actions)
 
-    /* getAbilititesForUser
-     * options.user: User object
+    /* authorizeCurrentUser
+     * options.ability: Ability object
+     * options.then: callback to perform action when the request completes successfully.  Parameters are (string userName)
+     * options.fail: callback to perform an action on a request failure.  Parameters are (error, message)
+     * options.always (optional): callback to perform when the request is over (failure or success). Parameters are (response)
+     */
+    hero.getCurrentUser = function (options) {
+        if (!options.then)
+            throw "You must provide a then callback to the options list.";
+        if (!options.fail)
+            throw "You must provide a fail callback to the options list.";
+
+        reqwest({
+            url: instance.options.endpoint + "GetCurrentUser/",
+            type: 'json'
+        })
+            .then(function (resp) {
+                //resp will be a boolean.
+                options.then(resp);
+            })
+            .fail(function (err, msg) {
+                options.then(err, msg);
+            })
+            .always(function (resp) {
+                if (options.always)
+                    options.always(resp);
+            });
+
+        return this;
+    };
+
+    /* authorizeCurrentUser
+     * options.ability: Ability object
      * options.then: callback to perform action when the request completes successfully.  Parameters are (bool)
      * options.fail: callback to perform an action on a request failure.  Parameters are (error, message)
      * options.always (optional): callback to perform when the request is over (failure or success). Parameters are (response)
      */
     hero.authorizeCurrentUser = function (options) {
-        if (!options.ability)
+        if (!options.ability || !options.ability.abilityName)
             throw "You must provide a ability to the options list.";
         if (!options.then)
             throw "You must provide a then callback to the options list.";
@@ -113,7 +223,7 @@
      */
     hero.getAbilititesForUser = function (options) {
 
-        if (!options.user)
+        if (!options.user || !options.user.userName)
             throw "You must provide a user to the options list.";
         if (!options.then)
             throw "You must provide a then callback to the options list.";
@@ -146,7 +256,7 @@
      * options.always (optional): callback to perform when the request is over (failure or success). Parameters are (response)
      */
     hero.getAbilitiesForRole = function (options) {
-        if (!options.role)
+        if (!options.role || !options.role.roleName)
             throw "You must provide a role to the options list.";
         if (!options.then)
             throw "You must provide a then callback to the options list.";
@@ -178,7 +288,7 @@
      * options.always (optional): callback to perform when the request is over (failure or success). Parameters are (response)
      */
     hero.getRolesForUser = function (options) {
-        if (!options.user)
+        if (!options.user || !options.user.userName)
             throw "You must provide a user to the options list.";
         if (!options.then)
             throw "You must provide a then callback to the options list.";

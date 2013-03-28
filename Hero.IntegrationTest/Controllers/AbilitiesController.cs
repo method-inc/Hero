@@ -23,11 +23,17 @@ namespace Hero.IntegrationTest
             return Json(HeroConfig.AuthorizationService.GetRolesForUser(id), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public JsonResult AuthorizeCurrentUser(string id)
+        public JsonResult AuthorizeCurrentUser(string id, IUser user = null)
         {
-            User user = new User(HttpContext.User.Identity.Name);
+            if (user == null)
+                user = new User(HttpContext.User.Identity.Name);
+
             return Json(HeroConfig.AuthorizationService.Authorize(user, new Ability(id)), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCurrentUser()
+        {
+            return Json(HttpContext.User.Identity.Name, JsonRequestBehavior.AllowGet);
         }
     }
 }
