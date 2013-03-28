@@ -84,6 +84,13 @@
         hero.getCurrentUser(
             {
                 then: function (userName) {
+
+                    if (!userName) {
+                        //create a fake user since this person is not authenticated
+                        currentUser = hero.User("UnAuthenticated");
+                        return;
+                    }
+
                     currentUser = hero.User(userName);
 
                     //now that we have the current user, populate the abilitites.
@@ -108,7 +115,6 @@
       * If only an object and no function are passed, it will register itself with every function off the object
       */
     hero.registerAbility = function (ability, target, fn) {
-
         if (!ability || !ability.abilityName)
             throw "You must pass a Hero.Ability as the first parameter for registration.";
         if (!target || !(target instanceof Object))
@@ -129,7 +135,6 @@
         }
 
         target[fn.name] = function () {
-            debugger;
             var that = this;
             var thatArguments = arguments;
 

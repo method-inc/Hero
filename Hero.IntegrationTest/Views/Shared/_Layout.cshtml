@@ -8,13 +8,14 @@
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/Scripts/reqwest.min.js")
-        @Scripts.Render("~/Scripts/Hero.js")
+        @Scripts.Render("~/Scripts/hero.js")
+        @Scripts.Render("~/Scripts/authorization.js")
     </head>
     <body>
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
-                    
+                    <span id="testAbilityElement" style="display: none;">Ability Authorized</span>
                 </div>
                 <div class="float-right">
                     <section id="login">
