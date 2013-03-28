@@ -1,7 +1,7 @@
 ﻿//Add some "module" code to hide an element on the page
 
 (function (testModule) {
-    var elementToDisplay = function() { return document.getElementById("testAbilityElement"); }
+    var elementToDisplay = function() { return document.getElementById("testAbilityElement"); };
 
     testModule.show = function show() {
         elementToDisplay().style.display = 'inline';
