@@ -1,5 +1,6 @@
 ﻿//undefined is a parameter that nothing is passed into
 //to protect it from being overwritten by another library
+//in the global namespace.
 (function (hero, request, undefined) {
     //private instance data
     var heroOptions = {};
@@ -57,7 +58,6 @@
         hero.getCurrentUser(
             {
                 then: function (userName) {
-
                     if (!userName) {
                         //create a fake user since this person is not authenticated
                         currentUser = hero.User("UnAuthenticated");
@@ -321,4 +321,7 @@
 
         return this;
     };
-})(window.Hero = window.Hero || {}, Request);
+})(window.Hero = window.Hero || {}, Request);   //Request is a Craft object used for ajax requests and promises
+
+//no conflict mode for craft
+$.noConflict()
