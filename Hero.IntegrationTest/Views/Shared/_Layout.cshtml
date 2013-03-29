@@ -7,9 +7,6 @@
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/Scripts/reqwest.min.js")
-        @Scripts.Render("~/Scripts/hero.js")
-        @Scripts.Render("~/Scripts/authorization.js")
     </head>
     <body>
         <header>
@@ -45,6 +42,9 @@
         </footer>
 
         @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/Scripts/craft.min.js")
+        @Scripts.Render("~/Scripts/hero.js")
+        @Scripts.Render("~/Scripts/authorization.js")
         @RenderSection("scripts", required: false)
     </body>
 </html>

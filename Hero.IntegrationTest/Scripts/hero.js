@@ -1,4 +1,7 @@
-﻿(function (hero, reqwest) {
+﻿//undefined is a parameter that nothing is passed into
+//to protect it from being overwritten by another library
+//in the global namespace.
+(function (hero, request, undefined) {
     //private instance data
     var heroOptions = {};
     var instance = {};
@@ -48,6 +51,38 @@
         return hero.Role(roleObj.Name);
     };
 
+    /**
+      * Returns a list of abilities for the current user.
+      */
+    var intializeCurrentUser = function () {
+        hero.getCurrentUser(
+            {
+                then: function(userName) {
+                    if (!userName) {
+                        //create a fake user since this person is not authenticated
+                        currentUser = hero.User("UnAuthenticated");
+                        return;
+                    }
+
+                    currentUser = hero.User(userName);
+
+                    //now that we have the current user, populate the abilitites.
+                    hero.getAbilititesForUser({
+                        user: currentUser,
+                        then: function (abilities) {
+                            currentUser.abilitites = abilities;
+                        },
+                        fail: function(err, msg) {
+                            console.log(msg);
+                        },
+                        async: false
+                    });
+                },
+                fail: function (err, msg) { console.log(msg); },
+                async: false
+            });
+    };
+
     //Public Model Types
     hero.User = function (name, abilitites) {
         return {
@@ -80,33 +115,7 @@
     //public API (configuration)
     hero.configure = function (options) {
         extend(options);
-
-        hero.getCurrentUser(
-            {
-                then: function (userName) {
-                    
-                    if (!userName) {
-                        //create a fake user since this person is not authenticated
-                        currentUser = hero.User("UnAuthenticated");
-                        return;
-                    }
-                    
-                    currentUser = hero.User(userName);
-                    
-                    //now that we have the current user, populate the abilitites.
-                    hero.getAbilititesForUser({
-                        user: currentUser,
-                        then: function (abilities) {
-                            currentUser.abilitites = abilities;
-                        },
-                        fail: function(err, msg) {
-                            console.log(msg);
-                        }
-                    });
-                },
-                fail: function(err, msg) { console.log(msg); }
-            });
-
+        intializeCurrentUser();
         return this;
     };
 
@@ -168,21 +177,20 @@
         if (!options.fail)
             throw "You must provide a fail callback to the options list.";
 
-        reqwest({
-            url: instance.options.endpoint + "GetCurrentUser/",
-            type: 'json'
-        })
-            .then(function (resp) {
+        request.get(instance.options.endpoint + "GetCurrentUser/")
+            .then(function(resp) {
                 //resp will be a boolean.
                 options.then(resp);
             })
-            .fail(function (err, msg) {
+            .fail(function(err, msg) {
                 options.then(err, msg);
             })
-            .always(function (resp) {
+            .always(function(resp) {
                 if (options.always)
                     options.always(resp);
-            });
+            })
+            .async(options.async === undefined ? true : options.async)
+            .update();
 
         return this;
     };
@@ -201,21 +209,20 @@
         if (!options.fail)
             throw "You must provide a fail callback to the options list.";
 
-        reqwest({
-            url: instance.options.endpoint + "AuthorizeCurrentUser/" + options.ability.abilityName,
-            type: 'json'
-        })
-            .then(function (resp) {
+        request.get(instance.options.endpoint + "AuthorizeCurrentUser/" + options.ability.abilityName)
+            .then(function(resp) {
                 //resp will be a boolean.
                 options.then(resp);
             })
-            .fail(function (err, msg) {
+            .fail(function(err, msg) {
                 options.then(err, msg);
             })
-            .always(function (resp) {
+            .always(function(resp) {
                 if (options.always)
                     options.always(resp);
-            });
+            })
+            .async(options.async === undefined ? true : options.async)
+            .update();
 
         return this;
     };
@@ -235,21 +242,20 @@
         if (!options.fail)
             throw "You must provide a fail callback to the options list.";
 
-        reqwest({
-            url: instance.options.endpoint + "GetAbilitiesForUser/" + options.user.userName,
-            type: 'json'
-        })
-            .then(function (resp) {
+        request.get(instance.options.endpoint + "GetAbilitiesForUser/" + options.user.userName)
+            .then(function(resp) {
                 //deserialize the ability objects
                 options.then(deserializeAbilityList(resp));
             })
-            .fail(function (err, msg) {
+            .fail(function(err, msg) {
                 options.then(err, msg);
             })
-            .always(function (resp) {
+            .always(function(resp) {
                 if (options.always)
                     options.always(resp);
-            });
+            })
+            .async(options.async === undefined ? true : options.async)
+            .update();
 
         return this;
     };
@@ -268,20 +274,19 @@
         if (!options.fail)
             throw "You must provide a fail callback to the options list.";
 
-        reqwest({
-            url: instance.options.endpoint + "GetAbilitiesForRole/" + options.role.roleName,
-            type: 'json'
-        })
-            .then(function (resp) {
+        request.get(instance.options.endpoint + "GetAbilitiesForRole/" + options.role.roleName)
+            .then(function(resp) {
                 options.then(deserializeAbilityList(resp));
             })
-            .fail(function (err, msg) {
+            .fail(function(err, msg) {
                 options.then(err, msg);
             })
-            .always(function (resp) {
+            .always(function(resp) {
                 if (options.always)
                     options.always(resp);
-            });
+            })
+            .async(options.async === undefined ? true : options.async)
+            .update();
 
         return this;
     };
@@ -300,10 +305,7 @@
         if (!options.fail)
             throw "You must provide a fail callback to the options list.";
 
-        reqwest({
-            url: instance.options.endpoint + "GetRolesForUser/" + options.user.userName,
-            type: 'json'
-        })
+        request.get(instance.options.endpoint + "GetRolesForUser/" + options.user.userName)
             .then(function (resp) {
                 options.then(deserializeRoleList(resp));
             })
@@ -313,8 +315,13 @@
             .always(function (resp) {
                 if (options.always)
                     options.always(resp);
-            });
+            })
+            .async(options.async === undefined ? true : options.async)
+            .update();
 
         return this;
     };
-})(window.Hero = window.Hero || {}, reqwest);
+})(window.Hero = window.Hero || {}, Request);   //Request is a Craft object used for ajax requests and promises
+
+//no conflict mode for craft
+$.noConflict()

@@ -10,9 +10,9 @@ Copy-Item "$args\Hero.Frontend\hero.js" "$args\nuget\Content\Scripts"
 Remove-Item "$args\nuget\Content\Scripts\hero.js.pp"
 Rename-Item -Force "$args\nuget\Content\Scripts\hero.js" "$args\nuget\Content\Scripts\hero.js.pp"
 
-Copy-Item "$args\Hero.Frontend\reqwest.min.js" "$args\nuget\Content\Scripts"
-Remove-Item "$args\nuget\Content\Scripts\reqwest.min.js.pp"
-Rename-Item -Force "$args\nuget\Content\Scripts\reqwest.min.js" "$args\nuget\Content\Scripts\reqwest.min.js.pp"
+Copy-Item "$args\Hero.Frontend\craft.min.js" "$args\nuget\Content\Scripts"
+Remove-Item "$args\nuget\Content\Scripts\craft.min.js.pp"
+Rename-Item -Force "$args\nuget\Content\Scripts\craft.min.js" "$args\nuget\Content\Scripts\craft.min.js.pp"
 
 $original_file = "$args\nuget\Content\App_Start\HeroConfig.cs.pp"
 $destination_file = "$args\nuget\Content\App_Start\HeroConfig.cs.pp"
