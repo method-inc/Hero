@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Hero Sample</id>
+    <version>0.0.1</version>
+    <authors>Skookum</authors>
+    <owners>Skookum</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/Skookum/Hero</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Sample for Hero</description>
+    <releaseNotes>This is a sample MVC project that utilizes Hero for ability based authorization.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>Authorization, Ability, Role, User</tags>
+    <dependencies>
+      <dependency id="Hero" />
+    </dependencies>
+  </metadata>
+</package>
