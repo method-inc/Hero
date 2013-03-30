@@ -12,7 +12,7 @@ using Hero.Interfaces;
 using Hero.Services;
 using Hero.Services.Interfaces;
 
-namespace Hero.IntegrationTest
+namespace Hero.Sample
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801

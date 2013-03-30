@@ -4,7 +4,7 @@ using Hero; //do not remove
 using Hero.Configuration;
 using Hero.Interfaces;
 
-namespace Hero.IntegrationTest
+namespace Hero.Sample
 {
     public class AbilitiesController : Controller
     {

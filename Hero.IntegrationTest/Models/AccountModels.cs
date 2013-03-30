@@ -6,7 +6,7 @@ using System.Data.Entity;
 using System.Globalization;
 using System.Web.Security;
 
-namespace Hero.IntegrationTest.Models
+namespace Hero.Sample.Models
 {
     public class UsersContext : DbContext
     {

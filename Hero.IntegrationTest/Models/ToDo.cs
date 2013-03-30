@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace Hero.IntegrationTest.Models
+namespace Hero.Sample.Models
 {
     public class ToDo
     {

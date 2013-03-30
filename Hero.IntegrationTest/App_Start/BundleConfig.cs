@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Hero.IntegrationTest
+namespace Hero.Sample
 {
     public class BundleConfig
     {

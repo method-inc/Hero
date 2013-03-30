@@ -8,10 +8,10 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using Hero.IntegrationTest.Filters;
-using Hero.IntegrationTest.Models;
+using Hero.Sample.Filters;
+using Hero.Sample.Models;
 
-namespace Hero.IntegrationTest.Controllers
+namespace Hero.Sample.Controllers
 {
     [Authorize]
     [InitializeSimpleMembership]

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Hero.Attributes;
-using Hero.IntegrationTest.Models;
+using Hero.Sample.Models;
 
-namespace Hero.IntegrationTest.Controllers
+namespace Hero.Sample.Controllers
 {
     [AbilityMvcAuthorization(Ability = "View")]
     public class ToDoController : Controller

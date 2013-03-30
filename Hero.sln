@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{8BAF37
 		.build\MSBuild.Community.Tasks.targets = .build\MSBuild.Community.Tasks.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hero.IntegrationTest", "Hero.IntegrationTest\Hero.IntegrationTest.csproj", "{5DF47F1C-FE96-4031-B219-7C22F4E57936}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hero.Sample", "Hero.IntegrationTest\Hero.Sample.csproj", "{5DF47F1C-FE96-4031-B219-7C22F4E57936}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hero.Attributes", "Hero.Attributes\Hero.Attributes.csproj", "{D101D920-6348-4BE1-A7F3-A1D00DA21D2C}"
 EndProject

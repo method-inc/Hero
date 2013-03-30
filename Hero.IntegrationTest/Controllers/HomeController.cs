@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Hero.IntegrationTest.Controllers
+namespace Hero.Sample.Controllers
 {
     public class HomeController : Controller
     {
