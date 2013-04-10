@@ -1,7 +1,7 @@
 # Hero
 
 ###Server Side
-Hero is an ability based authorization for .NET MVC and WepAPI projects inspired by the Rails project [CanCan](https://github.com/ryanb/cancan) and by [Derek Bailey](http://lostechies.com/derickbailey/2011/05/24/dont-do-role-based-authorization-checks-do-activity-based-checks/).  Ability based authorization provides a more flexible approach to the traditional .NET authorization technique by creating an abstraction of functionality.  By associating a role to a method or action in .NET you are creating a tight coupling between a role and an action.  However, what happens when your role name changes?  Now you have to update all code that references that role name.  By assigning ability names to an action or method you abstract the functionality and the association can be done programatically.  This allows for a loose coupling of functionality to roles and users.
+Hero is an ability based authorization for .NET MVC and WepAPI projects inspired by the Rails project [CanCan](https://github.com/ryanb/cancan) and by [Derek Bailey](http://lostechies.com/derickbailey/2011/05/24/dont-do-role-based-authorization-checks-do-activity-based-checks/).  Ability based authorization provides a more flexible approach to the traditional .NET authorization technique by decoupling the permissions and code.  By associating a role to a method or action in .NET (through typical Authorization attribute) you are creating a tight coupling between a role and an action.  However, what happens when your role name changes?  Now you have to update all code that references that role name.  By assigning ability names to an action or method you abstract the functionality and the association can be done programmatically.  This allows for a loose coupling of functionality to roles and users.
 
 ###Client Side
 In addition to a server side component, Hero has a Javascript component as well.  The client side version of Hero allows for the injection of security authorization into javascript functions through AOP techniques.
@@ -41,16 +41,16 @@ HeroConfig.Initialize(service);
 Once you have registered a service with Hero the next step is to register a user or role with an Ability.  The following code will register a role labeled BasicRole with an Ability named View.
 
 ```c#
-HeroConfig.RegisterAbilities(service, new Role("BasicRole"), new[] { new Ability("View") });
+HeroConfig.RegisterAbilities(service, new Role("BasicRole"), new Ability("View"));
 ```
 
 If you want to register a specific user, there is a corresponding registration function for this as well.
 
 ```c#
-HeroConfig.RegisterAbilities(service, new User("John Doe"), new[] { new Ability("View") });
+HeroConfig.RegisterAbilities(service, new User("John Doe"), new Ability("View"));
 ```
 
-Once you have created the service and registered your roles/users with their abilitites you need to associate an action or method with an ability.  This can be performed through the attributes provided in the Hero.Attributes project.  Hero provides an attribute to be utilized in an ASP.NET MVC or WebAPI project.  Abilities can be registered at the controller or action level.  Your more restrictive abilities should be registered at the action level, while the less restrictive should be applied at the controller example.  In the following example, the View ability is the least restrictive, and Create, Edit, and Delete are at the action level.  The view actions (Index and Details) inherit their abilities from the controller level.
+Once you have created the service and registered your roles/users with their abilitites you need to associate an action or method with an ability.  This can be performed through the attributes provided in the Hero.Attributes project.  Hero provides an attribute to be utilized in an ASP.NET MVC or WebAPI project.  Abilities can be registered at the controller or action level.  Your more restrictive abilities should be registered at the action level, while the less restrictive should be applied at the controller level.  In the following example, the View ability is the least restrictive, and Create, Edit, and Delete are at the action level.  The view actions (Index and Details) inherit their abilities from the controller level.
 
 The corresponding Attribute for WebAPI projects is AbilityWebApiAuthorization.
 
@@ -184,7 +184,7 @@ Ability toDoCreateAbility = new Ability("Create");
 Ability toDoDeleteAbility = new Ability("Delete");
 Ability toDoEditAbility = new Ability("Edit");
 Ability manageAbility = new Ability("Manage", new[] { toDoCreateAbility, toDoEditAbility, toDoDeleteAbility, toDoViewAbility });
-HeroConfig.RegisterAbilities(service, toDoAdminRole, new[] { manageAbility });
+HeroConfig.RegisterAbilities(service, toDoAdminRole, manageAbility);
 ```
 
 ###Client Side
