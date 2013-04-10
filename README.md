@@ -1,16 +1,11 @@
-# Hero
+# Hero <a href="http://skookum.cloudapp.net/viewType.html?buildTypeId=bt8&guest=1"><img src="http://skookum.cloudapp.net/app/rest/builds/buildType:(id:bt8)/statusIcon"/></a>
 
-###Server Side
+## Server Side
 Hero is an ability based authorization for .NET MVC and WepAPI projects inspired by the Rails project [CanCan](https://github.com/ryanb/cancan) and by [Derek Bailey](http://lostechies.com/derickbailey/2011/05/24/dont-do-role-based-authorization-checks-do-activity-based-checks/).  Ability based authorization provides a more flexible approach to the traditional .NET authorization technique by decoupling the permissions and code.  By associating a role to a method or action in .NET (through typical Authorization attribute) you are creating a tight coupling between a role and an action.  However, what happens when your role name changes?  Now you have to update all code that references that role name.  By assigning ability names to an action or method you abstract the functionality and the association can be done programmatically.  This allows for a loose coupling of functionality to roles and users.
 
-###Client Side
+## Client Side
 In addition to a server side component, Hero has a Javascript component as well.  The client side version of Hero allows for the injection of security authorization into javascript functions through AOP techniques.
 
-# Status
-
-<a href="http://skookum.cloudapp.net/viewType.html?buildTypeId=bt8&guest=1">
-    <img src="http://skookum.cloudapp.net/app/rest/builds/buildType:(id:bt8)/statusIcon"/>
-</a>
 
 # Installation
 
@@ -28,7 +23,7 @@ You can install this module via Nuget. The Nuget package is available from the [
 
 You can see a fully implemented example in the Samples project in the repository.  For quick help on the server side implementation or client side, see below:
 
-###Server Side
+##Server Side
 The steps to create user, roles, and register abilities are extremely simple and easy to configure.  This code will typically be performed in the Global.asax or similiar application startup code.
 
 The first step is to initialize the authorization services with Hero.
@@ -175,7 +170,7 @@ public class ToDoController : Controller
 
 This is all it takes to configure you ability based authorization system on the server side.  You can also leverage your registered abilities on the client side as well.  See below for an examples.
 
-###Ability Groups
+##Ability Groups
   Another feature Hero provies is the grouping of abilities.  Grouping allows for easier registration of abilities.  The example below creates an ability group called Manage that contains the Edit, Create, and Delete abilities.  When the manage ability is registered with AdminRole, the Edit, Create, and Delete abilities are registered.
 
 ````csharp
@@ -187,7 +182,7 @@ Ability manageAbility = new Ability("Manage", new[] { toDoCreateAbility, toDoEdi
 HeroConfig.RegisterAbilities(service, toDoAdminRole, manageAbility);
 ````
 
-###Client Side
+##Client Side
 Generally speaking providing authorization at the server level is not the entire story.  If a user does not have permission to perform an action, the trigger (button, link, visual container) would not even be visible to a user.  Hero provides a client side implementation to help keep your client ability triggers in sync with the server.
 
 The following code will create a simple javascript module for managing these triggers.  The module has functions for showing the create, edit, delete, and details button utilized in the ToDo HD application.  By default these buttons are hidden and only if the user is authorized will the module functions run.
