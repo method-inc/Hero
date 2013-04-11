@@ -9,7 +9,7 @@ In addition to a server side component, Hero has a Javascript component as well.
 
 # Installation
 
-You can install this module via Nuget. The Nuget package is available from the [Skookum Nuget Server](http://skookum.cloudapp.net/guestAuth/app/nuget/v1/FeedService.svc/). Simply add this Nuget Server to your Visual Studio NuGet servers and you will have access to the latest version of Hero. Currently what exists in master is automatically pushed out as a NuGet package. Once Hero becomes more stable, this will change.
+You can install this module via Nuget. The Nuget package will be available from [NuGet](http://www.nuget.org). Simply add this Nuget Server to your Visual Studio NuGet servers and you will have access to the latest version of Hero. Currently what exists in master is automatically pushed out as a NuGet package. Once Hero becomes more stable, this will change.
 
 # Roadmap
 
@@ -262,8 +262,6 @@ You can contribute in a number of ways including:
 3. Updating documentation
 4. Submitting bug fixes
 5. Submitting issues (we expect issue reports through Github issues)
-
-Finally we use TeamCity for continuous integration. You can view the build results at [our TeamCity server](http://skookum.cloudapp.net/project.html?projectId=project7&tab=projectOverview).
 
 # License
 
