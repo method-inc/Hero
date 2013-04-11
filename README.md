@@ -9,7 +9,7 @@ In addition to a server side component, Hero has a Javascript component as well.
 
 # Installation
 
-You can install this module via Nuget. The Nuget package will be available from [NuGet](http://www.nuget.org). Simply add this Nuget Server to your Visual Studio NuGet servers and you will have access to the latest version of Hero. Currently what exists in master is automatically pushed out as a NuGet package. Once Hero becomes more stable, this will change.
+You can install this module via [NuGet](http://www.nuget.org). Currently what exists in master is automatically pushed out as a NuGet package. Once Hero becomes more stable, this will change.
 
 # Roadmap
 
