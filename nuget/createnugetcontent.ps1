@@ -14,6 +14,10 @@ Copy-Item "$args\Hero.Frontend\craft.min.js" "$args\nuget\Content\Scripts"
 Remove-Item "$args\nuget\Content\Scripts\craft.min.js.pp"
 Rename-Item -Force "$args\nuget\Content\Scripts\craft.min.js" "$args\nuget\Content\Scripts\craft.min.js.pp"
 
+Copy-Item "$args\Hero.Frontend\HeroHelpers.cshtml" "$args\nuget\Content\App_Code"
+Remove-Item "$args\nuget\Content\App_Code\HeroHelpers.cshtml.pp"
+Rename-Item -Force "$args\nuget\Content\App_Code\HeroHelpers.cshtml" "$args\nuget\Content\App_Code\HeroHelpers.cshtml.pp"
+
 $original_file = "$args\nuget\Content\App_Start\HeroConfig.cs.pp"
 $destination_file = "$args\nuget\Content\App_Start\HeroConfig.cs.pp"
 (Get-Content $original_file) | Foreach-Object {
