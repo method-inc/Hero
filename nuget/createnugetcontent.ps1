@@ -1,3 +1,9 @@
+Copy-Item "$args\Hero.Configuration\HeroConfig.cs" "$args\Hero.Sample\App_Start"
+Copy-Item "$args\Hero.Frontend\AbilitiesController.cs" "$args\Hero.Sample\Controllers"
+Copy-Item "$args\Hero.Frontend\hero.js" "$args\Hero.Sample\Scripts"
+Copy-Item "$args\Hero.Frontend\craft.min.js" "$args\Hero.Sample\Scripts"
+Copy-Item "$args\Hero.Frontend\HeroHelpers.cshtml" "$args\Hero.Sample\App_Code"
+
 Copy-Item "$args\Hero.Configuration\HeroConfig.cs" "$args\nuget\Content\App_Start"
 Remove-Item "$args\nuget\Content\App_Start\HeroConfig.cs.pp"
 Rename-Item -Force "$args\nuget\Content\App_Start\HeroConfig.cs" "$args\nuget\Content\App_Start\HeroConfig.cs.pp"
