@@ -46,12 +46,12 @@ namespace Hero.Sample
             Ability manageAbility = new Ability("Manage", new[]{toDoCreateAbility, toDoEditAbility, toDoDeleteAbility, toDoViewAbility});
 
             //abilitites
-            HeroConfig.RegisterAbilities(service, toDoBasicRole, new[] { toDoViewAbility });
-            HeroConfig.RegisterAbilities(service, toDoAdminRole, new[] { manageAbility });
+            HeroConfig.RegisterAbilities(toDoBasicRole, new[] { toDoViewAbility });
+            HeroConfig.RegisterAbilities(toDoAdminRole, new[] { manageAbility });
 
             //roles
-            HeroConfig.RegisterRoles(service, toDoBasicUser, new[] { toDoBasicRole });
-            HeroConfig.RegisterRoles(service, toDoAdminUser, new[] { toDoAdminRole });
+            HeroConfig.RegisterRoles(toDoBasicUser, new[] { toDoBasicRole });
+            HeroConfig.RegisterRoles(toDoAdminUser, new[] { toDoAdminRole });
         }
     }
 }
