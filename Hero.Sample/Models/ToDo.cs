@@ -13,8 +13,12 @@ namespace Hero.Sample.Models
         public string Description { get; set; }
     }
 
-    public class ToDoDbContext : DbContext
+    public class ToDosContext : DbContext
     {
+        public ToDosContext()
+            : base("ToDosConnection")
+        {
+        }
         public DbSet<ToDo> Items { get; set; }   
     }
 }

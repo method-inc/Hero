@@ -13,7 +13,7 @@ namespace Hero.Sample.Controllers
     [AbilityMvcAuthorization(Ability = "View")]
     public class ToDoController : Controller
     {
-        private ToDoDbContext db = new ToDoDbContext();
+        private ToDosContext db = new ToDosContext();
 
         //
         // GET: /ToDo/
