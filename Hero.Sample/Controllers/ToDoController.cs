@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Hero.Attributes;
 using Hero.Sample.Models;
@@ -13,14 +9,16 @@ namespace Hero.Sample.Controllers
     [AbilityMvcAuthorization(Ability = "View")]
     public class ToDoController : Controller
     {
-        private ToDosContext db = new ToDosContext();
+        private ToDoContext db = new ToDoContext();
 
         //
         // GET: /ToDo/
 
         public ActionResult Index()
         {
-            return View(db.Items.ToList());
+            return View(db.Items
+                .Where(todo => todo.UserName.Equals(User.Identity.Name))
+                .ToList());
         }
 
         //
@@ -55,6 +53,7 @@ namespace Hero.Sample.Controllers
         {
             if (ModelState.IsValid)
             {
+                todo.UserName = User.Identity.Name;
                 db.Items.Add(todo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,6 +85,7 @@ namespace Hero.Sample.Controllers
         {
             if (ModelState.IsValid)
             {
+                todo.UserName = User.Identity.Name;
                 db.Entry(todo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
