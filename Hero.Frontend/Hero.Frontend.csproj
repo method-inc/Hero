@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetStandard">
+      <HintPath>..\packages\DotNetStandard.0.0.24\lib\DotNetStandard.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetStandard.Vent">
+      <HintPath>..\packages\DotNetStandard.0.0.24\lib\DotNetStandard.Vent.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -68,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="HeroHelpers.cshtml" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

@@ -57,7 +57,7 @@
     var intializeCurrentUser = function () {
         hero.getCurrentUser(
             {
-                then: function(userName) {
+                then: function (userName) {
                     if (!userName) {
                         //create a fake user since this person is not authenticated
                         currentUser = hero.User("UnAuthenticated");
@@ -72,7 +72,7 @@
                         then: function (abilities) {
                             currentUser.abilitites = abilities;
                         },
-                        fail: function(err, msg) {
+                        fail: function (err, msg) {
                             console.log(msg);
                         },
                         async: false
@@ -86,13 +86,13 @@
     //Public Model Types
     hero.User = function (name, abilitites) {
         return {
-            userName: name, 
+            userName: name,
             abilitites: abilitites,
-            isAuthorized: function(ability) {
+            isAuthorized: function (ability) {
                 if (!ability || !ability.abilityName) {
                     throw "You must provide an ability to the isAuthorized function.";
                 }
-                
+
                 for (var currAbilityIndex in this.abilitites) {
                     if (this.abilitites[currAbilityIndex].abilityName === ability.abilityName) {
                         return true;
@@ -178,14 +178,14 @@
             throw "You must provide a fail callback to the options list.";
 
         request.get(instance.options.endpoint + "GetCurrentUser/")
-            .then(function(resp) {
+            .then(function (resp) {
                 //resp will be a boolean.
                 options.then(resp);
             })
-            .fail(function(err, msg) {
+            .fail(function (err, msg) {
                 options.then(err, msg);
             })
-            .always(function(resp) {
+            .always(function (resp) {
                 if (options.always)
                     options.always(resp);
             })
@@ -210,14 +210,14 @@
             throw "You must provide a fail callback to the options list.";
 
         request.get(instance.options.endpoint + "AuthorizeCurrentUser/" + options.ability.abilityName)
-            .then(function(resp) {
+            .then(function (resp) {
                 //resp will be a boolean.
                 options.then(resp);
             })
-            .fail(function(err, msg) {
+            .fail(function (err, msg) {
                 options.then(err, msg);
             })
-            .always(function(resp) {
+            .always(function (resp) {
                 if (options.always)
                     options.always(resp);
             })
@@ -243,14 +243,14 @@
             throw "You must provide a fail callback to the options list.";
 
         request.get(instance.options.endpoint + "GetAbilitiesForUser/" + options.user.userName)
-            .then(function(resp) {
+            .then(function (resp) {
                 //deserialize the ability objects
                 options.then(deserializeAbilityList(resp));
             })
-            .fail(function(err, msg) {
+            .fail(function (err, msg) {
                 options.then(err, msg);
             })
-            .always(function(resp) {
+            .always(function (resp) {
                 if (options.always)
                     options.always(resp);
             })
@@ -275,13 +275,13 @@
             throw "You must provide a fail callback to the options list.";
 
         request.get(instance.options.endpoint + "GetAbilitiesForRole/" + options.role.roleName)
-            .then(function(resp) {
+            .then(function (resp) {
                 options.then(deserializeAbilityList(resp));
             })
-            .fail(function(err, msg) {
+            .fail(function (err, msg) {
                 options.then(err, msg);
             })
-            .always(function(resp) {
+            .always(function (resp) {
                 if (options.always)
                     options.always(resp);
             })
