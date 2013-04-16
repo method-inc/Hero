@@ -1,3 +1,9 @@
+Copy-Item "$args\Hero.Configuration\HeroConfig.cs" "$args\Hero.Sample\App_Start"
+Copy-Item "$args\Hero.Frontend\AbilitiesController.cs" "$args\Hero.Sample\Controllers"
+Copy-Item "$args\Hero.Frontend\hero.js" "$args\Hero.Sample\Scripts"
+Copy-Item "$args\Hero.Frontend\craft.min.js" "$args\Hero.Sample\Scripts"
+Copy-Item "$args\Hero.Frontend\HeroHelpers.cshtml" "$args\Hero.Sample\App_Code"
+
 Copy-Item "$args\Hero.Configuration\HeroConfig.cs" "$args\nuget\Content\App_Start"
 Remove-Item "$args\nuget\Content\App_Start\HeroConfig.cs.pp"
 Rename-Item -Force "$args\nuget\Content\App_Start\HeroConfig.cs" "$args\nuget\Content\App_Start\HeroConfig.cs.pp"
@@ -13,6 +19,10 @@ Rename-Item -Force "$args\nuget\Content\Scripts\hero.js" "$args\nuget\Content\Sc
 Copy-Item "$args\Hero.Frontend\craft.min.js" "$args\nuget\Content\Scripts"
 Remove-Item "$args\nuget\Content\Scripts\craft.min.js.pp"
 Rename-Item -Force "$args\nuget\Content\Scripts\craft.min.js" "$args\nuget\Content\Scripts\craft.min.js.pp"
+
+Copy-Item "$args\Hero.Frontend\HeroHelpers.cshtml" "$args\nuget\Content\App_Code"
+Remove-Item "$args\nuget\Content\App_Code\HeroHelpers.cshtml.pp"
+Rename-Item -Force "$args\nuget\Content\App_Code\HeroHelpers.cshtml" "$args\nuget\Content\App_Code\HeroHelpers.cshtml.pp"
 
 $original_file = "$args\nuget\Content\App_Start\HeroConfig.cs.pp"
 $destination_file = "$args\nuget\Content\App_Start\HeroConfig.cs.pp"

@@ -5,9 +5,11 @@
     var getEditButton = function () { return document.getElementsByClassName("editButton"); };
     var getDetailsButton = function () { return document.getElementsByClassName("detailsButton"); };
 
-    var show = function(elem) {
-        if (elem && elem[0]) {
-            elem[0].style.display = 'inline';      
+    var show = function (elem) {
+        if (elem) {
+            for (var i = 0; i < elem.length; i++) {
+                if (elem[i]) elem[i].style.display = 'inline';
+            }
         }
     };
     
