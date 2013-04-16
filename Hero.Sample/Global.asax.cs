@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -9,6 +10,7 @@ using System.Web.Routing;
 using Hero.Attributes;
 using Hero.Configuration;
 using Hero.Interfaces;
+using Hero.Sample.Models;
 using Hero.Services;
 using Hero.Services.Interfaces;
 
@@ -46,12 +48,19 @@ namespace Hero.Sample
             Ability manageAbility = new Ability("Manage", new[]{toDoCreateAbility, toDoEditAbility, toDoDeleteAbility, toDoViewAbility});
 
             //abilitites
-            HeroConfig.RegisterAbilities(service, toDoBasicRole, new[] { toDoViewAbility });
-            HeroConfig.RegisterAbilities(service, toDoAdminRole, new[] { manageAbility });
+            HeroConfig.RegisterAbilities(toDoBasicRole, new[] { toDoViewAbility });
+            HeroConfig.RegisterAbilities(toDoAdminRole, new[] { manageAbility });
 
             //roles
-            HeroConfig.RegisterRoles(service, toDoBasicUser, new[] { toDoBasicRole });
-            HeroConfig.RegisterRoles(service, toDoAdminUser, new[] { toDoAdminRole });
+            HeroConfig.RegisterRoles(toDoBasicUser, new[] { toDoBasicRole });
+            HeroConfig.RegisterRoles(toDoAdminUser, new[] { toDoAdminRole });
+
+
+            Database.SetInitializer(new ToDoContextInitializer());
+            using (var context = new ToDoContext())
+            {
+                context.Database.Initialize(true);
+            }
         }
     }
 }

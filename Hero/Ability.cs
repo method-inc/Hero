@@ -55,7 +55,7 @@ namespace Hero
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return string.Equals(_name, other._name);
+            return _name.ToLower() ==  other._name.ToLower();
         }
 
         public override bool Equals(object obj)
@@ -68,7 +68,7 @@ namespace Hero
 
         public override int GetHashCode()
         {
-            return _name.GetHashCode();
+            return _name.ToLower().GetHashCode();
         }
 
         public static bool operator ==(Ability left, Ability right)

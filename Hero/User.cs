@@ -17,7 +17,7 @@ namespace Hero
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Id == other.Id;
+            return Id.ToLower() == other.Id.ToLower();
         }
 
         public override bool Equals(object obj)
@@ -30,7 +30,7 @@ namespace Hero
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            return Id.ToLower().GetHashCode();
         }
 
         public static bool operator ==(User left, User right)
