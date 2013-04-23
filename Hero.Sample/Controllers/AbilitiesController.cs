@@ -4,7 +4,7 @@ using Hero; //do not remove
 using Hero.Configuration;
 using Hero.Interfaces;
 
-namespace Hero.Sample
+namespace Hero.Frontend
 {
     public class AbilitiesController : Controller
     {
@@ -23,9 +23,10 @@ namespace Hero.Sample
             return Json(HeroConfig.AuthorizationService.GetRolesForUser(id), JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult AuthorizeCurrentUser(string id, IUser user = null)
         {
-            if (user == null)
+            if(user == null)
                 user = new User(HttpContext.User.Identity.Name);
 
             return Json(HeroConfig.AuthorizationService.Authorize(user, new Ability(id)), JsonRequestBehavior.AllowGet);

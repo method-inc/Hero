@@ -34,10 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetStandard">
-      <HintPath>..\packages\DotNetStandard.0.0.23\lib\DotNetStandard.dll</HintPath>
+      <HintPath>..\packages\DotNetStandard.0.0.24\lib\DotNetStandard.dll</HintPath>
     </Reference>
     <Reference Include="DotNetStandard.Vent">
-      <HintPath>..\packages\DotNetStandard.0.0.23\lib\DotNetStandard.Vent.dll</HintPath>
+      <HintPath>..\packages\DotNetStandard.0.0.24\lib\DotNetStandard.Vent.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
