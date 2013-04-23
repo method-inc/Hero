@@ -172,6 +172,17 @@ public class ToDoController : Controller
 }
 ````
 
+Finally you can leverage the HeroConfiguration in your Razor views
+
+````csharp
+<p>
+    @if (HeroConfig.Can(User.Identity.Name, "Create"))
+    {
+        @Html.ActionLink("Create New", "Create", null, new {@class = "createButton"})
+    }
+</p>
+````
+
 This is all it takes to configure you ability based authorization system on the server side.  You can also leverage your registered abilities on the client side as well.  See below for an examples.
 
 ##Ability Groups
