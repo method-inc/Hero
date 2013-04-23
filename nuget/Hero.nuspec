@@ -1,4 +1,4 @@
- <?xml version="1.0"?>
+<?xml version="1.0"?>
 <package >
   <metadata>
     <id>Hero</id>
@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/Skookum/Hero</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Ability based authorization</description>
-    <releaseNotes>Hero is an ability based authorization for .NET MVC and WepAPI projects inspired by the Rails project CanCan. Ability based authorization provides a more flexible approach to the traditional .NET authorization technique by decoupling the permissions and code. By associating a role to a method or action in .NET (through typical Authorization attribute) you are creating a tight coupling between a role and an action. However, what happens when your role name changes? Now you have to update all code that references that role name. By assigning ability names to an action or method you abstract the functionality and the association can be done programmatically. This allows for a loose coupling of functionality to roles and users.</releaseNotes>
+    <releaseNotes>Hero is an ability based authorization for .NET MVC and WepAPI projects inspired by the Rails project CanCan. Ability based authorization provides a more flexible approach to the traditional .NET authorization technique by decoupling the permissions and code.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>Authorization, Ability, Role, User</tags>
     <dependencies>
