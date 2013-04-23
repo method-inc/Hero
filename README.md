@@ -258,7 +258,7 @@ The configuration code provides a fluent syntax for registering a module's publi
 
 # Contributing
 
-See [CONTRIBUTION.md](CONTRIBUTION.md)
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 #Change Log
 
