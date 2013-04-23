@@ -9,7 +9,11 @@ In addition to a server side component, Hero has a Javascript component as well.
 
 # Installation
 
-You can install this module via [NuGet](http://www.nuget.org). Currently what exists in master is automatically pushed out as a NuGet package. Once Hero becomes more stable, this will change.
+You can install this module via [NuGet](http://www.nuget.org). Currently what exists in master is automatically pushed out as a NuGet package. Once Hero becomes more stable, this will change.  Hero can be installed via the following command:
+
+````
+Install-Package Hero
+````
 
 # Roadmap
 
@@ -245,7 +249,7 @@ We are very much interested in helping expand the .NET open source community. Pl
 
 Here's a quick guide:
 
-1. Fork the repo.
+1. Fork the repo (or submit an issue through GitHub issues).
 2. Run the tests. We only take pull requests with passing tests, and it's great to know that you have a clean slate.
 3. Add a test for your change. Only refactoring and documentation changes require no new tests. If you are adding functionality or fixing a bug, we need a test!
 4. Make the test pass.
@@ -262,6 +266,11 @@ You can contribute in a number of ways including:
 3. Updating documentation
 4. Submitting bug fixes
 5. Submitting issues (we expect issue reports through Github issues)
+
+#Change Log
+
+1. Refactored server side initialization to make registration easier.
+2. Add Razor View Helper
 
 # License
 
