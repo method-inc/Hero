@@ -1,6 +1,5 @@
 ﻿//Add a module for the buttons on the page.
 (function (testModule) {
-    var getCreateButton = function() { return document.getElementsByClassName("createButton"); };
     var getDeleteButton = function () { return document.getElementsByClassName("deleteButton"); };
     var getEditButton = function () { return document.getElementsByClassName("editButton"); };
     var getDetailsButton = function () { return document.getElementsByClassName("detailsButton"); };
@@ -11,10 +10,6 @@
                 if (elem[i]) elem[i].style.display = 'inline';
             }
         }
-    };
-    
-    testModule.showCreateButton = function showCreateButton() {
-        show(getCreateButton());
     };
     
     testModule.showDeleteButton = function showDeleteButton() {
@@ -33,7 +28,6 @@
 
 //on doc ready show/hide the buttons.
 $(document).ready(function () {
-    TestModule.showCreateButton();
     TestModule.showDeleteButton();
     TestModule.showEditButton();
     TestModule.showDetailsButton();
@@ -44,6 +38,5 @@ $(document).ready(function () {
 Hero
     .configure({ endpoint: "http://localhost:54573/Abilities/" })
     .registerAbility(Hero.Ability("View"), TestModule, TestModule.showDetailsButton)
-    .registerAbility(Hero.Ability("Create"), TestModule, TestModule.showCreateButton)
     .registerAbility(Hero.Ability("Edit"), TestModule, TestModule.showEditButton)
     .registerAbility(Hero.Ability("Delete"), TestModule, TestModule.showDeleteButton);

@@ -172,6 +172,17 @@ public class ToDoController : Controller
 }
 ````
 
+Finally you can leverage the HeroConfiguration in your Razor views
+
+````csharp
+<p>
+    @if (HeroConfig.Can(User.Identity.Name, "Create"))
+    {
+        @Html.ActionLink("Create New", "Create", null, new {@class = "createButton"})
+    }
+</p>
+````
+
 This is all it takes to configure you ability based authorization system on the server side.  You can also leverage your registered abilities on the client side as well.  See below for an examples.
 
 ##Ability Groups
@@ -199,9 +210,11 @@ The following code will create a simple javascript module for managing these tri
     var getEditButton = function () { return document.getElementsByClassName("editButton"); };
     var getDetailsButton = function () { return document.getElementsByClassName("detailsButton"); };
 
-    var show = function(elem) {
-        if (elem && elem[0]) {
-            elem[0].style.display = 'inline';      
+    var show = function (elem) {
+        if (elem) {
+            for (var i = 0; i < elem.length; i++) {
+                if (elem[i]) elem[i].style.display = 'inline';
+            }
         }
     };
     
@@ -245,27 +258,7 @@ The configuration code provides a fluent syntax for registering a module's publi
 
 # Contributing
 
-We are very much interested in helping expand the .NET open source community. Please feel free to fork and submit pull requests.
-
-Here's a quick guide:
-
-1. Fork the repo (or submit an issue through GitHub issues).
-2. Run the tests. We only take pull requests with passing tests, and it's great to know that you have a clean slate.
-3. Add a test for your change. Only refactoring and documentation changes require no new tests. If you are adding functionality or fixing a bug, we need a test!
-4. Make the test pass.
-5. Push to your fork and submit a pull request.
-
-At this point you're waiting on us. We like to at least comment on, if not accept, pull requests within three business days (and, typically, one business day). We may suggest some changes or improvements or alternatives.
-
-In terms of syntax please try and follow the conventions that can be seen in the current code base.
-
-You can contribute in a number of ways including:
-
-1. Feature enhancements
-2. Writing more unit tests
-3. Updating documentation
-4. Submitting bug fixes
-5. Submitting issues (we expect issue reports through Github issues)
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 #Change Log
 
