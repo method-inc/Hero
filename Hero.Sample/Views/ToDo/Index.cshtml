@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Hero.Sample.Models.ToDo>
+﻿@using Hero
+@using Hero.Configuration
+@model IEnumerable<Hero.Sample.Models.ToDo>
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +9,10 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new {@class = "createButton", @style="display: none;"})
+    @if (HeroConfig.AuthorizationService.Authorize(new User(User.Identity.Name), new Ability("Create")))
+    {
+        @Html.ActionLink("Create New", "Create", null, new {@class = "createButton"})
+    }
 </p>
 <table>
     <tr>
