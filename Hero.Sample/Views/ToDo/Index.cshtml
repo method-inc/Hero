@@ -9,7 +9,7 @@
 <h2>Index</h2>
 
 <p>
-    @if (HeroConfig.AuthorizationService.Authorize(new User(User.Identity.Name), new Ability("Create")))
+    @if (HeroConfig.Can(User.Identity.Name, "Create"))
     {
         @Html.ActionLink("Create New", "Create", null, new {@class = "createButton"})
     }
