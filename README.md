@@ -53,9 +53,7 @@ If you want to register a specific user, there is a corresponding registration f
 HeroConfig.RegisterAbility(new User("John Doe"), new Ability("View"));
 ````
 
-Additionally there is a corresponding RegisterAbilities for collections of Abilities. 
-
-Finally you can register a user with a Role
+Additionally there is a corresponding RegisterAbilities for collections of Abilities.  If you want to register a user with a role perform the following:
 
 ````csharp
 HeroConfig.RegisterRole(new User("John Doe"), new Role("BasicRole"));
