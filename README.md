@@ -53,7 +53,15 @@ If you want to register a specific user, there is a corresponding registration f
 HeroConfig.RegisterAbility(new User("John Doe"), new Ability("View"));
 ````
 
-Additionally there is a corresponding RegisterAbilities for collections of Abilities. Once you have created the service and registered your roles/users with their abilitites you need to associate an action or method with an ability.  This can be performed through the attributes provided in the Hero.Attributes project.  Hero provides an attribute to be utilized in an ASP.NET MVC or WebAPI project.  Abilities can be registered at the controller or action level.  Your more restrictive abilities should be registered at the action level, while the less restrictive should be applied at the controller level.  In the following example, the View ability is the least restrictive, and Create, Edit, and Delete are at the action level.  The view actions (Index and Details) inherit their abilities from the controller level.
+Additionally there is a corresponding RegisterAbilities for collections of Abilities. 
+
+Finally you can register a user with a Role
+
+````csharp
+HeroConfig.RegisterRole(new User("John Doe"), new Role("BasicRole"));
+````
+
+Once you have created the service and registered your roles/users with their abilitites you need to associate an action or method with an ability.  This can be performed through the attributes provided in the Hero.Attributes project.  Hero provides an attribute to be utilized in an ASP.NET MVC or WebAPI project.  Abilities can be registered at the controller or action level.  Your more restrictive abilities should be registered at the action level, while the less restrictive should be applied at the controller level.  In the following example, the View ability is the least restrictive, and Create, Edit, and Delete are at the action level.  The view actions (Index and Details) inherit their abilities from the controller level.
 
 The corresponding Attribute for WebAPI projects is AbilityWebApiAuthorization.
 
