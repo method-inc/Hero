@@ -35,13 +35,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetStandard, Version=0.0.24.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DotNetStandard, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetStandard.0.0.24\lib\DotNetStandard.dll</HintPath>
+      <HintPath>..\packages\DotNetStandard.0.1.1\lib\DotNetStandard.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetStandard.Vent, Version=0.0.24.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DotNetStandard.Vent, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetStandard.0.0.24\lib\DotNetStandard.Vent.dll</HintPath>
+      <HintPath>..\packages\DotNetStandard.0.1.1\lib\DotNetStandard.Vent.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -78,7 +78,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)*.dll" "$(ProjectDir)\..\nuget\lib" &amp;&amp; powershell -file "$(SolutionDir)/nuget/createnugetcontent.ps1" $(SolutionDir)</PostBuildEvent>
+    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)*.dll" "$(ProjectDir)\..\nuget\lib"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

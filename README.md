@@ -27,6 +27,10 @@ Install-Package Hero
 
 You can see a fully implemented example in the Samples project in the repository.  For quick help on the server side implementation or client side, see below:
 
+##Sample App
+
+When working with the sample application there is an admin user (todoadminuser) and a basic user (todobasicuser).  The password for both is password.
+
 ##Server Side
 The steps to create user, roles, and register abilities are extremely simple and easy to configure.  This code will typically be performed in the Global.asax or similiar application startup code.
 

@@ -1,4 +1,4 @@
-﻿//undefined is a parameter that nothing is passed into
+//undefined is a parameter that nothing is passed into
 //to protect it from being overwritten by another library
 //in the global namespace.
 (function (hero, request, undefined) {
