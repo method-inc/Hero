@@ -46,28 +46,32 @@
   <ItemGroup>
     <Reference Include="DotNetStandard, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hero.0.6.6\lib\DotNetStandard.dll</HintPath>
+      <HintPath>..\packages\Hero.0.6.8\lib\DotNetStandard.dll</HintPath>
     </Reference>
     <Reference Include="DotNetStandard.Vent, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hero.0.6.6\lib\DotNetStandard.Vent.dll</HintPath>
+      <HintPath>..\packages\Hero.0.6.8\lib\DotNetStandard.Vent.dll</HintPath>
     </Reference>
-    <Reference Include="Hero, Version=0.6.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Hero, Version=0.6.8.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hero.0.6.6\lib\Hero.dll</HintPath>
+      <HintPath>..\packages\Hero.0.6.8\lib\Hero.dll</HintPath>
     </Reference>
-    <Reference Include="Hero.Attributes, Version=0.6.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Hero.Attributes, Version=0.6.8.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hero.0.6.6\lib\Hero.Attributes.dll</HintPath>
+      <HintPath>..\packages\Hero.0.6.8\lib\Hero.Attributes.dll</HintPath>
     </Reference>
-    <Reference Include="Hero.Services, Version=0.6.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Hero.Configuration, Version=0.6.8.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hero.0.6.6\lib\Hero.Services.dll</HintPath>
+      <HintPath>..\packages\Hero.0.6.8\lib\Hero.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Hero.Services, Version=0.6.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Hero.0.6.8\lib\Hero.Services.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hero.0.6.6\lib\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Hero.0.6.8\lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -76,10 +80,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http">
       <Private>True</Private>
-      <HintPath>..\packages\Hero.0.6.6\lib\System.Net.Http.dll</HintPath>
+      <HintPath>..\packages\Hero.0.6.8\lib\System.Net.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hero.0.6.6\lib\System.Net.Http.Formatting.dll</HintPath>
+      <HintPath>..\packages\Hero.0.6.8\lib\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -89,7 +93,7 @@
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hero.0.6.6\lib\System.Web.Http.dll</HintPath>
+      <HintPath>..\packages\Hero.0.6.8\lib\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -212,7 +216,6 @@
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\HeroConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AbilitiesController.cs" />
