@@ -44,16 +44,16 @@ HeroConfig.Initialize(service);
 Once you have registered a service with Hero the next step is to register a user or role with an Ability.  The following code will register a role labeled BasicRole with an Ability named View.
 
 ````csharp 
-HeroConfig.RegisterAbilities(new Role("BasicRole"), new Ability("View"));
+HeroConfig.RegisterAbility(new Role("BasicRole"), new Ability("View"));
 ````
 
 If you want to register a specific user, there is a corresponding registration function for this as well.
 
 ````csharp
-HeroConfig.RegisterAbilities(new User("John Doe"), new Ability("View"));
+HeroConfig.RegisterAbility(new User("John Doe"), new Ability("View"));
 ````
 
-Once you have created the service and registered your roles/users with their abilitites you need to associate an action or method with an ability.  This can be performed through the attributes provided in the Hero.Attributes project.  Hero provides an attribute to be utilized in an ASP.NET MVC or WebAPI project.  Abilities can be registered at the controller or action level.  Your more restrictive abilities should be registered at the action level, while the less restrictive should be applied at the controller level.  In the following example, the View ability is the least restrictive, and Create, Edit, and Delete are at the action level.  The view actions (Index and Details) inherit their abilities from the controller level.
+Additionally there is a corresponding RegisterAbilities for collections of Abilities. Once you have created the service and registered your roles/users with their abilitites you need to associate an action or method with an ability.  This can be performed through the attributes provided in the Hero.Attributes project.  Hero provides an attribute to be utilized in an ASP.NET MVC or WebAPI project.  Abilities can be registered at the controller or action level.  Your more restrictive abilities should be registered at the action level, while the less restrictive should be applied at the controller level.  In the following example, the View ability is the least restrictive, and Create, Edit, and Delete are at the action level.  The view actions (Index and Details) inherit their abilities from the controller level.
 
 The corresponding Attribute for WebAPI projects is AbilityWebApiAuthorization.
 
