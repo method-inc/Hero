@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Hero; //do not remove
-using Hero.Configuration;
 using Hero.Interfaces;
 
 namespace Hero.Sample
