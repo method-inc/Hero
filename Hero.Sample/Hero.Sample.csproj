@@ -44,21 +44,47 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetStandard, Version=0.0.24.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DotNetStandard, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetStandard.0.0.24\lib\DotNetStandard.dll</HintPath>
+      <HintPath>..\packages\Hero.0.6.8\lib\DotNetStandard.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetStandard.Vent, Version=0.0.24.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DotNetStandard.Vent, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetStandard.0.0.24\lib\DotNetStandard.Vent.dll</HintPath>
+      <HintPath>..\packages\Hero.0.6.8\lib\DotNetStandard.Vent.dll</HintPath>
+    </Reference>
+    <Reference Include="Hero, Version=0.6.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Hero.0.6.8\lib\Hero.dll</HintPath>
+    </Reference>
+    <Reference Include="Hero.Attributes, Version=0.6.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Hero.0.6.8\lib\Hero.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="Hero.Configuration, Version=0.6.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Hero.0.6.8\lib\Hero.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Hero.Services, Version=0.6.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Hero.0.6.8\lib\Hero.Services.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Hero.0.6.8\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Hero.0.6.8\lib\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hero.0.6.8\lib\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -66,7 +92,9 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hero.0.6.8\lib\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -83,12 +111,6 @@
     <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
@@ -272,9 +294,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="App_Code\HeroHelpers.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\authorization.js" />
+    <Content Include="Scripts\craft.min.js" />
     <Content Include="Scripts\hero.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -290,7 +312,6 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\craft.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -341,24 +362,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hero.Attributes\Hero.Attributes.csproj">
-      <Project>{d101d920-6348-4be1-a7f3-a1d00da21d2c}</Project>
-      <Name>Hero.Attributes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hero.Configuration\Hero.Configuration.csproj">
-      <Project>{2d0bc875-c86f-45ce-9979-12205afe8aa2}</Project>
-      <Name>Hero.Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hero.Services\Hero.Services.csproj">
-      <Project>{a762aae7-e543-4291-99bd-a5ac21bbc80b}</Project>
-      <Name>Hero.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hero\Hero.csproj">
-      <Project>{d45b59b6-eda1-4727-b1c0-4fb6857a3398}</Project>
-      <Name>Hero</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

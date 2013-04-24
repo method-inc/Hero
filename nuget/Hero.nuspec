@@ -3,13 +3,13 @@
   <metadata>
     <id>Hero</id>
     <version>0.0.1</version>
-    <authors>Skookum</authors>
-    <owners>Skookum</owners>
+    <authors>skookum,elaforc,klaforce,ptfaulkner</authors>
+    <owners>skookum,elaforc,klaforce,ptfaulkner</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/Skookum/Hero</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Ability based authorization</description>
-    <releaseNotes>Ability based authorization</releaseNotes>
+    <releaseNotes>Hero is an ability based authorization for .NET MVC and WepAPI projects inspired by the Rails project CanCan. Ability based authorization provides a more flexible approach to the traditional .NET authorization technique by decoupling the permissions and code.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>Authorization, Ability, Role, User</tags>
     <dependencies>
