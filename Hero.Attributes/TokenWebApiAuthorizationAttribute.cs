@@ -109,6 +109,6 @@ namespace Hero.Attributes
             var result = input.Split(',')
                 .Where(s => !String.IsNullOrWhiteSpace(s.Trim()));
             return result.Select(s => s.Trim()).ToArray();
-        }        
+        }
     }
 }
