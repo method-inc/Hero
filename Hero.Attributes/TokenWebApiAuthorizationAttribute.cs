@@ -110,7 +110,5 @@ namespace Hero.Attributes
                 .Where(s => !String.IsNullOrWhiteSpace(s.Trim()));
             return result.Select(s => s.Trim()).ToArray();
         }
-
-        
     }
 }
