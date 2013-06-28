@@ -66,7 +66,8 @@ namespace Hero.Attributes
         }
 
         public virtual bool AuthorizeRequest(HttpRequestMessage request)
-        {            
+        {
+            
             bool isAuthenticated = false;
             bool isAuthorized = false;
 
