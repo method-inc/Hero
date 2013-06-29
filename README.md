@@ -264,11 +264,6 @@ The configuration code provides a fluent syntax for registering a module's publi
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
 
-#Change Log
-
-1. Refactored server side initialization to make registration easier.
-2. Add Razor View Helper
-
 # License
 
 This project is licensed under the [MIT License](http://opensource.org/licenses/MIT)
