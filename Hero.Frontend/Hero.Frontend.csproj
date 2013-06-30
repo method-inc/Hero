@@ -56,7 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbilitiesController.cs" />
+    <Compile Include="AbilityController.cs" />
+    <Compile Include="AuthorizationController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleController.cs" />
     <Compile Include="UserController.cs" />

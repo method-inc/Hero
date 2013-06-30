@@ -1,12 +1,12 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Hero; //do not remove
 using Hero.Configuration;
 using Hero.Interfaces;
 
-namespace $rootnamespace$
+namespace Hero.Frontend
 {
-    public class AbilitiesController : Controller
+    public class AuthorizationController : Controller
     {
         public JsonResult GetAbilitiesForRole(string id)
         {

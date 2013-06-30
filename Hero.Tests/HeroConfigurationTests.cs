@@ -7,6 +7,7 @@ using Hero.Services;
 using Hero.Services.Interfaces;
 using Moq;
 using NUnit.Framework;
+using Repositories;
 using Repositories.Interfaces;
 
 namespace Hero.Tests
@@ -14,18 +15,16 @@ namespace Hero.Tests
     public class HeroConfigurationTests
     {
         private IAbilityAuthorizationService _authorizationService;
+        private IAdminService _adminService;
         private IUser _user;
         private IRole _adminRole;
         private IList<Ability> _adminAbilities;
-        private Mock<IRepository> _mockUserRepository;
-        private Mock<IRepository> _mockRoleRepository;
 
         [SetUp]
         public void Initialize()
         {
-            _mockUserRepository = new Mock<IRepository>();
-            _mockRoleRepository = new Mock<IRepository>();
-            _authorizationService = new AbilityAuthorizationService(_mockUserRepository.Object, _mockRoleRepository.Object);
+            _authorizationService = new AbilityAuthorizationService();
+            _adminService = new AdminService();
             _adminRole = new Role("Administrator");
             _user = new User("User");
             _adminAbilities = new List<Ability>
@@ -36,7 +35,7 @@ namespace Hero.Tests
 
             Ability abilityThree = new Ability("Ability3");
 
-            HeroConfig.Initialize(_authorizationService);
+            HeroConfig.Initialize(_authorizationService, _adminService);
             HeroConfig.RegisterAbilities(_adminRole, _adminAbilities);
             HeroConfig.RegisterAbility(_adminRole, abilityThree);
             HeroConfig.RegisterRole(_user, _adminRole);

@@ -9,9 +9,32 @@ namespace $rootnamespace$
 {
     public class RoleController : Controller
     {
-        public JsonResult Get()
+        public IEnumerable<IRole> Get()
         {
-            return Json(HeroConfig.AuthorizationService.GetRoles(), JsonRequestBehavior.AllowGet);
+            return HeroConfig.AdminService.GetRoles();
+        }
+
+        public IRole Get(string name)
+        {
+            return HeroConfig.AdminService.GetRole(name);
+        }
+
+        public IRole Post(IRole ability)
+        {
+            HeroConfig.AdminService.AddRole(ability);
+            return HeroConfig.AdminService.GetRole(ability.Name);
+        }
+
+        public IRole Put(IRole ability)
+        {
+            HeroConfig.AdminService.RemoveRole(ability);
+            HeroConfig.AdminService.AddRole(ability);
+            return HeroConfig.AdminService.GetRole(ability.Name);
+        }
+
+        public void Delete(IRole ability)
+        {
+            HeroConfig.AdminService.RemoveRole(ability);
         }
     }
 }

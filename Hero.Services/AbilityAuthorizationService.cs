@@ -12,15 +12,11 @@ namespace Hero.Services
     {
         private readonly RoleAbilityMap _roleAbilityMap;
         private readonly UserRoleMap _userRoleMap;
-        private readonly IRepository _userRepository;
-        private readonly IRepository _roleRepository;
 
-        public AbilityAuthorizationService(IRepository userRepository, IRepository roleRepository)
+        public AbilityAuthorizationService()
         {
             _roleAbilityMap = new RoleAbilityMap();
             _userRoleMap = new UserRoleMap();
-            _userRepository = userRepository;
-            _roleRepository = roleRepository;
         }
 
         public bool Authorize(IRole role, Ability ability)
@@ -140,16 +136,6 @@ namespace Hero.Services
         public IEnumerable<Ability> GetAbilitiesForUser(string userName)
         {
             return GetAbilitiesForUser(new User(userName));
-        }
-
-        public IEnumerable<User> GetUsers()
-        {
-            return _userRepository.Get<User>();
-        }
-
-        public IEnumerable<Role> GetRoles()
-        {
-            return _roleRepository.Get<Role>();
         }
 
         public IEnumerable<Ability> GetAbilitiesForUser(IUser user)

@@ -14,10 +14,11 @@ using System.Web;
 
 namespace Hero.Tests
 {
-    public class AbilitiesControllerTest
+    public class AuthorizationControllerTests
     {
         private Mock<IAbilityAuthorizationService> _authorizationServiceMock;
-        private AbilitiesController _controller;
+        private Mock<IAdminService> _adminServiceMock;
+        private AuthorizationController _controller;
         private List<Ability> _abilities;
         private List<IRole> _roles;
         private IUser _user;
@@ -27,8 +28,9 @@ namespace Hero.Tests
         {
             _Setup();
             _authorizationServiceMock = new Mock<IAbilityAuthorizationService>();
-            _controller = new AbilitiesController();
-            HeroConfig.Initialize(_authorizationServiceMock.Object);
+            _adminServiceMock = new Mock<IAdminService>();
+            _controller = new AuthorizationController();
+            HeroConfig.Initialize(_authorizationServiceMock.Object, _adminServiceMock.Object);
         }
 
         [Test]
@@ -81,6 +83,5 @@ namespace Hero.Tests
 
             _user = new User("User1");
         }
-
     }
 }

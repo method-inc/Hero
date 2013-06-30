@@ -79,6 +79,7 @@
       <Link>Properties\SolutionVersionInfo.cs</Link>
     </Compile>
     <Compile Include="AbilityAuthorizationService.cs" />
+    <Compile Include="AdminService.cs" />
     <Compile Include="AuthorizationService.cs" />
     <Compile Include="Events\RegisterRoleEvent.cs" />
     <Compile Include="Events\RegisterUserEvent.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Events\UnregisterUserWithRoleEvent.cs" />
     <Compile Include="Interfaces\IAbilityAuthorizationService.cs" />
     <Compile Include="Interfaces\IAuthorizationService.cs" />
+    <Compile Include="Interfaces\IAdminService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hero\Hero.csproj">

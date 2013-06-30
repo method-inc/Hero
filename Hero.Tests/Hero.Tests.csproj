@@ -89,7 +89,8 @@
     <Compile Include="..\SolutionVersionInfo.cs">
       <Link>Properties\SolutionVersionInfo.cs</Link>
     </Compile>
-    <Compile Include="AbilitiesControllerTest.cs" />
+    <Compile Include="AdminServiceTests.cs" />
+    <Compile Include="AuthorizationControllerTests.cs" />
     <Compile Include="AbilityTests.cs" />
     <Compile Include="AbilityAuthorizationServiceTests.cs" />
     <Compile Include="HeroConfigurationTests.cs" />

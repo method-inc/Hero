@@ -9,10 +9,12 @@ namespace Hero.Configuration
     public static class HeroConfig
     {
         public static IAbilityAuthorizationService AuthorizationService { get; private set; }
+        public static IAdminService AdminService { get; private set; }
 
-        public static void Initialize(IAbilityAuthorizationService authorizationService)
+        public static void Initialize(IAbilityAuthorizationService authorizationService, IAdminService adminService)
         {
             AuthorizationService = authorizationService;
+            AdminService = adminService;
         }
 
         /// <summary>
