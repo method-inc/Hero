@@ -7,7 +7,7 @@
     var instance = {};
     var currentUser = {};
 
-    heroOptions.endpoint = "http://localhost/Abilities/";
+    heroOptions.endpoint = "http://localhost/Authorization/";
     instance.options = heroOptions;
 
     //private functions
