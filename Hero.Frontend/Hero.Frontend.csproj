@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\backbone-forms.min.js" />
-    <Content Include="Scripts\backbone-min.js" />
     <Content Include="Images\glyphicons-halflings-white.png" />
     <Content Include="Images\glyphicons-halflings.png" />
     <Content Include="Scripts\hero-admin.js" />

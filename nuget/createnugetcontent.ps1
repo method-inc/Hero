@@ -26,10 +26,6 @@ Copy-Item "$args\Hero.Frontend\Scripts\craft.min.js" "$args\nuget\Content\Script
 Remove-Item "$args\nuget\Content\Scripts\craft.min.js.pp"
 Rename-Item -Force "$args\nuget\Content\Scripts\craft.min.js" "$args\nuget\Content\Scripts\craft.min.js.pp"
 
-Copy-Item "$args\Hero.Frontend\Scripts\backbone-min.js" "$args\nuget\Content\Scripts"
-Remove-Item "$args\nuget\Content\Scripts\backbone-min.js.pp"
-Rename-Item -Force "$args\nuget\Content\Scripts\backbone-min.js" "$args\nuget\Content\Scripts\backbone-min.js.pp"
-
 Copy-Item "$args\Hero.Frontend\Scripts\backbone-forms.min.js" "$args\nuget\Content\Scripts"
 Remove-Item "$args\nuget\Content\Scripts\backbone-forms.min.js.pp"
 Rename-Item -Force "$args\nuget\Content\Scripts\backbone-forms.min.js" "$args\nuget\Content\Scripts\backbone-forms.min.js.pp"
