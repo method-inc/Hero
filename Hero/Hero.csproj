@@ -82,7 +82,7 @@
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>
     <BUILD_NUMBER Condition="'$(BuildingInsideVisualStudio)' == true">0.0.0.0</BUILD_NUMBER>
-    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)*.dll" "$(ProjectDir)\..\nuget\lib"</PostBuildEvent>
+    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)Hero*.dll" "$(ProjectDir)\..\nuget\lib"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

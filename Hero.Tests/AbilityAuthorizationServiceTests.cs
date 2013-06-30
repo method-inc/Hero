@@ -4,7 +4,9 @@ using System.Linq;
 using Hero.Interfaces;
 using Hero.Services;
 using Hero.Tests.Models;
+using Moq;
 using NUnit.Framework;
+using Repositories.Interfaces;
 
 namespace Hero.Tests
 {
@@ -21,6 +23,8 @@ namespace Hero.Tests
         private AbilityConsumer _abilityConsumer;
         private RoleConsumer _roleConsumer;
         private AbilityAuthorizationService _authorizationService;
+        private Mock<IRepository> _mockUserRepository;
+        private Mock<IRepository> _mockRoleRepository;
 
         [SetUp]
         public void Initialize()
@@ -35,7 +39,9 @@ namespace Hero.Tests
             _ability4 = new Ability("Ability4", new List<Ability>{_ability1, _ability2, _ability3});
             _abilityConsumer = new AbilityConsumer();
             _roleConsumer = new RoleConsumer();
-            _authorizationService = new AbilityAuthorizationService();
+            _mockUserRepository = new Mock<IRepository>();
+            _mockRoleRepository = new Mock<IRepository>();
+            _authorizationService = new AbilityAuthorizationService(_mockUserRepository.Object, _mockRoleRepository.Object);
         }
 
         [Test]

@@ -17,5 +17,7 @@ namespace Hero.Services.Interfaces
         IEnumerable<Ability> GetAbilitiesForRole(string roleName);
         IEnumerable<Ability> GetAbilitiesForUser(IUser user);
         IEnumerable<Ability> GetAbilitiesForUser(string userName);
+        IEnumerable<User> GetUsers();
+        IEnumerable<Role> GetRoles();
     }
 }

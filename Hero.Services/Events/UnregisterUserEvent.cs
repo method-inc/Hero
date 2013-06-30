@@ -6,8 +6,8 @@ using DotNetStandard.Vent;
 
 namespace Hero.Services.Events
 {
-    class RegisterRoleEvent : Event
+    class UnregisterUserEvent : Event
     {
-        public RegisterRoleEvent() : base("register:role") { }
+        public UnregisterUserEvent() : base("unregister:user") { }
     }
 }
