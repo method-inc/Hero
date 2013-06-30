@@ -14,7 +14,6 @@
     <tags>Authorization, Ability, Role, User</tags>
     <dependencies>
       <dependency id="DotNetStandard" />
-      <dependency id="Repositories" />
     </dependencies>
   </metadata>
 </package>

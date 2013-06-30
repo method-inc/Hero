@@ -56,15 +56,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbilityController.cs" />
-    <Compile Include="AuthorizationController.cs" />
+    <Compile Include="Controllers\AbilityController.cs" />
+    <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RoleController.cs" />
-    <Compile Include="UserController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="hero.js" />
-    <Content Include="craft.min.js" />
+    <Content Include="Scripts\backbone-forms.min.js" />
+    <Content Include="Scripts\backbone-min.js" />
+    <Content Include="Images\glyphicons-halflings-white.png" />
+    <Content Include="Images\glyphicons-halflings.png" />
+    <Content Include="Scripts\hero-admin.js" />
+    <Content Include="Scripts\hero.js" />
+    <Content Include="Scripts\craft.min.js" />
+    <Content Include="Css\metro-bootstrap.css" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hero.Configuration\Hero.Configuration.csproj">
