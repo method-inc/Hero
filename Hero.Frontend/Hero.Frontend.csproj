@@ -63,13 +63,9 @@
     <Compile Include="Controllers\UserController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\backbone-forms.min.js" />
-    <Content Include="Images\glyphicons-halflings-white.png" />
-    <Content Include="Images\glyphicons-halflings.png" />
     <Content Include="Scripts\hero-admin.js" />
     <Content Include="Scripts\hero.js" />
     <Content Include="Scripts\craft.min.js" />
-    <Content Include="Css\metro-bootstrap.css" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hero.Configuration\Hero.Configuration.csproj">

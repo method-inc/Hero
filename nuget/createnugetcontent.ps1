@@ -26,22 +26,6 @@ Copy-Item "$args\Hero.Frontend\Scripts\craft.min.js" "$args\nuget\Content\Script
 Remove-Item "$args\nuget\Content\Scripts\craft.min.js.pp"
 Rename-Item -Force "$args\nuget\Content\Scripts\craft.min.js" "$args\nuget\Content\Scripts\craft.min.js.pp"
 
-Copy-Item "$args\Hero.Frontend\Scripts\backbone-forms.min.js" "$args\nuget\Content\Scripts"
-Remove-Item "$args\nuget\Content\Scripts\backbone-forms.min.js.pp"
-Rename-Item -Force "$args\nuget\Content\Scripts\backbone-forms.min.js" "$args\nuget\Content\Scripts\backbone-forms.min.js.pp"
-
-Copy-Item "$args\Hero.Frontend\Css\metro-bootstrap.css" "$args\nuget\Content\Content"
-Remove-Item "$args\nuget\Content\Content\metro-bootstrap.css.pp"
-Rename-Item -Force "$args\nuget\Content\Content\metro-bootstrap.css" "$args\nuget\Content\Content\metro-bootstrap.css.pp"
-
-Copy-Item "$args\Hero.Frontend\Images\glyphicons-halflings-white.png" "$args\nuget\Content\Images"
-Remove-Item "$args\nuget\Content\Images\glyphicons-halflings-white.png.pp"
-Rename-Item -Force "$args\nuget\Content\Images\glyphicons-halflings-white.png" "$args\nuget\Content\Images\glyphicons-halflings-white.png.pp"
-
-Copy-Item "$args\Hero.Frontend\Images\glyphicons-halflings.png" "$args\nuget\Content\Images"
-Remove-Item "$args\nuget\Content\Images\glyphicons-halflings.png.pp"
-Rename-Item -Force "$args\nuget\Content\Images\glyphicons-halflings.png" "$args\nuget\Content\Images\glyphicons-halflings.png.pp"
-
 $original_file = "$args\nuget\Content\Controllers\AuthorizationController.cs.pp"
 $destination_file = "$args\nuget\Content\Controllers\AuthorizationController.cs.pp"
 (Get-Content $original_file) | Foreach-Object {

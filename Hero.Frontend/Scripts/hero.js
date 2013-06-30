@@ -104,8 +104,8 @@
         };
     };
 
-    hero.Role = function (name) {
-        return { roleName: name };
+    hero.Role = function (name, abilitites) {
+      return { roleName: name, aitites: abilitites };
     };
 
     hero.Ability = function (name, children) {

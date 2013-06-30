@@ -2,53 +2,25 @@
 //to protect it from being overwritten by another library
 //in the global namespace.
 (function (heroAdmin, request, undefined) {
-    //private instance data
-    var heroOptions = {};
-    var instance = {};
-    var currentUser = {};
+  //private instance data
+  var heroAdminOptions = {};
+  var instance = {};
 
-    heroOptions.endpoint = "http://localhost/Authorization/";
-    instance.options = heroOptions;
+  heroAdminOptions.userEndPoint = "http://localhost:59116/User/";
+  heroAdminOptions.roleEndPoint = "http://localhost:59116/Role/";
+  heroAdminOptions.abilityEndPoint = "http://localhost:59116/Ability/";
+  instance.options = heroAdminOptions;
 
-    //private functions
-    var extend = function (optionsToMerge) {
-        for (var i in optionsToMerge) {
-            if (heroOptions.hasOwnProperty(i)) {
-                heroOptions[i] = optionsToMerge[i];
-            }
-        }
-    };
+  heroAdmin.buildConsole = function(element) {
+    var user = new User();
 
-    /* getRolesForUser
-     * options.user: User object
-     * options.then: callback to perform action when the request completes successfully.  Parameters are (Role[])
-     * options.fail: callback to perform an action on a request failure.  Parameters are (error, message)
-     * options.always (optional): callback to perform when the request is over (failure or success). Parameters are (response)
-     */
-    heroAdmin.getRolesForUser = function (options) {
-        if (!options.user || !options.user.userName)
-            throw "You must provide a user to the options list.";
-        if (!options.then)
-            throw "You must provide a then callback to the options list.";
-        if (!options.fail)
-            throw "You must provide a fail callback to the options list.";
+    var form = new Backbone.Form({
+      model: user
+    }).render();
 
-        request.get(instance.options.endpoint + "GetRolesForUser/" + options.user.userName)
-            .then(function (resp) {
-                options.then(deserializeRoleList(resp));
-            })
-            .fail(function (err, msg) {
-                options.then(err, msg);
-            })
-            .always(function (resp) {
-                if (options.always)
-                    options.always(resp);
-            })
-            .async(options.async === undefined ? true : options.async)
-            .update();
+    element.parentNode.insertBefore(form.el, element.nextSibling);
+  };
 
-        return this;
-    };
 })(window.HeroAdmin = window.HeroAdmin || {}, Request);   //Request is a Craft object used for ajax requests and promises
 
 //no conflict mode for craft
