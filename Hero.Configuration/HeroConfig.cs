@@ -28,6 +28,18 @@ namespace Hero.Configuration
         }
 
         /// <summary>
+        /// Verify a user cannot perform the given ability. Primarily
+        /// intended as syntatic sugar.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="ability"></param>
+        /// <returns></returns>
+        public static bool Cannot(string userName, string ability)
+        {
+            return !(AuthorizationService.Authorize(new User(userName), new Ability(ability)));
+        }
+
+        /// <summary>
         /// Assign a set of abilities to a role.
         /// </summary>
         /// <param name="role">The role that is to be inspected and if nescessary configured</param>
