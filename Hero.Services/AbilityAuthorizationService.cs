@@ -39,16 +39,6 @@ namespace Hero.Services
                 new RegisterAbilityEvent(),
                 new object[] { new RoleAbility(role, ability) }
                 );
-
-            foreach (Ability childAbility in ability.Children)
-            {
-                _roleAbilityMap[role].Add(childAbility);
-
-                EventAggregator.Instance.Trigger(
-                new RegisterAbilityEvent(),
-                new object[] { new RoleAbility(role, childAbility) }
-                );
-            }
         }
 
         public void UnregisterAbility(IRole role, Ability ability)
@@ -61,16 +51,6 @@ namespace Hero.Services
                 new UnregisterAbilityEvent(),
                 new object[] {new RoleAbility(role, ability)}
                 );
-
-            foreach (Ability childAbility in ability.Children)
-            {
-                _roleAbilityMap[role].Remove(childAbility);
-
-                EventAggregator.Instance.Trigger(
-                new UnregisterAbilityEvent(),
-                new object[] { new RoleAbility(role, childAbility) }
-                );
-            }
         }
 
         public void RegisterRole(IUser user, IRole role)
