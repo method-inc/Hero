@@ -17,7 +17,6 @@ namespace Hero.Tests
         private Ability _ability1;
         private Ability _ability2;
         private Ability _ability3;
-        private Ability _ability4;
         private AbilityConsumer _abilityConsumer;
         private RoleConsumer _roleConsumer;
         private AbilityAuthorizationService _authorizationService;
@@ -32,7 +31,6 @@ namespace Hero.Tests
             _ability1 = new Ability("Ability1");
             _ability2 = new Ability("Ability2");
             _ability3 = new Ability("Ability3");
-            _ability4 = new Ability("Ability4", new List<Ability>{_ability1, _ability2, _ability3});
             _abilityConsumer = new AbilityConsumer();
             _roleConsumer = new RoleConsumer();
             _authorizationService = new AbilityAuthorizationService();
@@ -233,6 +231,82 @@ namespace Hero.Tests
         }
 
         [Test]
+        public void TestAuthorizationServiceNotAuthorizeWithAbilityHierarchyNoRole()
+        {
+            _authorizationService.RegisterAbility(_role1, _ability1);
+            _authorizationService.RegisterChildAbility(_ability1, _ability2);
+            _authorizationService.RegisterChildAbility(_ability2, _ability3);
+            Assert.True(_authorizationService.Authorize(_role1, _ability1));
+            Assert.True(_authorizationService.Authorize(_role1, _ability2));
+            Assert.True(_authorizationService.Authorize(_role1, _ability3));
+            Assert.False(_authorizationService.Authorize(_role2, _ability1));
+            Assert.False(_authorizationService.Authorize(_role2, _ability2));
+            Assert.False(_authorizationService.Authorize(_role2, _ability3));
+        }
+
+        [Test]
+        public void TestAuthorizationServiceAuthorizeWithAbilityHierarchy()
+        {
+            _authorizationService.RegisterAbility(_role1, _ability1);
+            _authorizationService.RegisterAbility(_role2, _ability1);
+            _authorizationService.RegisterChildAbility(_ability1, _ability2);
+            _authorizationService.RegisterChildAbility(_ability2, _ability3);
+            Assert.True(_authorizationService.Authorize(_role1, _ability1));
+            Assert.True(_authorizationService.Authorize(_role1, _ability2));
+            Assert.True(_authorizationService.Authorize(_role1, _ability3));
+            Assert.True(_authorizationService.Authorize(_role2, _ability1));
+            Assert.True(_authorizationService.Authorize(_role2, _ability2));
+            Assert.True(_authorizationService.Authorize(_role2, _ability3));
+        }
+
+        [Test]
+        public void TestAuthorizationServiceAuthorizeWithComplexAbilityHierarchy()
+        {
+            Ability _ability4 = new Ability("Ability4");
+            Ability _ability5 = new Ability("Ability5");
+            Ability _ability6 = new Ability("Ability6");
+            Ability _ability7 = new Ability("Ability7");
+            Ability _ability8 = new Ability("Ability8");
+            Ability _ability9 = new Ability("Ability9");
+            Ability _ability10 = new Ability("Ability10");
+
+            _authorizationService.RegisterAbility(_role1, _ability1);
+
+            _authorizationService.RegisterChildAbility(_ability1, _ability2);
+            _authorizationService.RegisterChildAbility(_ability1, _ability4);
+            _authorizationService.RegisterChildAbility(_ability1, _ability8);
+            _authorizationService.RegisterChildAbility(_ability2, _ability3);
+            _authorizationService.RegisterChildAbility(_ability2, _ability6);
+            _authorizationService.RegisterChildAbility(_ability4, _ability5);
+            _authorizationService.RegisterChildAbility(_ability5, _ability9);
+
+            Assert.True(_authorizationService.Authorize(_role1, _ability1));
+            Assert.True(_authorizationService.Authorize(_role1, _ability2));
+            Assert.True(_authorizationService.Authorize(_role1, _ability3));
+            Assert.True(_authorizationService.Authorize(_role1, _ability4));
+            Assert.True(_authorizationService.Authorize(_role1, _ability5));
+            Assert.True(_authorizationService.Authorize(_role1, _ability6));
+            Assert.False(_authorizationService.Authorize(_role1, _ability7));
+            Assert.True(_authorizationService.Authorize(_role1, _ability8));
+            Assert.True(_authorizationService.Authorize(_role1, _ability9));
+            Assert.False(_authorizationService.Authorize(_role1, _ability10));
+        }
+
+        [Test]
+        public void TestAuthorizationServiceNotAuthorizeWithAbilityHierarchy()
+        {
+            _authorizationService.RegisterAbility(_role1, _ability1);
+            _authorizationService.RegisterAbility(_role2, _ability1);
+            _authorizationService.RegisterChildAbility(_ability1, _ability2);
+            Assert.True(_authorizationService.Authorize(_role1, _ability1));
+            Assert.True(_authorizationService.Authorize(_role1, _ability2));
+            Assert.False(_authorizationService.Authorize(_role1, _ability3));
+            Assert.True(_authorizationService.Authorize(_role2, _ability1));
+            Assert.True(_authorizationService.Authorize(_role2, _ability2));
+            Assert.False(_authorizationService.Authorize(_role2, _ability3));
+        }
+
+        [Test]
         public void TestAuthorizationServiceAbilityEvents()
         {
             _authorizationService.RegisterAbility(_role1, _ability1);
@@ -380,26 +454,6 @@ namespace Hero.Tests
             _authorizationService.RegisterRole(_user1, _role2);
             IEnumerable<IRole> rolesForUser = _authorizationService.GetRolesForUser("User2");
             Assert.AreEqual(0, rolesForUser.Count());
-        }
-
-        [Test]
-        public void TestRegisterAbilityWithChildrenAbilities()
-        {
-            _authorizationService.RegisterAbility(_role1, _ability4);
-            IEnumerable<Ability> abilitiesForRole = _authorizationService.GetAbilitiesForRole(_role1);
-            Assert.AreEqual(4, abilitiesForRole.Count());
-            Assert.True(new List<Ability> {_ability4, _ability1, _ability2, _ability3}.SequenceEqual(abilitiesForRole));
-        }
-
-        [Test]
-        public void TestUnregisterAbilityWithChildrenAbilities()
-        {
-            _authorizationService.RegisterAbility(_role1, _ability4);
-            IEnumerable<Ability> abilitiesForRole = _authorizationService.GetAbilitiesForRole(_role1);
-            Assert.AreEqual(4, abilitiesForRole.Count());
-            Assert.True(new List<Ability> {_ability4, _ability1, _ability2, _ability3}.SequenceEqual(abilitiesForRole));
-            _authorizationService.UnregisterAbility(_role1, _ability4);
-            Assert.AreEqual(0, abilitiesForRole.Count());
         }
     }
 }
