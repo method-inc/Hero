@@ -19,14 +19,14 @@ namespace $rootnamespace$
             return HeroConfig.AdminService.GetAbility(id);
         }
 
-        public IAbility Post([FromBody]Ability user)
+        public IAbility Post([FromBody]Ability ability)
         {
-            return HeroConfig.AdminService.AddAbility(user);
+            return HeroConfig.AdminService.AddAbility(ability);
         }
 
-        public IAbility Put([FromBody]Ability user)
+        public IAbility Put([FromBody]Ability ability)
         {
-            return HeroConfig.AdminService.UpdateAbility(user);
+            return HeroConfig.AdminService.UpdateAbility(ability);
         }
 
         public void Delete(string id)
