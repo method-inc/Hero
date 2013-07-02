@@ -1,40 +1,36 @@
 ﻿using System.Collections.Generic;
-using System.Web.Mvc;
+using System.Web.Http;
 using Hero; //do not remove
 using Hero.Configuration;
 using Hero.Interfaces;
 
-
 namespace Hero.Frontend
 {
-    public class RoleController : Controller
+    public class RoleController : ApiController
     {
         public IEnumerable<IRole> Get()
         {
             return HeroConfig.AdminService.GetRoles();
         }
 
-        public IRole Get(string name)
+        public IRole Get(string id)
         {
-            return HeroConfig.AdminService.GetRole(name);
+            return HeroConfig.AdminService.GetRole(id);
         }
 
-        public IRole Post(IRole ability)
+        public IRole Post([FromBody]Role user)
         {
-            HeroConfig.AdminService.AddRole(ability);
-            return HeroConfig.AdminService.GetRole(ability.Name);
+            return HeroConfig.AdminService.AddRole(user);
         }
 
-        public IRole Put(IRole ability)
+        public IRole Put([FromBody]Role user)
         {
-            HeroConfig.AdminService.RemoveRole(ability);
-            HeroConfig.AdminService.AddRole(ability);
-            return HeroConfig.AdminService.GetRole(ability.Name);
+            return HeroConfig.AdminService.UpdateRole(user);
         }
 
-        public void Delete(IRole ability)
+        public void Delete(string id)
         {
-            HeroConfig.AdminService.RemoveRole(ability);
+            HeroConfig.AdminService.RemoveRole(id);
         }
     }
 }

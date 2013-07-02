@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Web.Mvc;
+using System.Web.Http;
 using Hero; //do not remove
 using Hero.Configuration;
 using Hero.Interfaces;
@@ -7,34 +7,31 @@ using Hero.Interfaces;
 
 namespace Hero.Frontend
 {
-    public class AbilityController : Controller
+    public class AbilityController : ApiController
     {
-        public IEnumerable<Ability> Get()
+        public IEnumerable<IAbility> Get()
         {
             return HeroConfig.AdminService.GetAbilities();
         }
 
-        public Ability Get(string name)
+        public IAbility Get(string id)
         {
-            return HeroConfig.AdminService.GetAbility(name);
+            return HeroConfig.AdminService.GetAbility(id);
         }
 
-        public Ability Post(Ability ability)
+        public IAbility Post([FromBody]Ability user)
         {
-            HeroConfig.AdminService.AddAbility(ability);
-            return HeroConfig.AdminService.GetAbility(ability.Name);
+            return HeroConfig.AdminService.AddAbility(user);
         }
 
-        public Ability Put(Ability ability)
+        public IAbility Put([FromBody]Ability user)
         {
-            HeroConfig.AdminService.RemoveAbility(ability);
-            HeroConfig.AdminService.AddAbility(ability);
-            return HeroConfig.AdminService.GetAbility(ability.Name);
+            return HeroConfig.AdminService.UpdateAbility(user);
         }
 
-        public void Delete(Ability ability)
+        public void Delete(string id)
         {
-            HeroConfig.AdminService.RemoveAbility(ability);
+            HeroConfig.AdminService.RemoveAbility(id);
         }
     }
 }

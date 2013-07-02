@@ -34,7 +34,7 @@ namespace Hero.Tests
             _ability1 = new Ability("Ability1");
             _ability2 = new Ability("Ability2");
             _ability3 = new Ability("Ability3");
-            _ability4 = new Ability("Ability4", new List<Ability>{_ability1, _ability2, _ability3});
+            _ability4 = new Ability("Ability4", "Ability4", new List<Ability>{_ability1, _ability2, _ability3});
             _abilityConsumer = new AbilityConsumer();
             _roleConsumer = new RoleConsumer();
             _authorizationService = new AbilityAuthorizationService();

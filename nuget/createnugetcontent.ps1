@@ -26,6 +26,22 @@ Copy-Item "$args\Hero.Frontend\Scripts\craft.min.js" "$args\nuget\Content\Script
 Remove-Item "$args\nuget\Content\Scripts\craft.min.js.pp"
 Rename-Item -Force "$args\nuget\Content\Scripts\craft.min.js" "$args\nuget\Content\Scripts\craft.min.js.pp"
 
+Copy-Item "$args\Hero.Frontend\Scripts\restangular.js" "$args\nuget\Content\Scripts"
+Remove-Item "$args\nuget\Content\Scripts\restangular.js.pp"
+Rename-Item -Force "$args\nuget\Content\Scripts\restangular.js" "$args\nuget\Content\Scripts\restangular.js.pp"
+
+Copy-Item "$args\Hero.Frontend\Scripts\lodash.js" "$args\nuget\Content\Scripts"
+Remove-Item "$args\nuget\Content\Scripts\lodash.js.pp"
+Rename-Item -Force "$args\nuget\Content\Scripts\lodash.js" "$args\nuget\Content\Scripts\lodash.js.pp"
+
+Copy-Item "$args\Hero.Frontend\Templates\user-create.html" "$args\nuget\Content\Templates"
+Remove-Item "$args\nuget\Content\Templates\user-create.html.pp"
+Rename-Item -Force "$args\nuget\Content\Templates\user-create.html" "$args\nuget\Content\Templates\user-create.html.pp"
+
+Copy-Item "$args\Hero.Frontend\Templates\user-list.html" "$args\nuget\Content\Templates"
+Remove-Item "$args\nuget\Content\Templates\user-list.html.pp"
+Rename-Item -Force "$args\nuget\Content\Templates\user-list.html" "$args\nuget\Content\Templates\user-list.html.pp"
+
 $original_file = "$args\nuget\Content\Controllers\AuthorizationController.cs.pp"
 $destination_file = "$args\nuget\Content\Controllers\AuthorizationController.cs.pp"
 (Get-Content $original_file) | Foreach-Object {

@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetStandard, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -66,6 +66,10 @@
     <Content Include="Scripts\hero-admin.js" />
     <Content Include="Scripts\hero.js" />
     <Content Include="Scripts\craft.min.js" />
+    <Content Include="Scripts\lodash.js" />
+    <Content Include="Scripts\restangular.js" />
+    <Content Include="Templates\user-create.html" />
+    <Content Include="Templates\user-list.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hero.Configuration\Hero.Configuration.csproj">
@@ -87,7 +91,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>
-    <PostBuildEvent>powershell -file "$(SolutionDir)/nuget/createnugetcontent.ps1" $(SolutionDir)</PostBuildEvent>
+    <PostBuildEvent>powershell -file "$(SolutionDir)\nuget\createnugetcontent.ps1" $(SolutionDir)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

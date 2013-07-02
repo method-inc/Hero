@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Web.Mvc;
+using System.Web.Http;
 using Hero; //do not remove
 using Hero.Configuration;
 using Hero.Interfaces;
@@ -7,34 +7,31 @@ using Hero.Interfaces;
 
 namespace $rootnamespace$
 {
-    public class UserController : Controller
+    public class UserController : ApiController
     {
         public IEnumerable<IUser> Get()
         {
             return HeroConfig.AdminService.GetUsers();
         }
 
-        public IUser Get(string name)
+        public IUser Get(string id)
         {
-            return HeroConfig.AdminService.GetUser(name);
+            return HeroConfig.AdminService.GetUser(id);
         }
 
-        public IUser Post(IUser ability)
+        public IUser Post([FromBody]User user)
         {
-            HeroConfig.AdminService.AddUser(ability);
-            return HeroConfig.AdminService.GetUser(ability.Name);
+            return HeroConfig.AdminService.AddUser(user);
         }
 
-        public IUser Put(IUser ability)
+        public IUser Put([FromBody]User user)
         {
-            HeroConfig.AdminService.RemoveUser(ability);
-            HeroConfig.AdminService.AddUser(ability);
-            return HeroConfig.AdminService.GetUser(ability.Name);
+            return HeroConfig.AdminService.UpdateUser(user);
         }
 
-        public void Delete(IUser ability)
+        public void Delete(string id)
         {
-            HeroConfig.AdminService.RemoveUser(ability);
+            HeroConfig.AdminService.RemoveUser(id);
         }
     }
 }

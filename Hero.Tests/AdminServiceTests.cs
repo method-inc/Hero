@@ -52,7 +52,7 @@ namespace Hero.Tests
         public void TestRemoveUser()
         {
             _users.ForEach(u => _adminService.AddUser(u));
-            _adminService.RemoveUser(new User("User1"));
+            _adminService.RemoveUser("User1");
             Assert.AreEqual(null, _adminService.GetUser("User1"));
             Assert.AreEqual(2, _adminService.GetUsers().Count());
         }
@@ -61,7 +61,7 @@ namespace Hero.Tests
         public void TestRemoveInvalidUser()
         {
             _users.ForEach(u => _adminService.AddUser(u));
-            _adminService.RemoveUser(new User("NoUser"));
+            _adminService.RemoveUser("NoUser");
             Assert.AreEqual(null, _adminService.GetUser("NoUser"));
             Assert.AreEqual(3, _adminService.GetUsers().Count());
         }
@@ -91,7 +91,7 @@ namespace Hero.Tests
         public void TestRemoveRole()
         {
             _roles.ForEach(u => _adminService.AddRole(u));
-            _adminService.RemoveRole(new Role("Role1"));
+            _adminService.RemoveRole("Role1");
             Assert.AreEqual(null, _adminService.GetRole("Role1"));
             Assert.AreEqual(2, _adminService.GetRoles().Count());
         }
@@ -100,7 +100,7 @@ namespace Hero.Tests
         public void TestRemoveInvalidRole()
         {
             _roles.ForEach(u => _adminService.AddRole(u));
-            _adminService.RemoveRole(new Role("NoRole"));
+            _adminService.RemoveRole("NoRole");
             Assert.AreEqual(null, _adminService.GetRole("NoRole"));
             Assert.AreEqual(3, _adminService.GetRoles().Count());
         }
@@ -130,7 +130,7 @@ namespace Hero.Tests
         public void TestRemoveAbility()
         {
             _abilities.ForEach(u => _adminService.AddAbility(u));
-            _adminService.RemoveAbility(new Ability("Ability1"));
+            _adminService.RemoveAbility("Ability1");
             Assert.AreEqual(null, _adminService.GetAbility("Ability1"));
             Assert.AreEqual(2, _adminService.GetAbilities().Count());
         }
@@ -139,7 +139,7 @@ namespace Hero.Tests
         public void TestRemoveInvalidAbility()
         {
             _abilities.ForEach(u => _adminService.AddAbility(u));
-            _adminService.RemoveAbility(new Ability("NoAbility"));
+            _adminService.RemoveAbility("NoAbility");
             Assert.AreEqual(null, _adminService.GetAbility("NoAbility"));
             Assert.AreEqual(3, _adminService.GetAbilities().Count());
         }

@@ -16,15 +16,9 @@ namespace Hero.Tests
         }
 
         [Test]
-        public void TestAbilityWithNullNameThrowException()
-        {
-            Assert.Throws<ArgumentNullException>(() => new Ability(null));
-        }
-
-        [Test]
         public void TestAbilityWithNullParentThrowException()
         {
-            Assert.Throws<ArgumentNullException>(() => new Ability("Test", null));
+            Assert.Throws<ArgumentNullException>(() => new Ability("Test", "Test", null));
         }
 
         [Test]

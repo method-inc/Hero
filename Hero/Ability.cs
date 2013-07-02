@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DotNetStandard.Interfaces;
+using Hero.Interfaces;
 
 namespace Hero
 {
-    public class Ability : INameable, IEquatable<Ability>
+    public class Ability : IAbility, IEquatable<Ability>
     {
-        private readonly string _name;
         private IEnumerable<Ability> _children;
 
-        public string Name
-        {
-            get { return _name; }
-        }
+        public string Id { get; set; }
+        public string Name { get; set; }
 
         public IEnumerable<Ability> Children
         {
@@ -32,30 +30,28 @@ namespace Hero
 
         public Ability(string name)
         {
-            if (name == null) 
-                throw new ArgumentNullException("name");
-
-            _name = name;
+            Name = name;
+            Id = name;
             _children = new List<Ability>();
         }
 
-        public Ability(string name, IEnumerable<Ability> children )
+        public Ability(string name, string id, IEnumerable<Ability> children)
         {
-            if (name == null)
-                throw new ArgumentNullException("name");
-
+            Name = name;
+            Id = id;
             if (children == null)
                 throw new ArgumentNullException("parent");
 
             _children = children;
-            _name = name;
+            Name = name;
+            Id = id;
         }
 
         public bool Equals(Ability other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return _name.ToLower() ==  other._name.ToLower();
+            return Id.ToLower() ==  other.Id.ToLower();
         }
 
         public override bool Equals(object obj)
@@ -68,7 +64,7 @@ namespace Hero
 
         public override int GetHashCode()
         {
-            return _name.ToLower().GetHashCode();
+            return Id.ToLower().GetHashCode();
         }
 
         public static bool operator ==(Ability left, Ability right)

@@ -5,12 +5,19 @@ namespace Hero
 {
     public class Role : IRole, IEquatable<Role>
     {
-        public string Id { get { return Name; } }
-        public string Name { get; private set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
 
         public Role(string name)
         {
             Name = name;
+            Id = name;
+        }
+
+        public Role(string name, string id)
+        {
+            Name = name;
+            Id = id;
         }
 
         public bool Equals(Role other)

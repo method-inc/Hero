@@ -7,15 +7,18 @@ namespace Hero.Services.Interfaces
     {
         IEnumerable<IUser> GetUsers();
         IEnumerable<IRole> GetRoles();
-        IEnumerable<Ability> GetAbilities();
+        IEnumerable<IAbility> GetAbilities();
         IUser GetUser(string name);
         IRole GetRole(string name);
-        Ability GetAbility(string name);
-        void AddUser(IUser user);
-        void AddRole(IRole role);
-        void AddAbility(Ability ability);
-        void RemoveUser(IUser user);
-        void RemoveRole(IRole role);
-        void RemoveAbility(Ability ability);
+        IAbility GetAbility(string name);
+        IUser AddUser(IUser user);
+        IRole AddRole(IRole role);
+        IAbility AddAbility(IAbility ability);
+        void RemoveUser(string id);
+        void RemoveRole(string id);
+        void RemoveAbility(string id);
+        IUser UpdateUser(IUser user);
+        IRole UpdateRole(IRole role);
+        IAbility UpdateAbility(IAbility ability);
     }
 }

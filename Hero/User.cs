@@ -5,12 +5,19 @@ namespace Hero
 {
     public class User : IUser, IEquatable<User>
     {
-        public string Id { get {return Name;} }
+        public string Id { get; set; }
         public string Name { get; private set; }
 
         public User(string name)
         {
             Name = name;
+            Id = name;
+        }
+
+        public User(string name, string id)
+        {
+            Name = name;
+            Id = id;
         }
 
         public bool Equals(User other)
