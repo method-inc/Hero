@@ -16,6 +16,7 @@
       <dependency id="DotNetStandard" />
       <dependency id="Twitter.Bootstrap" />
       <dependency id="angularjs" />
+      <dependency id="NGenerics" />
     </dependencies>
   </metadata>
 </package>
