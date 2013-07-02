@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using DotNetStandard.Interfaces;
 using Hero.Interfaces;
 
@@ -9,48 +6,24 @@ namespace Hero
 {
     public class Ability : IAbility, IEquatable<Ability>
     {
-        private IEnumerable<Ability> _children;
-
         public string Id { get; set; }
         public string Name { get; set; }
 
-        public IEnumerable<Ability> Children
-        {
-            get { return _children; }
-            set
-            {
-                if (value.Any(ability => ability == this))
-                {
-                    throw new InvalidOperationException("You cannot set one of the children of an Ability to itself.");
-                }
-
-                _children = value;
-            }
-        }
-
         public Ability()
         {
-            _children = new List<Ability>();
         }
 
         public Ability(string name)
         {
             Name = name;
             Id = name;
-            _children = new List<Ability>();
         }
 
-        public Ability(string name, string id, IEnumerable<Ability> children)
+        public Ability(string name, string id)
         {
             Name = name;
             Id = id;
-            if (children == null)
-                throw new ArgumentNullException("parent");
-
-            _children = children;
-            Name = name;
-            Id = id;
-        }
+		}
 
         public bool Equals(Ability other)
         {

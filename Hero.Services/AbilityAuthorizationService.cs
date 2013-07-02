@@ -5,6 +5,8 @@ using Hero.Interfaces;
 using Hero.Services.Events;
 using Hero.Services.Interfaces;
 using Repositories.Interfaces;
+using NGenerics.DataStructures.Trees;
+using NGenerics.Patterns.Visitor;
 
 namespace Hero.Services
 {
@@ -32,46 +34,55 @@ namespace Hero.Services
         public void RegisterAbility(IRole role, Ability ability)
         {
             if (_roleAbilityMap.ContainsKey(role))
-                _roleAbilityMap[role].Add(ability);
+                _roleAbilityMap[role].Add(new GeneralTree<Ability>(ability));
             else
-                _roleAbilityMap.Add(role, new HashSet<Ability> {ability});
+                _roleAbilityMap.Add(role, new List<GeneralTree<Ability>> {new GeneralTree<Ability>(ability)});
 
             EventAggregator.Instance.Trigger(
                 new RegisterAbilityEvent(),
                 new object[] { new RoleAbility(role, ability) }
                 );
-
-            foreach (Ability childAbility in ability.Children)
-            {
-                _roleAbilityMap[role].Add(childAbility);
-
-                EventAggregator.Instance.Trigger(
-                new RegisterAbilityEvent(),
-                new object[] { new RoleAbility(role, childAbility) }
-                );
-            }
         }
 
         public void UnregisterAbility(IRole role, Ability ability)
         {
             if (!_roleAbilityMap.ContainsKey(role))
                 return;
-            _roleAbilityMap[role].Remove(ability);
+
+            for (int i = 0; i < _roleAbilityMap[role].Count; i++)
+            {
+                if (!_roleAbilityMap[role][i].Data.Equals(ability))
+                    continue;
+                _roleAbilityMap[role].RemoveAt(i);
+            }
 
             EventAggregator.Instance.Trigger(
                 new UnregisterAbilityEvent(),
                 new object[] {new RoleAbility(role, ability)}
                 );
+        }
 
-            foreach (Ability childAbility in ability.Children)
+        public void RegisterChildAbility(Ability parent, Ability child)
+        {
+            foreach (KeyValuePair<IRole, List<GeneralTree<Ability>>> roleList in _roleAbilityMap)
+                foreach (GeneralTree<Ability> tree in roleList.Value)
+                    _Visit(tree, parent, child, roleList.Key);
+        }
+
+        public void _Visit(GeneralTree<Ability> tree, Ability parent, Ability child, IRole role)
+        {
+            if (tree.Data.Equals(parent))
             {
-                _roleAbilityMap[role].Remove(childAbility);
-
+                tree.Add(child);
                 EventAggregator.Instance.Trigger(
-                new UnregisterAbilityEvent(),
-                new object[] { new RoleAbility(role, childAbility) }
-                );
+                    new RegisterAbilityEvent(),
+                    new object[] {new RoleAbility(role, child)}
+                    );
+                return;
             }
+
+            foreach (var childTree in tree.ChildNodes)
+                _Visit(childTree, parent, child, role);
         }
 
         public void RegisterRole(IUser user, IRole role)
@@ -101,8 +112,15 @@ namespace Hero.Services
 
         private bool _Authorize(IRole role, Ability ability)
         {
-            return _roleAbilityMap.ContainsKey(role) &&
-                   _roleAbilityMap[role].Contains(ability);
+            if (!_roleAbilityMap.ContainsKey(role))
+                return false;
+
+            foreach (GeneralTree<Ability> tree in _roleAbilityMap[role])
+                foreach (var node in tree.AsEnumerable())
+                    if (node == ability)
+                        return true;
+
+            return false;
         }
 
         public IEnumerable<IRole> GetRolesForUser(string userName)
@@ -126,9 +144,9 @@ namespace Hero.Services
 
         public IEnumerable<Ability> GetAbilitiesForRole(IRole role)
         {
-            var retVal = new HashSet<Ability>();
+            List<GeneralTree<Ability>> retVal;
             if (_roleAbilityMap.TryGetValue(role, out retVal))
-                return retVal;
+                return retVal.Select(tree => tree.Data);
 
             return new List<Ability>();
         }
@@ -148,10 +166,10 @@ namespace Hero.Services
 
             foreach (var role in roles)
             {
-                var roleAbilities = new HashSet<Ability>();
+                List<GeneralTree<Ability>> roleAbilities;
                 if (_roleAbilityMap.TryGetValue(role, out roleAbilities))
                 {
-                    foreach (var ability in roleAbilities)
+                    foreach (var ability in roleAbilities.Select(tree => tree.Data))
                         abilities.Add(ability);
                 }
             }

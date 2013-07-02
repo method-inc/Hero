@@ -18,7 +18,7 @@ namespace Hero.Tests
         [Test]
         public void TestAbilityWithNullParentThrowException()
         {
-            Assert.Throws<ArgumentNullException>(() => new Ability("Test", "Test", null));
+            Assert.Throws<ArgumentNullException>(() => new Ability("Test", "Test"));
         }
 
         [Test]
@@ -105,12 +105,6 @@ namespace Hero.Tests
         public void TestAbilityHashCodeNotEquals()
         {
             Assert.AreNotEqual(_ability1.GetHashCode(), _ability2.GetHashCode());
-        }
-
-        [Test]
-        public void TestInvalidParentConfiguration()
-        {
-            Assert.Throws<InvalidOperationException>(() => _ability1.Children = new[] { _ability1 });
         }
     }
 }

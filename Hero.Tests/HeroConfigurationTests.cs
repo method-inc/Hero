@@ -42,6 +42,26 @@ namespace Hero.Tests
         }
 
         [Test]
+        public void TestCan()
+        {
+            bool can = HeroConfig.Can("User", "Ability1");
+            Assert.True(can);
+        }
+
+        [Test]
+        public void TestCannot()
+        {
+            bool cannot = HeroConfig.Cannot("User", "Ability4");
+            Assert.True(cannot);
+        }
+
+        [Test]
+        public void TestHeroConfigurationThrowsExceptionWithNullRoleForAssignAbility()
+        {
+            Assert.Throws<ArgumentNullException>(() => HeroConfig.RegisterAbilities(null, _adminAbilities));
+        }
+
+        [Test]
         public void TestHeroConfigurationThrowsExceptionWithNullAbilitiesForAssignAbility()
         {
             Assert.Throws<ArgumentNullException>(() => HeroConfig.RegisterAbilities(_adminRole, null));
