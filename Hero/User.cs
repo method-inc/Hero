@@ -6,7 +6,11 @@ namespace Hero
     public class User : IUser, IEquatable<User>
     {
         public string Id { get; set; }
-        public string Name { get; private set; }
+        public string Name { get; set; }
+
+        public User()
+        {
+        }
 
         public User(string name)
         {

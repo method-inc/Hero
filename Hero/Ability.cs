@@ -28,6 +28,11 @@ namespace Hero
             }
         }
 
+        public Ability()
+        {
+            _children = new List<Ability>();
+        }
+
         public Ability(string name)
         {
             Name = name;

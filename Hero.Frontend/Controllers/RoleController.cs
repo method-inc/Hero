@@ -18,14 +18,14 @@ namespace Hero.Frontend
             return HeroConfig.AdminService.GetRole(id);
         }
 
-        public IRole Post([FromBody]Role user)
+        public IRole Post([FromBody]Role role)
         {
-            return HeroConfig.AdminService.AddRole(user);
+            return HeroConfig.AdminService.AddRole(role);
         }
 
-        public IRole Put([FromBody]Role user)
+        public IRole Put([FromBody]Role role)
         {
-            return HeroConfig.AdminService.UpdateRole(user);
+            return HeroConfig.AdminService.UpdateRole(role);
         }
 
         public void Delete(string id)

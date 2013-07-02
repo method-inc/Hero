@@ -38,6 +38,7 @@
     })
     .controller('NewUserController', function($scope, $location, Restangular) {
       $scope.save = function() {
+        $scope.user.id = $scope.user.name;
         Restangular.all('user').post($scope.user).then(function(user) {
           $location.path('/users');
         });

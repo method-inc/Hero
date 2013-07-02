@@ -8,6 +8,10 @@ namespace Hero
         public string Id { get; set; }
         public string Name { get; set; }
 
+        public Role()
+        {
+        }
+
         public Role(string name)
         {
             Name = name;

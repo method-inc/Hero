@@ -36,19 +36,19 @@ namespace Hero.Services
             return _abilities;
         }
 
-        public IUser GetUser(string name)
+        public IUser GetUser(string id)
         {
-            return _users.FirstOrDefault(u => u.Name == name);
+            return _users.FirstOrDefault(u => u.Id == id);
         }
 
-        public IRole GetRole(string name)
+        public IRole GetRole(string id)
         {
-            return _roles.FirstOrDefault(u => u.Name == name);
+            return _roles.FirstOrDefault(u => u.Id == id);
         }
 
-        public IAbility GetAbility(string name)
+        public IAbility GetAbility(string id)
         {
-            return _abilities.FirstOrDefault(u => u.Name == name);
+            return _abilities.FirstOrDefault(u => u.Id == id);
         }
 
         public IUser AddUser(IUser user)

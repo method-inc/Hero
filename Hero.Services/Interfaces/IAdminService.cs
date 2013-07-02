@@ -8,9 +8,9 @@ namespace Hero.Services.Interfaces
         IEnumerable<IUser> GetUsers();
         IEnumerable<IRole> GetRoles();
         IEnumerable<IAbility> GetAbilities();
-        IUser GetUser(string name);
-        IRole GetRole(string name);
-        IAbility GetAbility(string name);
+        IUser GetUser(string id);
+        IRole GetRole(string id);
+        IAbility GetAbility(string id);
         IUser AddUser(IUser user);
         IRole AddRole(IRole role);
         IAbility AddAbility(IAbility ability);
