@@ -5,6 +5,7 @@ using Hero.Interfaces;
 using Hero.Services.Events;
 using Hero.Services.Interfaces;
 using NGenerics.DataStructures.Trees;
+using NGenerics.Patterns.Visitor;
 
 namespace Hero.Services
 {
@@ -60,6 +61,29 @@ namespace Hero.Services
                 );
         }
 
+        public void RegisterChildAbility(Ability parent, Ability child)
+        {
+            foreach (KeyValuePair<IRole, List<GeneralTree<Ability>>> roleList in _roleAbilityMap)
+                foreach (GeneralTree<Ability> tree in roleList.Value)
+                    _Visit(tree, parent, child, roleList.Key);
+        }
+
+        public void _Visit(GeneralTree<Ability> tree, Ability parent, Ability child, IRole role)
+        {
+            if (tree.Data.Equals(parent))
+            {
+                tree.Add(child);
+                EventAggregator.Instance.Trigger(
+                    new RegisterAbilityEvent(),
+                    new object[] {new RoleAbility(role, child)}
+                    );
+                return;
+            }
+
+            foreach (var childTree in tree.ChildNodes)
+                _Visit(childTree, parent, child, role);
+        }
+
         public void RegisterRole(IUser user, IRole role)
         {
             if (_userRoleMap.ContainsKey(user))
@@ -87,8 +111,15 @@ namespace Hero.Services
 
         private bool _Authorize(IRole role, Ability ability)
         {
-            return _roleAbilityMap.ContainsKey(role) &&
-                   _roleAbilityMap[role].Select(tree => tree.Data).Contains(ability);
+            if (!_roleAbilityMap.ContainsKey(role))
+                return false;
+
+            foreach (GeneralTree<Ability> tree in _roleAbilityMap[role])
+                foreach (var node in tree.AsEnumerable())
+                    if (node == ability)
+                        return true;
+
+            return false;
         }
 
         public IEnumerable<IRole> GetRolesForUser(string userName)
