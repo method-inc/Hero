@@ -55,6 +55,7 @@
     </Reference>
     <Reference Include="Repositories">
       <HintPath>..\packages\Repositories.0.1.8\lib\Repositories.dll</HintPath>
+    </Reference>
     <Reference Include="NGenerics">
       <HintPath>..\packages\NGenerics.1.4.1.0\lib\net35\NGenerics.dll</HintPath>
     </Reference>
