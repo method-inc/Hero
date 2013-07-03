@@ -17,7 +17,6 @@ namespace Hero.Tests
     public class AuthorizationControllerTests
     {
         private Mock<IAbilityAuthorizationService> _authorizationServiceMock;
-        private Mock<IAdminService> _adminServiceMock;
         private AuthorizationController _controller;
         private List<Ability> _abilities;
         private List<IRole> _roles;
@@ -28,18 +27,8 @@ namespace Hero.Tests
         {
             _Setup();
             _authorizationServiceMock = new Mock<IAbilityAuthorizationService>();
-            _adminServiceMock = new Mock<IAdminService>();
             _controller = new AuthorizationController();
-            HeroConfig.Initialize(_authorizationServiceMock.Object, _adminServiceMock.Object);
-        }
-
-        [Test]
-        public void TestGetAbilitiesForRole()
-        {
-            _authorizationServiceMock.Setup(service => service.GetAbilitiesForRole("Role1")).Returns(_abilities);
-            JsonResult result = _controller.GetAbilitiesForRole("Role1");
-            IEnumerable<Ability> abilitiesForRole = (IEnumerable<Ability>)result.Data;
-            Assert.True(abilitiesForRole.SequenceEqual(_abilities));
+            HeroConfig.Initialize(_authorizationServiceMock.Object);
         }
 
         [Test]
@@ -52,19 +41,10 @@ namespace Hero.Tests
         }
 
         [Test]
-        public void TestGetRolesForUser()
-        {
-            _authorizationServiceMock.Setup(service => service.GetRolesForUser("User1")).Returns(_roles);
-            JsonResult result = _controller.GetRolesForUser("User1");
-            IEnumerable<IRole> rolesForUser = (IEnumerable<IRole>)result.Data;
-            Assert.True(rolesForUser.SequenceEqual(_roles));
-        }
-
-        [Test]
         public void TestAuthorizeCurrentUser()
         {
-            _authorizationServiceMock.Setup(service => service.Authorize(new User("User1"), new Ability("Ability1"))).Returns(true);
-            JsonResult result = _controller.AuthorizeCurrentUser("Ability1", new User("User1"));
+            _authorizationServiceMock.Setup(service => service.Authorize("User1", "Ability1")).Returns(true);
+            JsonResult result = _controller.AuthorizeCurrentUser("Ability1", "User1");
             bool authorized = (bool) result.Data;
             Assert.True(authorized);
         }

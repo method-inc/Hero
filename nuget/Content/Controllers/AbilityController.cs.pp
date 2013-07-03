@@ -11,27 +11,27 @@ namespace $rootnamespace$
     {
         public IEnumerable<IAbility> Get()
         {
-            return HeroConfig.AdminService.GetAbilities();
+            return HeroConfig.AuthorizationService.GetAbilities();
         }
 
         public IAbility Get(string id)
         {
-            return HeroConfig.AdminService.GetAbility(id);
+            return HeroConfig.AuthorizationService.GetAbility(id);
         }
 
         public IAbility Post([FromBody]Ability ability)
         {
-            return HeroConfig.AdminService.AddAbility(ability);
+            return HeroConfig.AuthorizationService.AddAbility(ability);
         }
 
         public IAbility Put([FromBody]Ability ability)
         {
-            return HeroConfig.AdminService.UpdateAbility(ability);
+            return HeroConfig.AuthorizationService.UpdateAbility(ability);
         }
 
         public void Delete(string id)
         {
-            HeroConfig.AdminService.RemoveAbility(id);
+            HeroConfig.AuthorizationService.RemoveAbility(id);
         }
     }
 }

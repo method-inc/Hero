@@ -1,5 +1,5 @@
 ﻿using System;
-using DotNetStandard.Interfaces;
+using System.Collections.Generic;
 using Hero.Interfaces;
 
 namespace Hero
@@ -7,22 +7,25 @@ namespace Hero
     public class Ability : IAbility, IEquatable<Ability>
     {
         public string Id { get; set; }
-        public string Name { get; set; }
 
-        public Ability()
-        {
-        }
+        public string Name { get; set; }
+        
+        public IList<IAbility> Abilities { get; set; }
+
+        public Ability() { }
 
         public Ability(string name)
         {
             Name = name;
             Id = name;
+            Abilities = new List<IAbility>();
         }
 
         public Ability(string name, string id)
         {
             Name = name;
             Id = id;
+            Abilities = new List<IAbility>();
 		}
 
         public bool Equals(Ability other)

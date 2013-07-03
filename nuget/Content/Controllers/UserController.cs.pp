@@ -11,27 +11,27 @@ namespace $rootnamespace$
     {
         public IEnumerable<IUser> Get()
         {
-            return HeroConfig.AdminService.GetUsers();
+            return HeroConfig.AuthorizationService.GetUsers();
         }
 
         public IUser Get(string id)
         {
-            return HeroConfig.AdminService.GetUser(id);
+            return HeroConfig.AuthorizationService.GetUser(id);
         }
 
         public IUser Post([FromBody]User user)
         {
-            return HeroConfig.AdminService.AddUser(user);
+            return HeroConfig.AuthorizationService.AddUser(user);
         }
 
         public IUser Put([FromBody]User user)
         {
-            return HeroConfig.AdminService.UpdateUser(user);
+            return HeroConfig.AuthorizationService.UpdateUser(user);
         }
 
         public void Delete(string id)
         {
-            HeroConfig.AdminService.RemoveUser(id);
+            HeroConfig.AuthorizationService.RemoveUser(id);
         }
     }
 }

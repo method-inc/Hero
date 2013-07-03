@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Hero.Interfaces;
 
 namespace Hero
@@ -6,22 +7,25 @@ namespace Hero
     public class Role : IRole, IEquatable<Role>
     {
         public string Id { get; set; }
+
         public string Name { get; set; }
 
-        public Role()
-        {
-        }
+        public IList<IAbility> Abilities { get; set; }
+
+        public Role() { } 
 
         public Role(string name)
         {
             Name = name;
             Id = name;
+            Abilities = new List<IAbility>();
         }
 
         public Role(string name, string id)
         {
             Name = name;
             Id = id;
+            Abilities = new List<IAbility>();
         }
 
         public bool Equals(Role other)
