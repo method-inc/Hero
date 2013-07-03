@@ -5,6 +5,6 @@ namespace Hero.Interfaces
 {
     public interface IAbility : IIdentifiable<string>, INameable
     {
-        IList<IAbility> Abilities { get; set; }
+        IList<Ability> Abilities { get; set; }
     }
 }

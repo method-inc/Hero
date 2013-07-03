@@ -10,9 +10,9 @@ namespace Hero
 
         public string Name { get; set; }
 
-        public IList<IAbility> Abilities { get; set; }
+        public IList<Ability> Abilities { get; set; }
 
-        public IList<IRole> Roles { get; set; }
+        public IList<Role> Roles { get; set; }
 
         public User() { }
 
@@ -20,16 +20,16 @@ namespace Hero
         {
             Name = name;
             Id = name;
-            Abilities = new List<IAbility>();
-            Roles = new List<IRole>();
+            Abilities = new List<Ability>();
+            Roles = new List<Role>();
         }
 
         public User(string name, string id)
         {
             Name = name;
             Id = id;
-            Abilities = new List<IAbility>();
-            Roles = new List<IRole>();
+            Abilities = new List<Ability>();
+            Roles = new List<Role>();
         }
 
         public bool Equals(User other)

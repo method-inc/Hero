@@ -73,7 +73,7 @@ namespace Hero.Configuration
             if (abilities == null)
                 throw new ArgumentNullException("abilities");
             if (role.Abilities == null)
-                role.Abilities = new List<IAbility>();
+                role.Abilities = new List<Ability>();
 
             foreach (Ability ability in abilities)
                 role.Abilities.Add(ability);
@@ -114,7 +114,7 @@ namespace Hero.Configuration
             if (abilities == null)
                 throw new ArgumentNullException("abilities");
             if (role.Abilities == null)
-                role.Abilities = new List<IAbility>();
+                role.Abilities = new List<Ability>();
 
             foreach (Ability ability in abilities)
                 role.Abilities.Remove(ability);
@@ -152,9 +152,9 @@ namespace Hero.Configuration
             if (roles == null)
                 throw new ArgumentNullException("roles");
             if (user.Roles == null)
-                user.Roles = new List<IRole>();
+                user.Roles = new List<Role>();
 
-            foreach (IRole role in roles)
+            foreach (Role role in roles)
                 user.Roles.Add(role);
             AuthorizationService.AddUser(user);
         }
@@ -190,9 +190,9 @@ namespace Hero.Configuration
             if (roles == null)
                 throw new ArgumentNullException("roles");
             if (user.Roles == null)
-                user.Roles = new List<IRole>();
+                user.Roles = new List<Role>();
 
-            foreach (IRole role in roles)
+            foreach (Role role in roles)
                 user.Roles.Remove(role);
             AuthorizationService.RemoveUser(user);
         }

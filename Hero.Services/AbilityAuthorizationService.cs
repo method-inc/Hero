@@ -105,7 +105,7 @@ namespace Hero.Services
         public void RemoveRole(IRole role)
         {
             foreach (IUser user in _userRepository.Get<IUser>())
-                user.Roles.Remove(role);
+                user.Roles.Remove((Role)role);
             _roleRepository.Delete(role);
         }
 
@@ -118,7 +118,7 @@ namespace Hero.Services
         public void RemoveAbility(IAbility ability)
         {
             foreach (IRole role in _roleRepository.Get<IRole>())
-                role.Abilities.Remove(ability);
+                role.Abilities.Remove((Ability)ability);
             _abilityRepository.Delete(ability);
         }
 
