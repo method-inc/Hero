@@ -5,16 +5,14 @@ using Hero.Interfaces;
 using Hero.Repositories;
 using Hero.Services;
 using Hero.Tests.Models;
-using Moq;
 using NUnit.Framework;
-using Repositories.Interfaces;
 
 namespace Hero.Tests
 {
     public class AbilityAuthorizationServiceTests
     {
-        private IRole _role1;
-        private IRole _role2;
+        private Role _role1;
+        private Role _role2;
         private User _user1;
         private User _user2;
         private Ability _ability1;
@@ -40,9 +38,68 @@ namespace Hero.Tests
         }
 
         [Test]
+        public void TestGetAbility()
+        {
+            _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
+            _authorizationService.AddAbility(_ability1);
+            _authorizationService.AddAbility(_ability2);
+            IAbility ability = _authorizationService.GetAbility("Ability1");
+            Assert.AreEqual(ability, _ability1);
+        }
+
+        [Test]
+        public void TestGetAbilities()
+        {
+            _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
+            _authorizationService.AddAbility(_ability1);
+            _authorizationService.AddAbility(_ability2);
+            IEnumerable<IAbility> abilitys = _authorizationService.GetAbilities();
+            Assert.AreEqual(2, abilitys.Count());
+            Assert.AreEqual(_ability1, abilitys.First());
+            Assert.AreEqual(_ability2, abilitys.Last());
+        }
+
+        [Test]
+        public void TestRemoveAbility()
+        {
+            _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
+            _authorizationService.AddAbility(_ability1);
+            _authorizationService.AddAbility(_ability2);
+            IEnumerable<IAbility> abilitys = _authorizationService.GetAbilities();
+            Assert.AreEqual(2, abilitys.Count());
+            Assert.AreEqual(_ability1, abilitys.First());
+            Assert.AreEqual(_ability2, abilitys.Last());
+
+            _authorizationService.RemoveAbility("Ability1");
+            abilitys = _authorizationService.GetAbilities();
+            Assert.AreEqual(1, abilitys.Count());
+            Assert.AreEqual(_ability2, abilitys.First());
+        }
+
+        [Test]
+        public void TestUpdateAbility()
+        {
+            _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
+            _authorizationService.AddAbility(_ability1);
+            _authorizationService.AddAbility(_ability2);
+            IEnumerable<IAbility> abilitys = _authorizationService.GetAbilities();
+            Assert.AreEqual(2, abilitys.Count());
+            Assert.AreEqual(_ability1, abilitys.First());
+            Assert.AreEqual(_ability2, abilitys.Last());
+
+            _ability2.Name = "AbilityUpdate";
+            _authorizationService.UpdateAbility(_ability2);
+            abilitys = _authorizationService.GetAbilities();
+            Assert.AreEqual(2, abilitys.Count());
+            Assert.AreEqual(_ability1, abilitys.First());
+            Assert.AreEqual(_ability2, abilitys.Last());
+            Assert.AreEqual("AbilityUpdate", abilitys.Last().Name);
+        }
+
+        [Test]
         public void TestGetUser()
         {
-            _authorizationService = new AbilityAuthorizationService(new UserRepository());
+            _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddUser(_user1);
             _authorizationService.AddUser(_user2);
             IUser user = _authorizationService.GetUser("User1");
@@ -52,7 +109,7 @@ namespace Hero.Tests
         [Test]
         public void TestGetUsers()
         {
-            _authorizationService = new AbilityAuthorizationService(new UserRepository());
+            _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddUser(_user1);
             _authorizationService.AddUser(_user2);
             IEnumerable<IUser> users = _authorizationService.GetUsers();
@@ -64,7 +121,7 @@ namespace Hero.Tests
         [Test]
         public void TestRemoveUser()
         {
-            _authorizationService = new AbilityAuthorizationService(new UserRepository());
+            _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddUser(_user1);
             _authorizationService.AddUser(_user2);
             IEnumerable<IUser> users = _authorizationService.GetUsers();
@@ -81,7 +138,7 @@ namespace Hero.Tests
         [Test]
         public void TestUpdateUser()
         {
-            _authorizationService = new AbilityAuthorizationService(new UserRepository());
+            _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddUser(_user1);
             _authorizationService.AddUser(_user2);
             IEnumerable<IUser> users = _authorizationService.GetUsers();
@@ -96,6 +153,65 @@ namespace Hero.Tests
             Assert.AreEqual(_user1, users.First());
             Assert.AreEqual(_user2, users.Last());
             Assert.AreEqual("UserUpdate", users.Last().Name);
+        }
+
+        [Test]
+        public void TestGetRole()
+        {
+            _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
+            _authorizationService.AddRole(_role1);
+            _authorizationService.AddRole(_role2);
+            IRole role = _authorizationService.GetRole("Role1");
+            Assert.AreEqual(role, _role1);
+        }
+
+        [Test]
+        public void TestGetRoles()
+        {
+            _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
+            _authorizationService.AddRole(_role1);
+            _authorizationService.AddRole(_role2);
+            IEnumerable<IRole> roles = _authorizationService.GetRoles();
+            Assert.AreEqual(2, roles.Count());
+            Assert.AreEqual(_role1, roles.First());
+            Assert.AreEqual(_role2, roles.Last());
+        }
+
+        [Test]
+        public void TestRemoveRole()
+        {
+            _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
+            _authorizationService.AddRole(_role1);
+            _authorizationService.AddRole(_role2);
+            IEnumerable<IRole> roles = _authorizationService.GetRoles();
+            Assert.AreEqual(2, roles.Count());
+            Assert.AreEqual(_role1, roles.First());
+            Assert.AreEqual(_role2, roles.Last());
+
+            _authorizationService.RemoveRole("Role1");
+            roles = _authorizationService.GetRoles();
+            Assert.AreEqual(1, roles.Count());
+            Assert.AreEqual(_role2, roles.First());
+        }
+
+        [Test]
+        public void TestUpdateRole()
+        {
+            _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
+            _authorizationService.AddRole(_role1);
+            _authorizationService.AddRole(_role2);
+            IEnumerable<IRole> roles = _authorizationService.GetRoles();
+            Assert.AreEqual(2, roles.Count());
+            Assert.AreEqual(_role1, roles.First());
+            Assert.AreEqual(_role2, roles.Last());
+
+            _role2.Name = "RoleUpdate";
+            _authorizationService.UpdateRole(_role2);
+            roles = _authorizationService.GetRoles();
+            Assert.AreEqual(2, roles.Count());
+            Assert.AreEqual(_role1, roles.First());
+            Assert.AreEqual(_role2, roles.Last());
+            Assert.AreEqual("RoleUpdate", roles.Last().Name);
         }
 
         [Test]

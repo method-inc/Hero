@@ -5,15 +5,15 @@ using Hero.Interfaces;
 using Hero.Repositories;
 using Hero.Services.Events;
 using Hero.Services.Interfaces;
-using Repositories.Interfaces;
 using NGenerics.DataStructures.Trees;
-using NGenerics.Patterns.Visitor;
 
 namespace Hero.Services
 {
     public class AbilityAuthorizationService : AuthorizationService, IAbilityAuthorizationService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepository;
+        private readonly IAbilityRepository _abilityRepository;
         private readonly RoleAbilityMap _roleAbilityMap;
         private readonly UserRoleMap _userRoleMap;
 
@@ -22,11 +22,17 @@ namespace Hero.Services
             _roleAbilityMap = new RoleAbilityMap();
             _userRoleMap = new UserRoleMap();
             _userRepository = new UserRepository();
+            _roleRepository = new RoleRepository();
+            _abilityRepository = new AbilityRepository();
         }
 
-        public AbilityAuthorizationService(IUserRepository userRepository)
+        public AbilityAuthorizationService(IUserRepository userRepository, 
+                                           IRoleRepository roleRepository, 
+                                           IAbilityRepository abilityRepository)
         {
             _userRepository = userRepository;
+            _roleRepository = roleRepository;
+            _abilityRepository = abilityRepository;
         }
 
         public IEnumerable<IUser> GetUsers()
@@ -34,14 +40,14 @@ namespace Hero.Services
             return _userRepository.Get<IUser>();
         }
 
-        IEnumerable<IRole> IAbilityAuthorizationService.GetRoles()
+        public IEnumerable<IRole> GetRoles()
         {
-            throw new System.NotImplementedException();
+            return _roleRepository.Get<IRole>();
         }
 
-        IEnumerable<IAbility> IAbilityAuthorizationService.GetAbilities()
+        public IEnumerable<IAbility> GetAbilities()
         {
-            throw new System.NotImplementedException();
+            return _abilityRepository.Get<IAbility>();
         }
 
         public IUser GetUser(string id)
@@ -49,14 +55,14 @@ namespace Hero.Services
             return _userRepository.Get<IUser>().FirstOrDefault(u => u.Id == id);
         }
 
-        IRole IAbilityAuthorizationService.GetRole(string id)
+        public IRole GetRole(string id)
         {
-            throw new System.NotImplementedException();
+            return _roleRepository.Get<IRole>().FirstOrDefault(u => u.Id == id);
         }
 
-        IAbility IAbilityAuthorizationService.GetAbility(string id)
+        public IAbility GetAbility(string id)
         {
-            throw new System.NotImplementedException();
+            return _abilityRepository.Get<IAbility>().FirstOrDefault(u => u.Id == id);
         }
 
         public IUser AddUser(IUser user)
@@ -65,14 +71,16 @@ namespace Hero.Services
             return GetUser(user.Name);
         }
 
-        IRole IAbilityAuthorizationService.AddRole(IRole role)
+        public IRole AddRole(IRole role)
         {
-            throw new System.NotImplementedException();
+            _roleRepository.Create(role);
+            return GetRole(role.Name);
         }
 
-        IAbility IAbilityAuthorizationService.AddAbility(IAbility ability)
+        public IAbility AddAbility(IAbility ability)
         {
-            throw new System.NotImplementedException();
+            _abilityRepository.Create(ability);
+            return GetAbility(ability.Name);
         }
 
         public void RemoveUser(string id)
@@ -80,14 +88,14 @@ namespace Hero.Services
             _userRepository.Delete(GetUser(id));
         }
 
-        void IAbilityAuthorizationService.RemoveRole(string id)
+        public void RemoveRole(string id)
         {
-            throw new System.NotImplementedException();
+            _roleRepository.Delete(GetRole(id));
         }
 
-        void IAbilityAuthorizationService.RemoveAbility(string id)
+        public void RemoveAbility(string id)
         {
-            throw new System.NotImplementedException();
+            _abilityRepository.Delete(GetAbility(id));
         }
 
         public IUser UpdateUser(IUser user)
@@ -97,14 +105,18 @@ namespace Hero.Services
             return GetUser(user.Name);
         }
 
-        IRole IAbilityAuthorizationService.UpdateRole(IRole role)
+        public IRole UpdateRole(IRole role)
         {
-            throw new System.NotImplementedException();
+            RemoveRole(role.Id);
+            AddRole(role);
+            return GetRole(role.Name);
         }
 
-        IAbility IAbilityAuthorizationService.UpdateAbility(IAbility ability)
+        public IAbility UpdateAbility(IAbility ability)
         {
-            throw new System.NotImplementedException();
+            RemoveAbility(ability.Id);
+            AddAbility(ability);
+            return GetAbility(ability.Name);
         }
 
         public bool Authorize(IRole role, Ability ability)
