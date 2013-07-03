@@ -2,6 +2,7 @@
 using System.Linq;
 using DotNetStandard.Vent;
 using Hero.Interfaces;
+using Hero.Repositories;
 using Hero.Services.Events;
 using Hero.Services.Interfaces;
 using Repositories.Interfaces;
@@ -12,6 +13,7 @@ namespace Hero.Services
 {
     public class AbilityAuthorizationService : AuthorizationService, IAbilityAuthorizationService
     {
+        private readonly IUserRepository _userRepository;
         private readonly RoleAbilityMap _roleAbilityMap;
         private readonly UserRoleMap _userRoleMap;
 
@@ -19,6 +21,90 @@ namespace Hero.Services
         {
             _roleAbilityMap = new RoleAbilityMap();
             _userRoleMap = new UserRoleMap();
+            _userRepository = new UserRepository();
+        }
+
+        public AbilityAuthorizationService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+        public IEnumerable<IUser> GetUsers()
+        {
+            return _userRepository.Get<IUser>();
+        }
+
+        IEnumerable<IRole> IAbilityAuthorizationService.GetRoles()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        IEnumerable<IAbility> IAbilityAuthorizationService.GetAbilities()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IUser GetUser(string id)
+        {
+            return _userRepository.Get<IUser>().FirstOrDefault(u => u.Id == id);
+        }
+
+        IRole IAbilityAuthorizationService.GetRole(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        IAbility IAbilityAuthorizationService.GetAbility(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IUser AddUser(IUser user)
+        {
+            _userRepository.Create(user);
+            return GetUser(user.Name);
+        }
+
+        IRole IAbilityAuthorizationService.AddRole(IRole role)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        IAbility IAbilityAuthorizationService.AddAbility(IAbility ability)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void RemoveUser(string id)
+        {
+            _userRepository.Delete(GetUser(id));
+        }
+
+        void IAbilityAuthorizationService.RemoveRole(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        void IAbilityAuthorizationService.RemoveAbility(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IUser UpdateUser(IUser user)
+        {
+            RemoveUser(user.Id);
+            AddUser(user);
+            return GetUser(user.Name);
+        }
+
+        IRole IAbilityAuthorizationService.UpdateRole(IRole role)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        IAbility IAbilityAuthorizationService.UpdateAbility(IAbility ability)
+        {
+            throw new System.NotImplementedException();
         }
 
         public bool Authorize(IRole role, Ability ability)

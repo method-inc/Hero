@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Hero.Interfaces;
 
 namespace Hero
@@ -7,6 +8,11 @@ namespace Hero
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public IEnumerable<IAbility> Abilities
+        {
+            get; 
+            private set;
+        }
 
         public User()
         {

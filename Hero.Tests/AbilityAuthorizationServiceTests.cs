@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Hero.Interfaces;
+using Hero.Repositories;
 using Hero.Services;
 using Hero.Tests.Models;
 using Moq;
@@ -14,8 +15,8 @@ namespace Hero.Tests
     {
         private IRole _role1;
         private IRole _role2;
-        private IUser _user1;
-        private IUser _user2;
+        private User _user1;
+        private User _user2;
         private Ability _ability1;
         private Ability _ability2;
         private Ability _ability3;
@@ -36,6 +37,65 @@ namespace Hero.Tests
             _abilityConsumer = new AbilityConsumer();
             _roleConsumer = new RoleConsumer();
             _authorizationService = new AbilityAuthorizationService();
+        }
+
+        [Test]
+        public void TestGetUser()
+        {
+            _authorizationService = new AbilityAuthorizationService(new UserRepository());
+            _authorizationService.AddUser(_user1);
+            _authorizationService.AddUser(_user2);
+            IUser user = _authorizationService.GetUser("User1");
+            Assert.AreEqual(user, _user1);
+        }
+
+        [Test]
+        public void TestGetUsers()
+        {
+            _authorizationService = new AbilityAuthorizationService(new UserRepository());
+            _authorizationService.AddUser(_user1);
+            _authorizationService.AddUser(_user2);
+            IEnumerable<IUser> users = _authorizationService.GetUsers();
+            Assert.AreEqual(2, users.Count());
+            Assert.AreEqual(_user1, users.First());
+            Assert.AreEqual(_user2, users.Last());
+        }
+
+        [Test]
+        public void TestRemoveUser()
+        {
+            _authorizationService = new AbilityAuthorizationService(new UserRepository());
+            _authorizationService.AddUser(_user1);
+            _authorizationService.AddUser(_user2);
+            IEnumerable<IUser> users = _authorizationService.GetUsers();
+            Assert.AreEqual(2, users.Count());
+            Assert.AreEqual(_user1, users.First());
+            Assert.AreEqual(_user2, users.Last());
+
+            _authorizationService.RemoveUser("User1");
+            users = _authorizationService.GetUsers();
+            Assert.AreEqual(1, users.Count());
+            Assert.AreEqual(_user2, users.First());
+        }
+
+        [Test]
+        public void TestUpdateUser()
+        {
+            _authorizationService = new AbilityAuthorizationService(new UserRepository());
+            _authorizationService.AddUser(_user1);
+            _authorizationService.AddUser(_user2);
+            IEnumerable<IUser> users = _authorizationService.GetUsers();
+            Assert.AreEqual(2, users.Count());
+            Assert.AreEqual(_user1, users.First());
+            Assert.AreEqual(_user2, users.Last());
+
+            _user2.Name = "UserUpdate";
+            _authorizationService.UpdateUser(_user2);
+            users = _authorizationService.GetUsers();
+            Assert.AreEqual(2, users.Count());
+            Assert.AreEqual(_user1, users.First());
+            Assert.AreEqual(_user2, users.Last());
+            Assert.AreEqual("UserUpdate", users.Last().Name);
         }
 
         [Test]

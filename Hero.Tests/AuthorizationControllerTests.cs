@@ -17,7 +17,6 @@ namespace Hero.Tests
     public class AuthorizationControllerTests
     {
         private Mock<IAbilityAuthorizationService> _authorizationServiceMock;
-        private Mock<IAdminService> _adminServiceMock;
         private AuthorizationController _controller;
         private List<Ability> _abilities;
         private List<IRole> _roles;
@@ -28,9 +27,8 @@ namespace Hero.Tests
         {
             _Setup();
             _authorizationServiceMock = new Mock<IAbilityAuthorizationService>();
-            _adminServiceMock = new Mock<IAdminService>();
             _controller = new AuthorizationController();
-            HeroConfig.Initialize(_authorizationServiceMock.Object, _adminServiceMock.Object);
+            HeroConfig.Initialize(_authorizationServiceMock.Object);
         }
 
         [Test]

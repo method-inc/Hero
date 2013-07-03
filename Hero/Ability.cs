@@ -9,9 +9,7 @@ namespace Hero
         public string Id { get; set; }
         public string Name { get; set; }
 
-        public Ability()
-        {
-        }
+        public Ability() { }
 
         public Ability(string name)
         {

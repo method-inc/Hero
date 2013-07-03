@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A762AAE7-E543-4291-99BD-A5AC21BBC80B}</ProjectGuid>
+    <ProjectGuid>{D2294540-73F6-4B88-9388-EE40F796BEF0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hero.Services</RootNamespace>
-    <AssemblyName>Hero.Services</AssemblyName>
+    <RootNamespace>Hero.Repositories</RootNamespace>
+    <AssemblyName>Hero.Repositories</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -33,14 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetStandard, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetStandard.0.1.2\lib\DotNetStandard.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetStandard.Vent, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DotNetStandard.0.1.2\lib\DotNetStandard.Vent.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
@@ -52,9 +44,6 @@
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="NGenerics">
-      <HintPath>..\packages\NGenerics.1.4.1.0\lib\net35\NGenerics.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -68,11 +57,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -86,38 +70,14 @@
     <Compile Include="..\SolutionVersionInfo.cs">
       <Link>Properties\SolutionVersionInfo.cs</Link>
     </Compile>
-    <Compile Include="AbilityAuthorizationService.cs" />
-    <Compile Include="AuthorizationService.cs" />
-    <Compile Include="Events\RegisterRoleEvent.cs" />
-    <Compile Include="Events\RegisterUserEvent.cs" />
-    <Compile Include="Events\RegisterUserWithRoleEvent.cs" />
-    <Compile Include="Events\UnregisterAbilityEvent.cs" />
-    <Compile Include="Events\RegisterAbilityEvent.cs" />
-    <Compile Include="Events\UnregisterRoleEvent.cs" />
-    <Compile Include="Events\UnregisterUserEvent.cs" />
-    <Compile Include="Events\UnregisterUserWithRoleEvent.cs" />
-    <Compile Include="Interfaces\IAbilityAuthorizationService.cs" />
-    <Compile Include="Interfaces\IAuthorizationService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hero.Repositories\Hero.Repositories.csproj">
-      <Project>{d2294540-73f6-4b88-9388-ee40f796bef0}</Project>
-      <Name>Hero.Repositories</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hero\Hero.csproj">
-      <Project>{D45B59B6-EDA1-4727-B1C0-4FB6857A3398}</Project>
-      <Name>Hero</Name>
-    </ProjectReference>
+    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)Hero*.dll" "$(ProjectDir)\..\nuget\lib"</PostBuildEvent>
-  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
