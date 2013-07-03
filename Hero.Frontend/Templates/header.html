@@ -1,4 +1,4 @@
-﻿<div class="navbar">
+<div class="navbar">
     <div class="navbar-inner">
         <span class="brand">Hero Admin</span>
         <ul class="nav" ng-controller="NavbarController">

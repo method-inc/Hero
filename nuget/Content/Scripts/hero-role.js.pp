@@ -1,8 +1,12 @@
-﻿(function (hero, angular, undefined) {
+(function (hero, angular, undefined) {
 
   hero.heroApp.controller('NewRoleController', function($scope, $location, Restangular, heroOptions) {
     $scope.options = heroOptions.getOptions();
     $scope.abilities = Restangular.all('ability').getList();
+    if (!$scope.role)
+      $scope.role = {};
+    if (!$scope.role.abilities)
+        $scope.role.abilities = [];
     $scope.filterAbilities = function(item) {
       var isFound = false;
 
@@ -22,9 +26,17 @@
       }
       return false;
     };
+    
+    $scope.addAbility = function(ability) {
+      $scope.role.abilities.push(ability);
+    };
+    $scope.removeAbility = function(idx) {
+      $scope.role.abilities.splice(idx, 1);
+    };
 
     $scope.save = function() {
       $scope.role.id = $scope.role.name;
+      
       Restangular.all('role').post($scope.role).then(function(role) {
         $location.path('/roles');
       });
@@ -35,7 +47,7 @@
     var original = role;
     $scope.options = heroOptions.getOptions();
     $scope.abilities = Restangular.all('ability').getList();
-    
+
     $scope.role = Restangular.copy(original);
 
     $scope.filterAbilities = function(item) {

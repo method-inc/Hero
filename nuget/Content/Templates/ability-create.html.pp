@@ -37,7 +37,7 @@
     </div>
 
     <br>
-    <a href="#/" class="btn">Cancel</a>
+    <a href="#/abilities" class="btn">Cancel</a>
     <button ng-click="save()" ng-disabled="isClean() || abilityForm.$invalid"
         class="btn btn-primary">
         Save</button>

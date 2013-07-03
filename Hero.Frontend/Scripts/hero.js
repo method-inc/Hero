@@ -37,6 +37,11 @@
 
   hero.heroApp.config(function($routeProvider, RestangularProvider) {
     RestangularProvider.setBaseUrl(heroOptions.apiBaseUrl);
+    RestangularProvider.setResponseExtractor(function(response) {
+      var newResponse = response;
+      newResponse.originalElement = angular.copy(response);
+      return newResponse;
+    });
     
     $routeProvider
       .when('/users', { templateUrl: heroOptions.userListTemplatePath, controller: 'UserListController' })

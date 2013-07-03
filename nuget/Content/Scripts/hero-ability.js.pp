@@ -1,8 +1,12 @@
-﻿(function (hero, angular, undefined) {
+(function (hero, angular, undefined) {
 
   hero.heroApp.controller('NewAbilityController', function($scope, $location, Restangular, heroOptions) {
     $scope.options = heroOptions.getOptions();
     $scope.abilities = Restangular.all('ability').getList();
+    if (!$scope.ability)
+      $scope.ability = {};
+    if (!$scope.ability.abilities)
+        $scope.ability.abilities = [];
     $scope.filterAbilities = function(item) {
       var isFound = false;
       
@@ -13,6 +17,13 @@
           }
         });
       }
+
+      $scope.addAbility = function(ability) {
+        $scope.ability.abilities.push(ability);
+      };
+      $scope.removeAbility = function(idx) {
+        $scope.ability.abilities.splice(idx, 1);
+      };
 
       if (!isFound) {
         if ($scope.searchAbility && $scope.searchAbility !== "") {
@@ -25,6 +36,7 @@
 
     $scope.save = function() {
       $scope.ability.id = $scope.ability.name;
+      
       Restangular.all('ability').post($scope.ability).then(function(ability) {
         $location.path('/abilities');
       });
@@ -34,6 +46,7 @@
   hero.heroApp.controller('EditAbilityController', function($scope, $location, Restangular, heroOptions, ability) {
     var original = ability;
     $scope.options = heroOptions.getOptions();
+
     $scope.abilities = Restangular.all('ability').getList();
     
     $scope.ability = Restangular.copy(original);

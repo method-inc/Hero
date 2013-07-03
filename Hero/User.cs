@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Collections.Generic;
 using Hero.Interfaces;
 
@@ -10,7 +11,10 @@ namespace Hero
 
         public string Name { get; set; }
 
-        public IList<Ability> Abilities { get; set; }
+        public IList<Ability> Abilities
+        {
+            get { return Roles.SelectMany(r => r.Abilities).ToList(); }
+        }
 
         public IList<Role> Roles { get; set; }
 
@@ -20,7 +24,6 @@ namespace Hero
         {
             Name = name;
             Id = name;
-            Abilities = new List<Ability>();
             Roles = new List<Role>();
         }
 
@@ -28,7 +31,6 @@ namespace Hero
         {
             Name = name;
             Id = id;
-            Abilities = new List<Ability>();
             Roles = new List<Role>();
         }
 
