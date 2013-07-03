@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Http;
 using Hero; //do not remove
 using Hero.Configuration;
@@ -7,9 +8,9 @@ namespace $rootnamespace$
 {
     public class AuthorizationController : ApiController
     {
-        public IUser GetCurrentUser()
+        public IEnumerable<IAbility> GetCurrentUserAbilities()
         {
-            return HeroConfig.AuthorizationService.GetUser(User.Identity.Name);
+            return HeroConfig.AuthorizationService.GetAbilitiesForUser(User.Identity.Name);
         }
     }
 }
