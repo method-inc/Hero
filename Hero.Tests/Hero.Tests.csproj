@@ -98,7 +98,6 @@
     <Compile Include="AbilityControllerTests.cs" />
     <Compile Include="RoleControllerTests.cs" />
     <Compile Include="UserControllerTests.cs" />
-    <Compile Include="AuthorizationControllerTests.cs" />
     <Compile Include="AbilityTests.cs" />
     <Compile Include="AbilityAuthorizationServiceTests.cs" />
     <Compile Include="HeroConfigurationTests.cs" />
