@@ -69,9 +69,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Repositories, Version=0.1.9.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Repositories, Version=0.1.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Repositories.0.1.9\lib\Repositories.dll</HintPath>
+      <HintPath>..\packages\Repositories.0.1.10\lib\Repositories.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -104,8 +104,6 @@
     <Compile Include="HeroConfigurationTests.cs" />
     <Compile Include="Models\AbilityConsumer.cs" />
     <Compile Include="Models\RoleConsumer.cs" />
-    <Compile Include="RoleAbilityTests.cs" />
-    <Compile Include="UserRoleTests.cs" />
     <Compile Include="UserTests.cs" />
     <Compile Include="RoleTests.cs" />
   </ItemGroup>

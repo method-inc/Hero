@@ -108,11 +108,11 @@ namespace Hero.Tests
             Assert.Throws<ArgumentNullException>(() => HeroConfig.UnregisterRoles(_user, null));
         }
 
-        [Test]
-        public void TestHeroConfigurationProvidesDefaultRoles()
-        {
-            Assert.True(_authorizationService.GetRolesForUser(_user).Any(r => r.Equals(_adminRole)));
-        }
+        //[Test]
+        //public void TestHeroConfigurationProvidesDefaultRoles()
+        //{
+        //    Assert.True(_authorizationService.GetRolesForUser(_user).Any(r => r.Equals(_adminRole)));
+        //}
 
         [Test]
         public void TestHeroConfigurationCanUnregisterAbility()
@@ -123,11 +123,11 @@ namespace Hero.Tests
                 Assert.True(_authorizationService.Authorize(_adminRole, ability));
         }
 
-        [Test]
-        public void TestHeroConfigurationCanUnregisterRole()
-        {
-            HeroConfig.UnregisterRole(_user, _adminRole);
-            Assert.True(!_authorizationService.GetRolesForUser(_user).Any());
-        }
+        //[Test]
+        //public void TestHeroConfigurationCanUnregisterRole()
+        //{
+        //    HeroConfig.UnregisterRole(_user, _adminRole);
+        //    Assert.True(!_authorizationService.GetRolesForUser(_user).Any());
+        //}
     }
 }

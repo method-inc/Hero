@@ -7,27 +7,29 @@ namespace Hero
     public class User : IUser, IEquatable<User>
     {
         public string Id { get; set; }
-        public string Name { get; set; }
-        public IEnumerable<IAbility> Abilities
-        {
-            get; 
-            private set;
-        }
 
-        public User()
-        {
-        }
+        public string Name { get; set; }
+
+        public IList<IAbility> Abilities { get; set; }
+
+        public IList<IRole> Roles { get; set; }
+
+        public User() { }
 
         public User(string name)
         {
             Name = name;
             Id = name;
+            Abilities = new List<IAbility>();
+            Roles = new List<IRole>();
         }
 
         public User(string name, string id)
         {
             Name = name;
             Id = id;
+            Abilities = new List<IAbility>();
+            Roles = new List<IRole>();
         }
 
         public bool Equals(User other)

@@ -5,19 +5,11 @@ namespace Hero.Services.Interfaces
 {
     public interface IAbilityAuthorizationService
     {
-        bool Authorize(IRole role, Ability ability);
-        bool Authorize(IUser user, Ability ability);
-        void RegisterAbility(IRole role, Ability ability);
-        void UnregisterAbility(IRole role, Ability ability);
-        void RegisterRole(IUser user, IRole role);
-        void UnregisterRole(IUser user, IRole role);
-        IEnumerable<IRole> GetRolesForUser(IUser user);
-        IEnumerable<IRole> GetRolesForUser(string userName);
-        IEnumerable<Ability> GetAbilitiesForRole(IRole role);
-        IEnumerable<Ability> GetAbilitiesForRole(string roleName);
-        IEnumerable<Ability> GetAbilitiesForUser(IUser user);
-        IEnumerable<Ability> GetAbilitiesForUser(string userName);
-
+        bool Authorize(IRole role, IAbility ability);
+        bool Authorize(string userName, string abilityName);
+        bool Authorize(IUser user, IAbility ability);
+        IEnumerable<IAbility> GetAbilitiesForUser(IUser user);
+        IEnumerable<IAbility> GetAbilitiesForUser(string userName);
 
         IEnumerable<IUser> GetUsers();
         IEnumerable<IRole> GetRoles();
@@ -31,6 +23,9 @@ namespace Hero.Services.Interfaces
         void RemoveUser(string id);
         void RemoveRole(string id);
         void RemoveAbility(string id);
+        void RemoveUser(IUser user);
+        void RemoveRole(IRole role);
+        void RemoveAbility(IAbility ability);
         IUser UpdateUser(IUser user);
         IRole UpdateRole(IRole role);
         IAbility UpdateAbility(IAbility ability);
