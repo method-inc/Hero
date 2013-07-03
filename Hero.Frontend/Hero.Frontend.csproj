@@ -63,11 +63,18 @@
     <Compile Include="Controllers\UserController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\hero-admin.js" />
+    <Content Include="Scripts\hero-ability.js" />
+    <Content Include="Scripts\hero-authorization.js" />
+    <Content Include="Scripts\hero-role.js" />
+    <Content Include="Scripts\hero-user.js" />
     <Content Include="Scripts\hero.js" />
-    <Content Include="Scripts\craft.min.js" />
     <Content Include="Scripts\lodash.js" />
     <Content Include="Scripts\restangular.js" />
+    <Content Include="Templates\ability-create.html" />
+    <Content Include="Templates\ability-list.html" />
+    <Content Include="Templates\header.html" />
+    <Content Include="Templates\role-create.html" />
+    <Content Include="Templates\role-list.html" />
     <Content Include="Templates\user-create.html" />
     <Content Include="Templates\user-list.html" />
   </ItemGroup>
@@ -92,6 +99,10 @@
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>
     <PostBuildEvent>powershell -file "$(SolutionDir)\nuget\createnugetcontent.ps1" $(SolutionDir)</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
