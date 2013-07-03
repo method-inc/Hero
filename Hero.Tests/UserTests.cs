@@ -15,6 +15,24 @@ namespace Hero.Tests
         }
 
         [Test]
+        public void TestUserCanSetProperties()
+        {
+            User user3 = new User();
+            user3.Name = "User3";
+            user3.Id = "User3";
+            User userThree = new User("User3");
+            Assert.AreEqual(userThree, user3);
+        }
+
+        [Test]
+        public void TestUserIdAndNameSetInConstructor()
+        {
+            User user4 = new User("User4", "User4");
+            User userFour = new User("User4");
+            Assert.AreEqual(userFour, user4);
+        }
+
+        [Test]
         public void TestUsersAreEqual()
         {
             User userOne = new User("User1");

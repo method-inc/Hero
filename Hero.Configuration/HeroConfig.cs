@@ -9,12 +9,10 @@ namespace Hero.Configuration
     public static class HeroConfig
     {
         public static IAbilityAuthorizationService AuthorizationService { get; private set; }
-        public static IAdminService AdminService { get; private set; }
 
-        public static void Initialize(IAbilityAuthorizationService authorizationService, IAdminService adminService)
+        public static void Initialize(IAbilityAuthorizationService authorizationService)
         {
             AuthorizationService = authorizationService;
-            AdminService = adminService;
         }
 
         /// <summary>
@@ -26,7 +24,7 @@ namespace Hero.Configuration
         /// <returns></returns>
         public static bool Can(string userName, string ability)
         {
-            return AuthorizationService.Authorize(new User(userName), new Ability(ability));
+            return AuthorizationService.Authorize(userName, ability);
         }
 
         /// <summary>
@@ -38,7 +36,7 @@ namespace Hero.Configuration
         /// <returns></returns>
         public static bool Cannot(string userName, string ability)
         {
-            return !(AuthorizationService.Authorize(new User(userName), new Ability(ability)));
+            return !(AuthorizationService.Authorize(userName, ability));
         }
 
         /// <summary>
@@ -74,9 +72,13 @@ namespace Hero.Configuration
                 throw new ArgumentNullException("role");
             if (abilities == null)
                 throw new ArgumentNullException("abilities");
+            if (role.Abilities == null)
+                role.Abilities = new List<IAbility>();
 
             foreach (Ability ability in abilities)
-                AuthorizationService.RegisterAbility(role, ability);
+                role.Abilities.Add(ability);
+
+            AuthorizationService.AddRole(role);
         }
 
         /// <summary>
@@ -111,9 +113,12 @@ namespace Hero.Configuration
                 throw new ArgumentNullException("role");
             if (abilities == null)
                 throw new ArgumentNullException("abilities");
+            if (role.Abilities == null)
+                role.Abilities = new List<IAbility>();
 
             foreach (Ability ability in abilities)
-                AuthorizationService.UnregisterAbility(role, ability);
+                role.Abilities.Remove(ability);
+            AuthorizationService.UpdateRole(role);
         }
 
         /// <summary>
@@ -146,9 +151,12 @@ namespace Hero.Configuration
                 throw new ArgumentNullException("user");
             if (roles == null)
                 throw new ArgumentNullException("roles");
+            if (user.Roles == null)
+                user.Roles = new List<IRole>();
 
             foreach (IRole role in roles)
-                AuthorizationService.RegisterRole(user, role);
+                user.Roles.Add(role);
+            AuthorizationService.AddUser(user);
         }
 
         /// <summary>
@@ -181,9 +189,12 @@ namespace Hero.Configuration
                 throw new ArgumentNullException("user");
             if (roles == null)
                 throw new ArgumentNullException("roles");
+            if (user.Roles == null)
+                user.Roles = new List<IRole>();
 
             foreach (IRole role in roles)
-                AuthorizationService.UnregisterRole(user, role);
+                user.Roles.Remove(role);
+            AuthorizationService.RemoveUser(user);
         }
     }
 }

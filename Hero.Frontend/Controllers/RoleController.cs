@@ -10,27 +10,27 @@ namespace Hero.Frontend
     {
         public IEnumerable<IRole> Get()
         {
-            return HeroConfig.AdminService.GetRoles();
+            return HeroConfig.AuthorizationService.GetRoles();
         }
 
         public IRole Get(string id)
         {
-            return HeroConfig.AdminService.GetRole(id);
+            return HeroConfig.AuthorizationService.GetRole(id);
         }
 
         public IRole Post([FromBody]Role role)
         {
-            return HeroConfig.AdminService.AddRole(role);
+            return HeroConfig.AuthorizationService.AddRole(role);
         }
 
         public IRole Put([FromBody]Role role)
         {
-            return HeroConfig.AdminService.UpdateRole(role);
+            return HeroConfig.AuthorizationService.UpdateRole(role);
         }
 
         public void Delete(string id)
         {
-            HeroConfig.AdminService.RemoveRole(id);
+            HeroConfig.AuthorizationService.RemoveRole(id);
         }
     }
 }

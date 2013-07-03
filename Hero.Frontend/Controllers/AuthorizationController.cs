@@ -8,28 +8,18 @@ namespace Hero.Frontend
 {
     public class AuthorizationController : Controller
     {
-        public JsonResult GetAbilitiesForRole(string id)
-        {
-            return Json(HeroConfig.AuthorizationService.GetAbilitiesForRole(id), JsonRequestBehavior.AllowGet);
-        }
-
         public JsonResult GetAbilitiesForUser(string id)
         {
             return Json(HeroConfig.AuthorizationService.GetAbilitiesForUser(id), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetRolesForUser(string id)
-        {
-            return Json(HeroConfig.AuthorizationService.GetRolesForUser(id), JsonRequestBehavior.AllowGet);
-        }
-
         [HttpGet]
-        public JsonResult AuthorizeCurrentUser(string id, IUser user = null)
+        public JsonResult AuthorizeCurrentUser(string id, string user = null)
         {
             if(user == null)
-                user = new User(HttpContext.User.Identity.Name);
+                user = HttpContext.User.Identity.Name;
 
-            return Json(HeroConfig.AuthorizationService.Authorize(user, new Ability(id)), JsonRequestBehavior.AllowGet);
+            return Json(HeroConfig.AuthorizationService.Authorize(user, id), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetCurrentUser()
