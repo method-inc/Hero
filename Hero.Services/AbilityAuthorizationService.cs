@@ -172,6 +172,9 @@ namespace Hero.Services
 
         public IEnumerable<IAbility> GetAbilitiesForUser(IUser user)
         {
+            if(user == null)
+                return new List<IAbility>();
+
             var abilities = new HashSet<IAbility>();
 
             foreach (var ability in user.Roles.SelectMany(role => role.Abilities))
