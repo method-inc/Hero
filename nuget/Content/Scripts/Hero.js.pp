@@ -19,8 +19,13 @@
     return this;
   };
 
-  hero.buildConsole = function() {
+  hero.init = function() {
     document.getElementsByTagName('html')[0].setAttribute('ng-app', 'heroApp');
+    document.getElementsByTagName('body')[0].setAttribute('ng-controller', 'CurrentUserController');
+    return this;
+  };
+  
+  hero.buildConsole = function() {
     document.getElementById(heroOptions.adminConsoleInjectionId).setAttribute('ng-view', '');
     return this;
   };
@@ -37,11 +42,6 @@
 
   hero.heroApp.config(function($routeProvider, RestangularProvider) {
     RestangularProvider.setBaseUrl(heroOptions.apiBaseUrl);
-    RestangularProvider.setResponseExtractor(function(response) {
-      var newResponse = response;
-      newResponse.originalElement = angular.copy(response);
-      return newResponse;
-    });
     
     $routeProvider
       .when('/users', { templateUrl: heroOptions.userListTemplatePath, controller: 'UserListController' })
