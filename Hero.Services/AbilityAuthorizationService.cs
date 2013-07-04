@@ -145,7 +145,14 @@ namespace Hero.Services
 
         public bool Authorize(IRole role, IAbility ability)
         {
-            return _Authorize(role, ability);
+            if (role.Abilities.Contains(ability))
+                return true;
+
+            foreach (Ability root in role.Abilities)
+                if (_Authorize(root, ability))
+                    return true;
+
+            return false;
         }
 
         public bool Authorize(string userName, string abilityName)
@@ -157,12 +164,21 @@ namespace Hero.Services
 
         public bool Authorize(IUser user, IAbility ability)
         {
-            return user.Roles.Any(role => _Authorize(role, ability));
+            return user.Roles.Any(role => Authorize(role, ability));
         }
 
-        private bool _Authorize(IRole role, IAbility ability)
+        private bool _Authorize(IAbility root, IAbility query)
         {
-            return role.Abilities.Contains(ability);
+            if (root.Abilities.Contains(query))
+                return true;
+
+            foreach (Ability childAbility in root.Abilities)
+            {
+                if (_Authorize(childAbility, query))
+                    return true;
+            }
+
+            return false;
         }
 
         public IEnumerable<IAbility> GetAbilitiesForUser(string userName)

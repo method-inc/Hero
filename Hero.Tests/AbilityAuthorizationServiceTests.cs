@@ -272,5 +272,39 @@ namespace Hero.Tests
             Assert.AreEqual(_ability1, abilities.First());
             Assert.AreEqual(_ability2, abilities.Last());
         }
+
+        [Test]
+        public void TestDeepComplexHierarchyHasAbility()
+        {
+            Ability ability4 = new Ability("Ability4");
+            Ability ability5 = new Ability("Ability5");
+            Ability ability6 = new Ability("Ability6");
+            Ability ability7 = new Ability("Ability7");
+            Ability ability8 = new Ability("Ability8");
+            Ability ability9 = new Ability("Ability9");
+            Ability ability10 = new Ability("Ability10");
+
+            ability4.Abilities.Add(ability5);
+            ability4.Abilities.Add(ability6);
+            ability4.Abilities.Add(ability7);
+            ability7.Abilities.Add(ability8);
+            ability8.Abilities.Add(ability10);
+
+            _role1.Abilities.Add(_ability3);
+            _role1.Abilities.Add(ability4);
+            _role1.Abilities.Add(ability7);
+
+            bool authorized = _authorizationService.Authorize(_role1, ability10);
+            Assert.True(authorized);
+            authorized = _authorizationService.Authorize(_role1, ability9);
+            Assert.False(authorized);
+        }
+
+        [Test]
+        public void TestIfUserNullReturnsEmptyListAbilities()
+        {
+            IEnumerable<IAbility> abilities = _authorizationService.GetAbilitiesForUser((IUser) null);
+            Assert.AreEqual(0, abilities.Count());
+        }
     }
 }

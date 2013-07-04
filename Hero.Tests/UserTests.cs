@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 
 namespace Hero.Tests
 {
@@ -104,6 +105,24 @@ namespace Hero.Tests
         public void TestUserHashCodeEquals()
         {
             Assert.AreEqual(_user1.GetHashCode(), _user1.GetHashCode());
+        }
+
+        [Test]
+        public void TestUserHasAbilitiesFromRoles()
+        {
+            Role role1 = new Role("Role1");
+            Ability ability1 = new Ability("Ability1");
+            role1.Abilities.Add(ability1);
+            Role role2 = new Role("Role2");
+            Ability ability2 = new Ability("Ability2");
+            role2.Abilities.Add(ability2);
+
+            _user1.Roles.Add(role1);
+            _user1.Roles.Add(role2);
+
+            Assert.AreEqual(2, _user1.Abilities.Count);
+            Assert.AreEqual(ability1, _user1.Abilities.First());
+            Assert.AreEqual(ability2, _user1.Abilities.Last());
         }
     }
 }
