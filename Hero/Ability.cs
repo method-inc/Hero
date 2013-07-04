@@ -1,30 +1,38 @@
 ﻿using System;
-using DotNetStandard.Interfaces;
+using System.Collections.Generic;
+using Hero.Interfaces;
 
 namespace Hero
 {
-    public class Ability : INameable, IEquatable<Ability>
+    public class Ability : IAbility, IEquatable<Ability>
     {
-        private readonly string _name;
+        public string Id { get; set; }
 
-        public string Name
-        {
-            get { return _name; }
-        }
+        public string Name { get; set; }
+
+        public IList<Ability> Abilities { get; set; }
+
+        public Ability() { }
 
         public Ability(string name)
         {
-            if (name == null) 
-                throw new ArgumentNullException("name");
-
-            _name = name;
+            Name = name;
+            Id = name;
+            Abilities = new List<Ability>();
         }
+
+        public Ability(string name, string id)
+        {
+            Name = name;
+            Id = id;
+            Abilities = new List<Ability>();
+		}
 
         public bool Equals(Ability other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return _name.ToLower() ==  other._name.ToLower();
+            return Id.ToLower() ==  other.Id.ToLower();
         }
 
         public override bool Equals(object obj)
@@ -37,7 +45,7 @@ namespace Hero
 
         public override int GetHashCode()
         {
-            return _name.ToLower().GetHashCode();
+            return Id.ToLower().GetHashCode();
         }
 
         public static bool operator ==(Ability left, Ability right)

@@ -69,14 +69,11 @@
       <Link>Properties\SolutionVersionInfo.cs</Link>
     </Compile>
     <Compile Include="Ability.cs" />
+    <Compile Include="Interfaces\IAbility.cs" />
     <Compile Include="Interfaces\IRole.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Role.cs" />
-    <Compile Include="RoleAbility.cs" />
-    <Compile Include="RoleAbilityMap.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="UserRole.cs" />
-    <Compile Include="UserRoleMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -85,7 +82,7 @@
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>
     <BUILD_NUMBER Condition="'$(BuildingInsideVisualStudio)' == true">0.0.0.0</BUILD_NUMBER>
-    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)*.dll" "$(ProjectDir)\..\nuget\lib"</PostBuildEvent>
+    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)Hero*.dll" "$(ProjectDir)\..\nuget\lib"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

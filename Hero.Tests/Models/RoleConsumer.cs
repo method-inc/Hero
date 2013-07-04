@@ -11,8 +11,8 @@ namespace Hero.Tests.Models
         public RoleConsumer()
         {
             Counter = 0;
-            _vent.Subscribe(new RegisterRoleEvent(), Increase);
-            _vent.Subscribe(new UnregisterRoleEvent(), Decrease);
+            _vent.Subscribe(new RegisterUserWithRoleEvent(), Increase);
+            _vent.Subscribe(new UnregisterUserWithRoleEvent(), Decrease);
         }
 
         public void Increase(dynamic param)

@@ -84,7 +84,7 @@ namespace Hero.Attributes
 
             foreach (string role in RolesSplit)
             {
-                if (HeroConfig.AuthorizationService.GetRolesForUser(user).Any(r => r.Name == role))
+                if (user.Roles.Any(r => r.Name == role))
                 {
                     isAuthorized = true;
                 }

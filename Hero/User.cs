@@ -1,16 +1,37 @@
-﻿using System;
+﻿using System.Linq;
+using System;
+using System.Collections.Generic;
 using Hero.Interfaces;
 
 namespace Hero
 {
     public class User : IUser, IEquatable<User>
     {
-        public string Id { get {return Name;} }
-        public string Name { get; private set; }
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+
+        public IList<Ability> Abilities
+        {
+            get { return Roles.SelectMany(r => r.Abilities).ToList(); }
+        }
+
+        public IList<Role> Roles { get; set; }
+
+        public User() { }
 
         public User(string name)
         {
             Name = name;
+            Id = name;
+            Roles = new List<Role>();
+        }
+
+        public User(string name, string id)
+        {
+            Name = name;
+            Id = id;
+            Roles = new List<Role>();
         }
 
         public bool Equals(User other)
