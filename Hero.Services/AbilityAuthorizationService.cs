@@ -1,177 +1,200 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DotNetStandard.Vent;
 using Hero.Interfaces;
-using Hero.Services.Events;
+using Hero.Repositories;
 using Hero.Services.Interfaces;
-using NGenerics.DataStructures.Trees;
-using NGenerics.Patterns.Visitor;
 
 namespace Hero.Services
 {
     public class AbilityAuthorizationService : AuthorizationService, IAbilityAuthorizationService
     {
-        private readonly RoleAbilityMap _roleAbilityMap;
-        private readonly UserRoleMap _userRoleMap;
+        private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepository;
+        private readonly IAbilityRepository _abilityRepository;
 
         public AbilityAuthorizationService()
         {
-            _roleAbilityMap = new RoleAbilityMap();
-            _userRoleMap = new UserRoleMap();
+            _userRepository = new UserRepository();
+            _roleRepository = new RoleRepository();
+            _abilityRepository = new AbilityRepository();
         }
 
-        public bool Authorize(IRole role, Ability ability)
+        public AbilityAuthorizationService(IUserRepository userRepository, 
+                                           IRoleRepository roleRepository, 
+                                           IAbilityRepository abilityRepository)
         {
-            return _Authorize(role, ability);
+            _userRepository = userRepository;
+            _roleRepository = roleRepository;
+            _abilityRepository = abilityRepository;
         }
 
-        public bool Authorize(IUser user, Ability ability)
+        public IEnumerable<IUser> GetUsers()
         {
-            return GetRolesForUser(user).Any(role => _Authorize(role, ability));
+            return _userRepository.Get<IUser>();
         }
 
-        public void RegisterAbility(IRole role, Ability ability)
+        public IEnumerable<IRole> GetRoles()
         {
-            if (_roleAbilityMap.ContainsKey(role))
-                _roleAbilityMap[role].Add(new GeneralTree<Ability>(ability));
-            else
-                _roleAbilityMap.Add(role, new List<GeneralTree<Ability>> {new GeneralTree<Ability>(ability)});
-
-            EventAggregator.Instance.Trigger(
-                new RegisterAbilityEvent(),
-                new object[] { new RoleAbility(role, ability) }
-                );
+            return _roleRepository.Get<IRole>();
         }
 
-        public void UnregisterAbility(IRole role, Ability ability)
+        public IEnumerable<IAbility> GetAbilities()
         {
-            if (!_roleAbilityMap.ContainsKey(role))
-                return;
-
-            for (int i = 0; i < _roleAbilityMap[role].Count; i++)
-            {
-                if (!_roleAbilityMap[role][i].Data.Equals(ability))
-                    continue;
-                _roleAbilityMap[role].RemoveAt(i);
-            }
-
-            EventAggregator.Instance.Trigger(
-                new UnregisterAbilityEvent(),
-                new object[] {new RoleAbility(role, ability)}
-                );
+            return _abilityRepository.Get<IAbility>();
         }
 
-        public void RegisterChildAbility(Ability parent, Ability child)
+        public IUser GetUser(string id)
         {
-            foreach (KeyValuePair<IRole, List<GeneralTree<Ability>>> roleList in _roleAbilityMap)
-                foreach (GeneralTree<Ability> tree in roleList.Value)
-                    _Visit(tree, parent, child, roleList.Key);
+            return _userRepository.Get<IUser>().FirstOrDefault(user => user.Id == id);
         }
 
-        public void _Visit(GeneralTree<Ability> tree, Ability parent, Ability child, IRole role)
+        public IRole GetRole(string id)
         {
-            if (tree.Data.Equals(parent))
-            {
-                tree.Add(child);
-                EventAggregator.Instance.Trigger(
-                    new RegisterAbilityEvent(),
-                    new object[] {new RoleAbility(role, child)}
-                    );
-                return;
-            }
-
-            foreach (var childTree in tree.ChildNodes)
-                _Visit(childTree, parent, child, role);
+            return _roleRepository.Get<IRole>().FirstOrDefault(role => role.Id == id);
         }
 
-        public void RegisterRole(IUser user, IRole role)
+        public IAbility GetAbility(string id)
         {
-            if (_userRoleMap.ContainsKey(user))
-                _userRoleMap[user].Add(role);
-            else
-                _userRoleMap.Add(user, new HashSet<IRole> {role});
-
-            EventAggregator.Instance.Trigger(
-                new RegisterRoleEvent(),
-                new object[] {new UserRole(user, role)}
-                );
+            return _abilityRepository.Get<IAbility>().FirstOrDefault(ability => ability.Id == id);
         }
 
-        public void UnregisterRole(IUser user, IRole role)
+        public IUser AddUser(IUser user)
         {
-            if (!_userRoleMap.ContainsKey(user))
-                return;
-            _userRoleMap[user].Remove(role);
+            foreach (IRole role in user.Roles)
+                AddRole(role);
 
-            EventAggregator.Instance.Trigger(
-                new UnregisterRoleEvent(),
-                new object[] {new UserRole(user, role)}
-                );
+            _userRepository.Create(user);
+            return GetUser(user.Name);
         }
 
-        private bool _Authorize(IRole role, Ability ability)
+        public IRole AddRole(IRole role)
         {
-            if (!_roleAbilityMap.ContainsKey(role))
-                return false;
+            foreach (IAbility ability in role.Abilities)
+                AddAbility(ability);
 
-            foreach (GeneralTree<Ability> tree in _roleAbilityMap[role])
-                foreach (var node in tree.AsEnumerable())
-                    if (node == ability)
-                        return true;
+            _roleRepository.Create(role);
+            return GetRole(role.Name);
+        }
+
+        public IAbility AddAbility(IAbility ability)
+        {
+            _abilityRepository.Create(ability);
+
+            foreach (IAbility childAbility in ability.Abilities)
+                AddAbility(childAbility);
+
+            return GetAbility(ability.Name);
+        }
+
+        public void RemoveUser(string id)
+        {
+            RemoveUser((GetUser(id)));
+        }
+
+        public void RemoveUser(IUser user)
+        {
+            _userRepository.Delete(user);
+        }
+
+        public void RemoveRole(string id)
+        {
+            IRole role = GetRole(id);
+            RemoveRole(role);
+        }
+
+        public void RemoveRole(IRole role)
+        {
+            foreach (IUser user in _userRepository.Get<IUser>())
+                user.Roles.Remove((Role)role);
+            _roleRepository.Delete(role);
+        }
+
+        public void RemoveAbility(string id)
+        {
+            IAbility ability = GetAbility(id);
+            RemoveAbility(ability);
+        }
+
+        public void RemoveAbility(IAbility ability)
+        {
+            foreach (IRole role in _roleRepository.Get<IRole>())
+                role.Abilities.Remove((Ability)ability);
+            _abilityRepository.Delete(ability);
+        }
+
+        public IUser UpdateUser(IUser user)
+        {
+            RemoveUser(user.Id);
+            AddUser(user);
+            return GetUser(user.Name);
+        }
+
+        public IRole UpdateRole(IRole role)
+        {
+            RemoveRole(role.Id);
+            AddRole(role);
+            return GetRole(role.Name);
+        }
+
+        public IAbility UpdateAbility(IAbility ability)
+        {
+            RemoveAbility(ability.Id);
+            AddAbility(ability);
+            return GetAbility(ability.Name);
+        }
+
+        public bool Authorize(IRole role, IAbility ability)
+        {
+            if (role.Abilities.Contains(ability))
+                return true;
+
+            foreach (Ability root in role.Abilities)
+                if (_Authorize(root, ability))
+                    return true;
 
             return false;
         }
 
-        public IEnumerable<IRole> GetRolesForUser(string userName)
+        public bool Authorize(string userName, string abilityName)
         {
-            return GetRolesForUser(new User(userName));
+            IUser user = GetUser(userName);
+            IAbility ability = GetAbility(abilityName);
+            return Authorize(user, ability);
         }
 
-        public IEnumerable<IRole> GetRolesForUser(IUser user)
+        public bool Authorize(IUser user, IAbility ability)
         {
-            var retVal = new HashSet<IRole>();
-            if (_userRoleMap.TryGetValue(user, out retVal))
-                return retVal;
-
-            return new List<IRole>();
+            return user.Roles.Any(role => Authorize(role, ability));
         }
 
-        public IEnumerable<Ability> GetAbilitiesForRole(string roleName)
+        private bool _Authorize(IAbility root, IAbility query)
         {
-            return GetAbilitiesForRole(new Role(roleName));
-        }
+            if (root.Abilities.Contains(query))
+                return true;
 
-        public IEnumerable<Ability> GetAbilitiesForRole(IRole role)
-        {
-            List<GeneralTree<Ability>> retVal;
-            if (_roleAbilityMap.TryGetValue(role, out retVal))
-                return retVal.Select(tree => tree.Data);
-
-            return new List<Ability>();
-        }
-
-        public IEnumerable<Ability> GetAbilitiesForUser(string userName)
-        {
-            return GetAbilitiesForUser(new User(userName));
-        }
-
-        public IEnumerable<Ability> GetAbilitiesForUser(IUser user)
-        {
-            var abilities = new HashSet<Ability>();
-            var roles = new HashSet<IRole>();
-
-            if (!_userRoleMap.TryGetValue(user, out roles))
-                return new List<Ability>();
-
-            foreach (var role in roles)
+            foreach (Ability childAbility in root.Abilities)
             {
-                List<GeneralTree<Ability>> roleAbilities;
-                if (_roleAbilityMap.TryGetValue(role, out roleAbilities))
-                {
-                    foreach (var ability in roleAbilities.Select(tree => tree.Data))
-                        abilities.Add(ability);
-                }
+                if (_Authorize(childAbility, query))
+                    return true;
             }
+
+            return false;
+        }
+
+        public IEnumerable<IAbility> GetAbilitiesForUser(string userName)
+        {
+            return GetAbilitiesForUser(_userRepository.Get<IUser>().FirstOrDefault(user => user.Name.Equals(userName)));
+        }
+
+        public IEnumerable<IAbility> GetAbilitiesForUser(IUser user)
+        {
+            if(user == null)
+                return new List<IAbility>();
+
+            var abilities = new HashSet<IAbility>();
+
+            foreach (var ability in user.Roles.SelectMany(role => role.Abilities))
+                abilities.Add(ability);
 
             return abilities;
         }

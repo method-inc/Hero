@@ -16,9 +16,21 @@ namespace Hero.Tests
         }
 
         [Test]
-        public void TestAbilityWithNullNameThrowException()
+        public void TestAbilityCanSetProperties()
         {
-            Assert.Throws<ArgumentNullException>(() => new Ability(null));
+            Ability ability3 = new Ability();
+            ability3.Name = "Ability3";
+            ability3.Id = "Ability3";
+            Ability abilityThree = new Ability("Ability3");
+            Assert.AreEqual(abilityThree, ability3);
+        }
+
+        [Test]
+        public void TestAbilityIdAndNameSetInConstructor()
+        {
+            Ability ability4 = new Ability("Ability4", "Ability4");
+            Ability abilityFour = new Ability("Ability4");
+            Assert.AreEqual(abilityFour, ability4);
         }
 
         [Test]

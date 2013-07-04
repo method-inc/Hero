@@ -1,16 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
 using Hero.Interfaces;
 
 namespace Hero
 {
     public class Role : IRole, IEquatable<Role>
     {
-        public string Id { get { return Name; } }
-        public string Name { get; private set; }
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+
+        public IList<Ability> Abilities { get; set; }
+
+        public Role() { } 
 
         public Role(string name)
         {
             Name = name;
+            Id = name;
+            Abilities = new List<Ability>();
+        }
+
+        public Role(string name, string id)
+        {
+            Name = name;
+            Id = id;
+            Abilities = new List<Ability>();
         }
 
         public bool Equals(Role other)
