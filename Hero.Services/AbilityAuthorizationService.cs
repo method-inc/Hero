@@ -194,9 +194,21 @@ namespace Hero.Services
             var abilities = new HashSet<IAbility>();
 
             foreach (var ability in user.Roles.SelectMany(role => role.Abilities))
+            {
                 abilities.Add(ability);
+                AddChildAbilities(ability, abilities);
+            }
 
             return abilities;
+        }
+
+        private void AddChildAbilities(IAbility root, HashSet<IAbility> abilities)
+        {
+            foreach (Ability childAbility in root.Abilities)
+            {
+                abilities.Add(childAbility);
+                AddChildAbilities(childAbility, abilities);
+            }
         }
     }
 }
