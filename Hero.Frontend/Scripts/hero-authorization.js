@@ -11,7 +11,7 @@
       * The registration can take a true object or a function as the second paramter
       * If only an object and no function are passed, it will register itself with every function off the object
       */
-  hero.registerAbility = function(abilityName, target, fn) {
+  hero.registerAbility = function(abilityName, target, fn, functionName) {
     if (!target || !(target instanceof Object))
       throw "You must pass an object as the target.";
     if (!fn || !(fn instanceof Function)) {
@@ -29,11 +29,13 @@
       fn = fn.originalFunction;
     }
 
-    target[fn.name] = function() {
+    target.prototype[functionName] = function() {
       var that = this;
       var thatArguments = arguments;
 
-      var isAuthorized = _.find(userAbilities, function(item) { return item && item.name === abilityName; }) !== null;
+      var foundAbility = _.find(userAbilities, function (item) { return item && item.name === abilityName; });
+      var isAuthorized = foundAbility !== undefined && foundAbility !== null;
+      
 
       if (isAuthorized) {
         return fn.apply(that, thatArguments);
@@ -43,8 +45,8 @@
     };
 
     //setup the option of re-registering
-    target[fn.name].trueName = fn.name;
-    target[fn.name].originalFunction = fn;
+    target.prototype[functionName].trueName = fn.name;
+    target.prototype[functionName].originalFunction = fn;
 
     return this;
   };
