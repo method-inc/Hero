@@ -328,6 +328,7 @@ Finally create an init.js (or similar):
 You should then see the HeroAdmin console.
 ![HeroAdmin Console](http://i.snag.gy/qqLp1.jpg "HeroAdmin")
 
+Note: if you wish to override the default in memory repositories that Hero uses you can pass in a User,Role, and Ability Repository to the AuthorizationService.
 
 # Contributing
 
