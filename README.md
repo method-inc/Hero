@@ -6,6 +6,9 @@ Hero is an ability based authorization for .NET MVC and WepAPI projects inspired
 ## Client Side
 In addition to a server side component, Hero has a Javascript component as well.  The client side version of Hero allows for the injection of security authorization into javascript functions through AOP techniques.
 
+## HeroAdmin
+
+HeroAdmin is a client side application that is available to any Hero install by default. It allows users, roles, and abilities to be managed via a web interface. By default it uses an in memory repository for persistence, but can be configured to use any persistence layer you like.
 
 # Installation
 
@@ -15,21 +18,26 @@ You can install this module via [NuGet](http://www.nuget.org). Currently what ex
 Install-Package Hero
 ````
 
+# Dependencies
+
+Hero currently depends on the following (these are installed automatically if you install via NuGet):
+
++ [angular.js](http://angularjs.org/)
++ [dotnetrepositories](https://github.com/Skookum/dotnetrepositories)
++ [dotnetstandard](https://github.com/Skookum/dotnetstandard)
++ [Twitter Bootstrap](http://twitter.github.io/bootstrap/) (for HeroAdmin)
+
 # Roadmap
 
-1. The next step is to define an administration screen that can be easily integrated in an application.
-2. Allow for hierarchical abilities to make naming and maintenance easier.
-3. Create a provider to allow Hero to pull user and roles from .NET's built in user and role repositories.
+1. Create a provider/adapter to allow Hero to pull user and roles from .NET's built in user and role repositories.
+2. Make it easier to create user/role/ability combos in the Global.asax.cs
 3. Have a mechanism for allowing auto creation of abilities (for example in a simple CRUD application).
 4. Look for methods of hooking the server side registrations to the client side automatically.  This may be through naming conventions or making the function registrations go through the server.
 
 # Examples
 
-You can see a fully implemented example in the Samples project in the repository.  For quick help on the server side implementation or client side, see below:
+You can see a fully implemented example at the [HeroGame](https://github.com/Skookum/HeroGame) project.  For quick help on the server side implementation or client side, see below:
 
-##Sample App
-
-When working with the sample application there is an admin user (todoadminuser) and a basic user (todobasicuser).  The password for both is password.
 
 ##Server Side
 The steps to create user, roles, and register abilities are extremely simple and easy to configure.  This code will typically be performed in the Global.asax or similiar application startup code.
@@ -41,19 +49,30 @@ IAbilityAuthorizationService service = new AbilityAuthorizationService();
 HeroConfig.Initialize(service);
 ````
 
-Once you have registered a service with Hero the next step is to register a user or role with an Ability.  The following code will register a role labeled BasicRole with an Ability named View.
+Once you have registered a service with Hero the next step is to create an ability.  The following code will create an ability named View.
 
 ````csharp 
-HeroConfig.RegisterAbilities(new Role("BasicRole"), new Ability("View"));
+Ability viewAbility = new Ability("View");
+service.AddAbility(viewAbility);
 ````
 
-If you want to register a specific user, there is a corresponding registration function for this as well.
+Once you have added abilities you can then add roles into the system.
 
-````csharp
-HeroConfig.RegisterAbilities(new User("John Doe"), new Ability("View"));
+````csharp 
+Role basicRole = new Role("Basic");
+basicRole.Abilities.Add(viewAbility);
+service.AddRole(basicRole);
 ````
 
-Once you have created the service and registered your roles/users with their abilitites you need to associate an action or method with an ability.  This can be performed through the attributes provided in the Hero.Attributes project.  Hero provides an attribute to be utilized in an ASP.NET MVC or WebAPI project.  Abilities can be registered at the controller or action level.  Your more restrictive abilities should be registered at the action level, while the less restrictive should be applied at the controller level.  In the following example, the View ability is the least restrictive, and Create, Edit, and Delete are at the action level.  The view actions (Index and Details) inherit their abilities from the controller level.
+Finally you can add users into the system. Note you can only grant users abilities by adding roles that contain those abilities. You should not add abilities to users directly.
+
+````csharp 
+User basicUser = new User("BasicUser");
+basicUser.Roles.Add(basicRole);
+service.AddUser(basicUser);
+````
+
+Once you have created the service and added your roles/users with their abilitites you need to associate an action or method with an ability.  This can be performed through the attributes provided in the Hero.Attributes project.  Hero provides an attribute to be utilized in an ASP.NET MVC or WebAPI project.  Abilities can be registered at the controller or action level.  Your more restrictive abilities should be registered at the action level, while the less restrictive should be applied at the controller level.  In the following example, the View ability is the least restrictive, and Create, Edit, and Delete are at the action level.  The view actions (Index and Details) inherit their abilities from the controller level.
 
 The corresponding Attribute for WebAPI projects is AbilityWebApiAuthorization.
 
@@ -176,7 +195,7 @@ public class ToDoController : Controller
 }
 ````
 
-Finally you can leverage the HeroConfiguration in your Razor views
+Finally you can leverage perform authorization checks in your Razor views
 
 ````csharp
 <p>
@@ -187,22 +206,35 @@ Finally you can leverage the HeroConfiguration in your Razor views
 </p>
 ````
 
-This is all it takes to configure you ability based authorization system on the server side.  You can also leverage your registered abilities on the client side as well.  See below for an examples.
+This is all it takes to configure you ability based authorization system on the server side. Now your code and your authorization are decoupled. This means you can add new roles, remove roles, rename roles, etc. all from an admin panel instead of redeploying an application.  You can also leverage your registered abilities on the client side as well.  See below for an examples.
 
-##Ability Groups
-  Another feature Hero provides is the grouping of abilities.  Grouping allows for easier registration of abilities.  The example below creates an ability group called Manage that contains the Edit, Create, and Delete abilities.  When the manage ability is registered with AdminRole, the Edit, Create, and Delete abilities are registered.
+## Complex Abilities
+  Another feature Hero provides is an ability hierarchy. This makes Hero more flexible and easier to register users with their appropriate abilities.  The example below creates an ability hierarchy called Manage that contains the Edit, Create, and Delete abilities.  When the manage ability is registered with AdminRole, the Edit, Create, and Delete abilities are also available to the AdminRole.
 
 ````csharp
-IRole toDoAdminRole = new Role("ToDoAdmin");
+Role toDoAdminRole = new Role("ToDoAdmin");
+Role toDoEditRole = new Role("ToDoEdit");
+
 Ability toDoCreateAbility = new Ability("Create");
 Ability toDoDeleteAbility = new Ability("Delete");
+Ability toDoEditContentAbility = new Ability("EditContent");
+Ability toDoEditDataAbility = new Ability("EditData");
+
 Ability toDoEditAbility = new Ability("Edit");
-Ability manageAbility = new Ability("Manage", new[] { toDoCreateAbility, toDoEditAbility, toDoDeleteAbility, toDoViewAbility });
-HeroConfig.RegisterAbilities(toDoAdminRole, manageAbility);
+todoEditAbility.Add(toDoEditContentAbility);
+todoEditAbility.Add(toDoEditDataAbility);
+
+Ability manageAbility = new Ability("Manage");
+manageAbility.Abilities.Add(toDoCreateAbility);
+manageAbility.Abilities.Add(toDoEditAbility);
+manageAbility.Abilities.Add(toDoDeleteAbility);
+
+toDoAdminRole.Abilities.Add(manageAbility);
+toDoEditRole.Abilities.Add(toDoEditAbility);
 ````
 
 ##Client Side
-Generally speaking providing authorization at the server level is not the entire story.  If a user does not have permission to perform an action, the trigger (button, link, visual container) would not even be visible to a user.  Hero provides a client side implementation to help keep your client ability triggers in sync with the server.
+Generally speaking providing authorization at the server level is not the entire story.  If a user does not have permission to perform an action, the trigger (button, link, visual container) would not even be visible to a user.  Hero provides a client side implementation to help keep your client ability triggers in sync with the server and provies support for Single Page Applications (SPA).
 
 The following code will create a simple javascript module for managing these triggers.  The module has functions for showing the create, edit, delete, and details button utilized in the ToDo HD application.  By default these buttons are hidden and only if the user is authorized will the module functions run.
 
@@ -250,15 +282,52 @@ $(document).ready(function () {
 
 
 //initialize the ability based authorization utilizing the Hero project
-Hero
-    .configure({ endpoint: "http://localhost:54573/Abilities/" })
-    .registerAbility(Hero.Ability("View"), TestModule, TestModule.showDetailsButton)
-    .registerAbility(Hero.Ability("Create"), TestModule, TestModule.showCreateButton)
-    .registerAbility(Hero.Ability("Edit"), TestModule, TestModule.showEditButton)
-    .registerAbility(Hero.Ability("Delete"), TestModule, TestModule.showDeleteButton);
+Hero.init()
+    .registerAbility("View", TestModule, TestModule.prototype.showDetailsButton)
+    .registerAbility("Create", TestModule, TestModule.prototype.showCreateButton)
+    .registerAbility("Edit", TestModule, TestModule.prototype.showEditButton)
+    .registerAbility("Delete", TestModule, TestModule.prototype.showDeleteButton);
 ````
 
 The configuration code provides a fluent syntax for registering a module's public functions with an Ability.  In the previous example, if the user has the Create ability then the showCreateButton will be allowed to run (and thus the button will become visible).  One point to note here is the endpoint.  Hero installs an Abilities controller by default and your Hero javascript configuration will need to point to this controller.
+
+## HeroAdmin Usage
+
+Hero also include HeroAdmin. HeroAdmin is an SPA that was built to ease the management task of creating abilities, roles, and users. If you wish to use HeroAdmin in your application you will need to add the following to your BundleConfig.cs
+
+````csharp
+bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css"));
+bundles.Add(new ScriptBundle("~/bundles/herojs").Include(
+            "~/Scripts/angular.js",
+            "~/Scripts/angular-resource.js",
+            "~/Scripts/lodash.js",
+            "~/Scripts/restangular.js",
+            "~/Scripts/hero.js",
+            "~/Scripts/hero-user.js",
+            "~/Scripts/hero-role.js",
+            "~/Scripts/hero-ability.js",
+            "~/Scripts/hero-authorization.js"));
+````
+
+Add the following to the page you wish the HeroAdmin console to appear. Typically you can create an Admin MVC controller/view to support this (see HeroGame for example):
+
+````html
+@Scripts.Render("~/bundles/herojs")
+@Scripts.Render("~/Scripts/init.js")
+
+<div id="admin-console"></div>
+````
+
+Finally create an init.js (or similar):
+
+````javascript
+(function () {
+  Hero.init().buildConsole();
+})();
+````
+You should then see the HeroAdmin console.
+![HeroAdmin Console](http://i.snag.gy/qqLp1.jpg "HeroAdmin")
+
 
 # Contributing
 
