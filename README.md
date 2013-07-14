@@ -18,6 +18,31 @@ You can install this module via [NuGet](http://www.nuget.org). Currently what ex
 Install-Package Hero
 ````
 
+# Getting Started
+
+You will need to include the following code in your BundleConfig.cs in order to access the client side capabilities. If you do not need client side functionality you can skip this step.
+
+````csharp
+bundles.Add(new ScriptBundle("~/bundles/herojs").Include(
+            "~/Scripts/angular.js",
+            "~/Scripts/angular-resource.js",
+            "~/Scripts/lodash.js",
+            "~/Scripts/restangular.js",
+            "~/Scripts/hero.js",
+            "~/Scripts/hero-user.js",
+            "~/Scripts/hero-role.js",
+            "~/Scripts/hero-ability.js",
+            "~/Scripts/hero-authorization.js"));
+````
+
+Add the following to any page you wish to leverage the client side capabilities.
+
+````html
+@Scripts.Render("~/bundles/herojs")
+````
+
+See the [server side examples](server-side-1) below for how to configure your ability based authorization on the server side.
+
 # Dependencies
 
 Hero currently depends on the following (these are installed automatically if you install via NuGet):
