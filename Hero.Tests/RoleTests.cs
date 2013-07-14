@@ -15,6 +15,24 @@ namespace Hero.Tests
         }
 
         [Test]
+        public void TestRoleCanSetProperties()
+        {
+            Role role3 = new Role();
+            role3.Name = "Role3";
+            role3.Id = "Role3";
+            Role roleThree = new Role("Role3");
+            Assert.AreEqual(roleThree, role3);
+        }
+
+        [Test]
+        public void TestRoleIdAndNameSetInConstructor()
+        {
+            Role role4 = new Role("Role4", "Role4");
+            Role roleFour = new Role("Role4");
+            Assert.AreEqual(roleFour, role4);
+        }
+
+        [Test]
         public void TestRolesAreEqual()
         {
             Role roleOne = new Role("Role1");

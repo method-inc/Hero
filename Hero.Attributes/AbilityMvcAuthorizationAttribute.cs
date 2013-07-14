@@ -19,7 +19,7 @@ namespace Hero.Attributes
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            bool isAuthenticated = false;
+            bool isAuthenticated = httpContext.User.Identity.IsAuthenticated;
             bool isAuthorized = base.AuthorizeCore(httpContext);
 
             if (!isAuthorized)
@@ -27,10 +27,7 @@ namespace Hero.Attributes
                 return false;
             }
 
-            isAuthenticated = httpContext.User.Identity.IsAuthenticated;
-
-            User user = new User(httpContext.User.Identity.Name);
-            isAuthorized = HeroConfig.AuthorizationService.Authorize(user, new Ability(Ability));
+            isAuthorized = HeroConfig.AuthorizationService.Authorize(httpContext.User.Identity.Name, Ability);
 
             return isAuthenticated && isAuthorized;
         }

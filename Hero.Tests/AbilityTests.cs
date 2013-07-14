@@ -16,15 +16,21 @@ namespace Hero.Tests
         }
 
         [Test]
-        public void TestAbilityWithNullNameThrowException()
+        public void TestAbilityCanSetProperties()
         {
-            Assert.Throws<ArgumentNullException>(() => new Ability(null));
+            Ability ability3 = new Ability();
+            ability3.Name = "Ability3";
+            ability3.Id = "Ability3";
+            Ability abilityThree = new Ability("Ability3");
+            Assert.AreEqual(abilityThree, ability3);
         }
 
         [Test]
-        public void TestAbilityWithNullParentThrowException()
+        public void TestAbilityIdAndNameSetInConstructor()
         {
-            Assert.Throws<ArgumentNullException>(() => new Ability("Test", null));
+            Ability ability4 = new Ability("Ability4", "Ability4");
+            Ability abilityFour = new Ability("Ability4");
+            Assert.AreEqual(abilityFour, ability4);
         }
 
         [Test]
@@ -111,12 +117,6 @@ namespace Hero.Tests
         public void TestAbilityHashCodeNotEquals()
         {
             Assert.AreNotEqual(_ability1.GetHashCode(), _ability2.GetHashCode());
-        }
-
-        [Test]
-        public void TestInvalidParentConfiguration()
-        {
-            Assert.Throws<InvalidOperationException>(() => _ability1.Children = new[] { _ability1 });
         }
     }
 }
