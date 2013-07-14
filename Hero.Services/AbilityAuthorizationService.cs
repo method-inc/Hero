@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Hero.Interfaces;
 using Hero.Repositories;
@@ -164,6 +165,7 @@ namespace Hero.Services
 
         public bool Authorize(IUser user, IAbility ability)
         {
+            if (user == null || ability == null) return false;
             return user.Roles.Any(role => Authorize(role, ability));
         }
 
