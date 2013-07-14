@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Hero : Saving projects from role based authorization" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Hero</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Skookum/Hero">View on GitHub</a>
+
+          <h1 id="project_title">Hero</h1>
+          <h2 id="project_tagline">Saving projects from role based authorization</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Skookum/Hero/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Skookum/Hero/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="hero-" class="anchor" href="#hero-"><span class="octicon octicon-link"></span></a>Hero <a href="http://skookum.cloudapp.net/viewType.html?buildTypeId=bt8&amp;guest=1"><img src="http://skookum.cloudapp.net/app/rest/builds/buildType:(id:bt8)/statusIcon"></a>
+</h1>
+
+<h2>
+<a name="server-side" class="anchor" href="#server-side"><span class="octicon octicon-link"></span></a>Server Side</h2>
+
+<p>Hero is an ability based authorization for .NET MVC and WepAPI projects inspired by the Rails project <a href="https://github.com/ryanb/cancan">CanCan</a> and by <a href="http://lostechies.com/derickbailey/2011/05/24/dont-do-role-based-authorization-checks-do-activity-based-checks/">Derick Bailey</a>.  Ability based authorization provides a more flexible approach to the traditional .NET authorization technique by decoupling the permissions and code.  By associating a role to a method or action in .NET (through typical Authorization attribute) you are creating a tight coupling between a role and an action.  However, what happens when your role name changes?  Now you have to update all code that references that role name.  By assigning ability names to an action or method you abstract the functionality and the association can be done programmatically.  This allows for a loose coupling of functionality to roles and users.</p>
+
+<h2>
+<a name="client-side" class="anchor" href="#client-side"><span class="octicon octicon-link"></span></a>Client Side</h2>
+
+<p>In addition to a server side component, Hero has a Javascript component as well.  The client side version of Hero allows for the injection of security authorization into javascript functions through AOP techniques.</p>
+
+<h2>
+<a name="heroadmin" class="anchor" href="#heroadmin"><span class="octicon octicon-link"></span></a>HeroAdmin</h2>
+
+<p>HeroAdmin is a client side application that is available to any Hero install by default. It allows users, roles, and abilities to be managed via a web interface. By default it uses an in memory repository for persistence, but can be configured to use any persistence layer you like.</p>
+
+<h1>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<p>You can install this module via <a href="http://www.nuget.org">NuGet</a>. Currently what exists in master is automatically pushed out as a NuGet package. Once Hero becomes more stable, this will change.  Hero can be installed via the following command:</p>
+
+<pre><code>Install-Package Hero
+</code></pre>
+
+<h1>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h1>
+
+<p>You will need to include the following code in your BundleConfig.cs in order to access the client side capabilities. If you do not need client side functionality you can skip this step.</p>
+
+<div class="highlight"><pre><span class="n">bundles</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">ScriptBundle</span><span class="p">(</span><span class="s">"~/bundles/herojs"</span><span class="p">).</span><span class="n">Include</span><span class="p">(</span>
+            <span class="s">"~/Scripts/angular.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/angular-resource.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/lodash.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/restangular.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/hero.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/hero-user.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/hero-role.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/hero-ability.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/hero-authorization.js"</span><span class="p">));</span>
+</pre></div>
+
+<p>Add the following to any page you wish to leverage the client side capabilities.</p>
+
+<div class="highlight"><pre>@Scripts.Render("~/bundles/herojs")
+</pre></div>
+
+<p>See the <a href="#server-side-1">server side examples</a> below for how to configure your ability based authorization on the server side.</p>
+
+<h1>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h1>
+
+<p>Hero currently depends on the following (these are installed automatically if you install via NuGet):</p>
+
+<ul>
+<li><a href="http://angularjs.org/">angular.js</a></li>
+<li><a href="https://github.com/Skookum/dotnetrepositories">dotnetrepositories</a></li>
+<li><a href="https://github.com/Skookum/dotnetstandard">dotnetstandard</a></li>
+<li>
+<a href="http://twitter.github.io/bootstrap/">Twitter Bootstrap</a> (for HeroAdmin)</li>
+</ul><h1>
+<a name="roadmap" class="anchor" href="#roadmap"><span class="octicon octicon-link"></span></a>Roadmap</h1>
+
+<ol>
+<li>Create a provider/adapter to allow Hero to pull user and roles from .NET's built in user and role repositories.</li>
+<li>Make it easier to create user/role/ability combos in the Global.asax.cs</li>
+<li>Have a mechanism for allowing auto creation of abilities (for example in a simple CRUD application).</li>
+<li>Look for methods of hooking the server side registrations to the client side automatically.  This may be through naming conventions or making the function registrations go through the server.</li>
+</ol><h1>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h1>
+
+<p>You can see a fully implemented example at the <a href="https://github.com/Skookum/HeroGame">HeroGame</a> project.  For quick help on the server side implementation or client side, see below:</p>
+
+<h2>
+<a name="server-side-1" class="anchor" href="#server-side-1"><span class="octicon octicon-link"></span></a>Server Side</h2>
+
+<p>The steps to create user, roles, and register abilities are extremely simple and easy to configure.  This code will typically be performed in the Global.asax or similiar application startup code.</p>
+
+<p>The first step is to initialize the authorization services with Hero.</p>
+
+<div class="highlight"><pre><span class="n">IAbilityAuthorizationService</span> <span class="n">service</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AbilityAuthorizationService</span><span class="p">();</span>
+<span class="n">HeroConfig</span><span class="p">.</span><span class="n">Initialize</span><span class="p">(</span><span class="n">service</span><span class="p">);</span>
+</pre></div>
+
+<p>Once you have registered a service with Hero the next step is to create an ability.  The following code will create an ability named View.</p>
+
+<div class="highlight"><pre><span class="n">Ability</span> <span class="n">viewAbility</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Ability</span><span class="p">(</span><span class="s">"View"</span><span class="p">);</span>
+<span class="n">service</span><span class="p">.</span><span class="n">AddAbility</span><span class="p">(</span><span class="n">viewAbility</span><span class="p">);</span>
+</pre></div>
+
+<p>Once you have added abilities you can then add roles into the system.</p>
+
+<div class="highlight"><pre><span class="n">Role</span> <span class="n">basicRole</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Role</span><span class="p">(</span><span class="s">"Basic"</span><span class="p">);</span>
+<span class="n">basicRole</span><span class="p">.</span><span class="n">Abilities</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">viewAbility</span><span class="p">);</span>
+<span class="n">service</span><span class="p">.</span><span class="n">AddRole</span><span class="p">(</span><span class="n">basicRole</span><span class="p">);</span>
+</pre></div>
+
+<p>Finally you can add users into the system. Note you can only grant users abilities by adding roles that contain those abilities. You should not add abilities to users directly.</p>
+
+<div class="highlight"><pre><span class="n">User</span> <span class="n">basicUser</span> <span class="p">=</span> <span class="k">new</span> <span class="n">User</span><span class="p">(</span><span class="s">"BasicUser"</span><span class="p">);</span>
+<span class="n">basicUser</span><span class="p">.</span><span class="n">Roles</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">basicRole</span><span class="p">);</span>
+<span class="n">service</span><span class="p">.</span><span class="n">AddUser</span><span class="p">(</span><span class="n">basicUser</span><span class="p">);</span>
+</pre></div>
+
+<p>Once you have created the service and added your roles/users with their abilitites you need to associate an action or method with an ability.  This can be performed through the attributes provided in the Hero.Attributes project.  Hero provides an attribute to be utilized in an ASP.NET MVC or WebAPI project.  Abilities can be registered at the controller or action level.  Your more restrictive abilities should be registered at the action level, while the less restrictive should be applied at the controller level.  In the following example, the View ability is the least restrictive, and Create, Edit, and Delete are at the action level.  The view actions (Index and Details) inherit their abilities from the controller level.</p>
+
+<p>The corresponding Attribute for WebAPI projects is AbilityWebApiAuthorization.</p>
+
+<div class="highlight"><pre><span class="na">[AbilityMvcAuthorization(Ability = "View")]</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">ToDoController</span> <span class="p">:</span> <span class="n">Controller</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">ToDoDbContext</span> <span class="n">db</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ToDoDbContext</span><span class="p">();</span>
+
+    <span class="c1">//</span>
+    <span class="c1">// GET: /ToDo/</span>
+
+    <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">db</span><span class="p">.</span><span class="n">Items</span><span class="p">.</span><span class="n">ToList</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="c1">//</span>
+    <span class="c1">// GET: /ToDo/Details/5</span>
+
+    <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Details</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span> <span class="p">=</span> <span class="m">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">ToDo</span> <span class="n">todo</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Items</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">todo</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nf">HttpNotFound</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">todo</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">//</span>
+    <span class="c1">// GET: /ToDo/Create</span>
+
+<span class="na">    [AbilityMvcAuthorization(Ability = "Create")]</span>
+    <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Create</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="c1">//</span>
+    <span class="c1">// POST: /ToDo/Create</span>
+
+<span class="na">    [HttpPost]</span>
+<span class="na">    [ValidateAntiForgeryToken]</span>
+<span class="na">    [AbilityMvcAuthorization(Ability = "Create")]</span>
+    <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Create</span><span class="p">(</span><span class="n">ToDo</span> <span class="n">todo</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ModelState</span><span class="p">.</span><span class="n">IsValid</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">db</span><span class="p">.</span><span class="n">Items</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">todo</span><span class="p">);</span>
+            <span class="n">db</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+            <span class="k">return</span> <span class="nf">RedirectToAction</span><span class="p">(</span><span class="s">"Index"</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">todo</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">//</span>
+    <span class="c1">// GET: /ToDo/Edit/5</span>
+<span class="na">    [AbilityMvcAuthorization(Ability = "Edit")]</span>
+    <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Edit</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span> <span class="p">=</span> <span class="m">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">ToDo</span> <span class="n">todo</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Items</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">todo</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nf">HttpNotFound</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">todo</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">//</span>
+    <span class="c1">// POST: /ToDo/Edit/5</span>
+
+<span class="na">    [HttpPost]</span>
+<span class="na">    [ValidateAntiForgeryToken]</span>
+<span class="na">    [AbilityMvcAuthorization(Ability = "Edit")]</span>
+    <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Edit</span><span class="p">(</span><span class="n">ToDo</span> <span class="n">todo</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ModelState</span><span class="p">.</span><span class="n">IsValid</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">db</span><span class="p">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">todo</span><span class="p">).</span><span class="n">State</span> <span class="p">=</span> <span class="n">EntityState</span><span class="p">.</span><span class="n">Modified</span><span class="p">;</span>
+            <span class="n">db</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+            <span class="k">return</span> <span class="nf">RedirectToAction</span><span class="p">(</span><span class="s">"Index"</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">todo</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">//</span>
+    <span class="c1">// GET: /ToDo/Delete/5</span>
+<span class="na">    [AbilityMvcAuthorization(Ability = "Delete")]</span>
+    <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Delete</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span> <span class="p">=</span> <span class="m">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">ToDo</span> <span class="n">todo</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Items</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">todo</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nf">HttpNotFound</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">todo</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">//</span>
+    <span class="c1">// POST: /ToDo/Delete/5</span>
+
+<span class="na">    [HttpPost, ActionName("Delete")]</span>
+<span class="na">    [ValidateAntiForgeryToken]</span>
+<span class="na">    [AbilityMvcAuthorization(Ability = "Delete")]</span>
+    <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">DeleteConfirmed</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">ToDo</span> <span class="n">todo</span> <span class="p">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Items</span><span class="p">.</span><span class="n">Find</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+        <span class="n">db</span><span class="p">.</span><span class="n">Items</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">todo</span><span class="p">);</span>
+        <span class="n">db</span><span class="p">.</span><span class="n">SaveChanges</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nf">RedirectToAction</span><span class="p">(</span><span class="s">"Index"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">Dispose</span><span class="p">(</span><span class="kt">bool</span> <span class="n">disposing</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">db</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+        <span class="k">base</span><span class="p">.</span><span class="n">Dispose</span><span class="p">(</span><span class="n">disposing</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Finally you can leverage perform authorization checks in your Razor views</p>
+
+<div class="highlight"><pre><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span>
+    <span class="n">@if</span> <span class="p">(</span><span class="n">HeroConfig</span><span class="p">.</span><span class="n">Can</span><span class="p">(</span><span class="n">User</span><span class="p">.</span><span class="n">Identity</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="s">"Create"</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">@Html</span><span class="p">.</span><span class="n">ActionLink</span><span class="p">(</span><span class="s">"Create New"</span><span class="p">,</span> <span class="s">"Create"</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">new</span> <span class="p">{</span><span class="n">@class</span> <span class="p">=</span> <span class="s">"createButton"</span><span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</pre></div>
+
+<p>This is all it takes to configure you ability based authorization system on the server side. Now your code and your authorization are decoupled. This means you can add new roles, remove roles, rename roles, etc. all from an admin panel instead of redeploying an application.  You can also leverage your registered abilities on the client side as well.  See below for an examples.</p>
+
+<h2>
+<a name="complex-abilities" class="anchor" href="#complex-abilities"><span class="octicon octicon-link"></span></a>Complex Abilities</h2>
+
+<p>Another feature Hero provides is an ability hierarchy. This makes Hero more flexible and easier to register users with their appropriate abilities.  The example below creates an ability hierarchy called Manage that contains the Edit, Create, and Delete abilities.  When the manage ability is registered with AdminRole, the Edit, Create, and Delete abilities are also available to the AdminRole.</p>
+
+<div class="highlight"><pre><span class="n">Role</span> <span class="n">toDoAdminRole</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Role</span><span class="p">(</span><span class="s">"ToDoAdmin"</span><span class="p">);</span>
+<span class="n">Role</span> <span class="n">toDoEditRole</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Role</span><span class="p">(</span><span class="s">"ToDoEdit"</span><span class="p">);</span>
+
+<span class="n">Ability</span> <span class="n">toDoCreateAbility</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Ability</span><span class="p">(</span><span class="s">"Create"</span><span class="p">);</span>
+<span class="n">Ability</span> <span class="n">toDoDeleteAbility</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Ability</span><span class="p">(</span><span class="s">"Delete"</span><span class="p">);</span>
+<span class="n">Ability</span> <span class="n">toDoEditContentAbility</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Ability</span><span class="p">(</span><span class="s">"EditContent"</span><span class="p">);</span>
+<span class="n">Ability</span> <span class="n">toDoEditDataAbility</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Ability</span><span class="p">(</span><span class="s">"EditData"</span><span class="p">);</span>
+
+<span class="n">Ability</span> <span class="n">toDoEditAbility</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Ability</span><span class="p">(</span><span class="s">"Edit"</span><span class="p">);</span>
+<span class="n">todoEditAbility</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">toDoEditContentAbility</span><span class="p">);</span>
+<span class="n">todoEditAbility</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">toDoEditDataAbility</span><span class="p">);</span>
+
+<span class="n">Ability</span> <span class="n">manageAbility</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Ability</span><span class="p">(</span><span class="s">"Manage"</span><span class="p">);</span>
+<span class="n">manageAbility</span><span class="p">.</span><span class="n">Abilities</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">toDoCreateAbility</span><span class="p">);</span>
+<span class="n">manageAbility</span><span class="p">.</span><span class="n">Abilities</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">toDoEditAbility</span><span class="p">);</span>
+<span class="n">manageAbility</span><span class="p">.</span><span class="n">Abilities</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">toDoDeleteAbility</span><span class="p">);</span>
+
+<span class="n">toDoAdminRole</span><span class="p">.</span><span class="n">Abilities</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">manageAbility</span><span class="p">);</span>
+<span class="n">toDoEditRole</span><span class="p">.</span><span class="n">Abilities</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">toDoEditAbility</span><span class="p">);</span>
+</pre></div>
+
+<h2>
+<a name="client-side-1" class="anchor" href="#client-side-1"><span class="octicon octicon-link"></span></a>Client Side</h2>
+
+<p>Generally speaking providing authorization at the server level is not the entire story.  If a user does not have permission to perform an action, the trigger (button, link, visual container) would not even be visible to a user.  Hero provides a client side implementation to help keep your client ability triggers in sync with the server and provies support for Single Page Applications (SPA).</p>
+
+<p>The following code will create a simple javascript module for managing these triggers.  The module has functions for showing the create, edit, delete, and details button utilized in the ToDo HD application.  By default these buttons are hidden and only if the user is authorized will the module functions run.</p>
+
+<div class="highlight"><pre><span class="c1">//Add a module for the buttons on the page.</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">testModule</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">getCreateButton</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">"createButton"</span><span class="p">);</span> <span class="p">};</span>
+    <span class="kd">var</span> <span class="nx">getDeleteButton</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">"deleteButton"</span><span class="p">);</span> <span class="p">};</span>
+    <span class="kd">var</span> <span class="nx">getEditButton</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">"editButton"</span><span class="p">);</span> <span class="p">};</span>
+    <span class="kd">var</span> <span class="nx">getDetailsButton</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">"detailsButton"</span><span class="p">);</span> <span class="p">};</span>
+
+    <span class="kd">var</span> <span class="nx">show</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">elem</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="nx">elem</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">'inline'</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nx">testModule</span><span class="p">.</span><span class="nx">showCreateButton</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">showCreateButton</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">show</span><span class="p">(</span><span class="nx">getCreateButton</span><span class="p">());</span>
+    <span class="p">};</span>
+
+    <span class="nx">testModule</span><span class="p">.</span><span class="nx">showDeleteButton</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">showDeleteButton</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">show</span><span class="p">(</span><span class="nx">getDeleteButton</span><span class="p">());</span>
+    <span class="p">};</span>
+
+    <span class="nx">testModule</span><span class="p">.</span><span class="nx">showEditButton</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">showEditButton</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">show</span><span class="p">(</span><span class="nx">getEditButton</span><span class="p">());</span>
+    <span class="p">};</span>
+
+    <span class="nx">testModule</span><span class="p">.</span><span class="nx">showDetailsButton</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">showDetailsButton</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">show</span><span class="p">(</span><span class="nx">getDetailsButton</span><span class="p">());</span>
+    <span class="p">};</span>
+
+<span class="p">})(</span><span class="nb">window</span><span class="p">.</span><span class="nx">TestModule</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">TestModule</span> <span class="o">||</span> <span class="p">{});</span>
+
+<span class="c1">//on doc ready show/hide the buttons.</span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">TestModule</span><span class="p">.</span><span class="nx">showCreateButton</span><span class="p">();</span>
+    <span class="nx">TestModule</span><span class="p">.</span><span class="nx">showDeleteButton</span><span class="p">();</span>
+    <span class="nx">TestModule</span><span class="p">.</span><span class="nx">showEditButton</span><span class="p">();</span>
+    <span class="nx">TestModule</span><span class="p">.</span><span class="nx">showDetailsButton</span><span class="p">();</span>
+<span class="p">});</span>
+
+
+<span class="c1">//initialize the ability based authorization utilizing the Hero project</span>
+<span class="nx">Hero</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">registerAbility</span><span class="p">(</span><span class="s2">"View"</span><span class="p">,</span> <span class="nx">TestModule</span><span class="p">,</span> <span class="nx">TestModule</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">showDetailsButton</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">registerAbility</span><span class="p">(</span><span class="s2">"Create"</span><span class="p">,</span> <span class="nx">TestModule</span><span class="p">,</span> <span class="nx">TestModule</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">showCreateButton</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">registerAbility</span><span class="p">(</span><span class="s2">"Edit"</span><span class="p">,</span> <span class="nx">TestModule</span><span class="p">,</span> <span class="nx">TestModule</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">showEditButton</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">registerAbility</span><span class="p">(</span><span class="s2">"Delete"</span><span class="p">,</span> <span class="nx">TestModule</span><span class="p">,</span> <span class="nx">TestModule</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">showDeleteButton</span><span class="p">);</span>
+</pre></div>
+
+<p>The configuration code provides a fluent syntax for registering a module's public functions with an Ability.  In the previous example, if the user has the Create ability then the showCreateButton will be allowed to run (and thus the button will become visible).  One point to note here is the endpoint.  Hero installs an Abilities controller by default and your Hero javascript configuration will need to point to this controller.</p>
+
+<h2>
+<a name="heroadmin-usage" class="anchor" href="#heroadmin-usage"><span class="octicon octicon-link"></span></a>HeroAdmin Usage</h2>
+
+<p>Hero also include HeroAdmin. HeroAdmin is an SPA that was built to ease the management task of creating abilities, roles, and users. If you wish to use HeroAdmin in your application you will need to add the following to your BundleConfig.cs</p>
+
+<div class="highlight"><pre><span class="n">bundles</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">StyleBundle</span><span class="p">(</span><span class="s">"~/Content/bootstrap"</span><span class="p">).</span><span class="n">Include</span><span class="p">(</span><span class="s">"~/Content/bootstrap.css"</span><span class="p">));</span>
+<span class="n">bundles</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">ScriptBundle</span><span class="p">(</span><span class="s">"~/bundles/herojs"</span><span class="p">).</span><span class="n">Include</span><span class="p">(</span>
+            <span class="s">"~/Scripts/angular.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/angular-resource.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/lodash.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/restangular.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/hero.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/hero-user.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/hero-role.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/hero-ability.js"</span><span class="p">,</span>
+            <span class="s">"~/Scripts/hero-authorization.js"</span><span class="p">));</span>
+</pre></div>
+
+<p>Add the following to the page you wish the HeroAdmin console to appear. Typically you can create an Admin MVC controller/view to support this (see HeroGame for example):</p>
+
+<div class="highlight"><pre>@Scripts.Render("~/bundles/herojs")
+@Scripts.Render("~/Scripts/init.js")
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"admin-console"</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+
+<p>Finally create an init.js (or similar):</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="nx">Hero</span><span class="p">.</span><span class="nx">init</span><span class="p">().</span><span class="nx">buildConsole</span><span class="p">();</span>
+<span class="p">})();</span>
+</pre></div>
+
+<p>You should then see the HeroAdmin console.
+<img src="http://i.snag.gy/qqLp1.jpg" alt="HeroAdmin Console" title="HeroAdmin"></p>
+
+<p>Note: if you wish to override the default in memory repositories that Hero uses you can pass in a User,Role, and Ability Repository to the AuthorizationService.</p>
+
+<h1>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h1>
+
+<p>See <a href="CONTRIBUTING.md">CONTRIBUTING.md</a></p>
+
+<h1>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>This project is licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Hero maintained by <a href="https://github.com/Skookum">Skookum</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
