@@ -41,7 +41,7 @@ Add the following to any page you wish to leverage the client side capabilities.
 @Scripts.Render("~/bundles/herojs")
 ````
 
-See the [server side examples](server-side-1) below for how to configure your ability based authorization on the server side.
+See the [server side examples](#server-side-1) below for how to configure your ability based authorization on the server side.
 
 # Dependencies
 
