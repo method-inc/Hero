@@ -6,7 +6,7 @@
     <authors>skookum,elaforc,klaforce,ptfaulkner</authors>
     <owners>skookum,elaforc,klaforce,ptfaulkner</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
-    <projectUrl>https://github.com/Skookum/Hero</projectUrl>
+    <projectUrl>http://skookum.github.io/Hero/</projectUrl>
     <iconUrl>http://i.imgur.com/7CmygCd.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Ability based authorization</description>
