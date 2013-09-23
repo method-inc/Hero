@@ -5,7 +5,7 @@ namespace Hero.Interfaces
 {
     public interface IUser : IIdentifiable<string>, INameable
     {
-        IList<Role> Roles { get; set; }
-        IList<Ability> Abilities { get; }
+        IList<IRole> Roles { get; set; }
+        IList<IAbility> Abilities { get; }
     }
 }

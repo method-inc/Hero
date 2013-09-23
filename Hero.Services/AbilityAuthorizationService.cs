@@ -106,7 +106,7 @@ namespace Hero.Services
         public void RemoveRole(IRole role)
         {
             foreach (IUser user in _userRepository.Get<IUser>())
-                user.Roles.Remove((Role)role);
+                user.Roles.Remove((IRole)role);
             _roleRepository.Delete(role);
         }
 
@@ -119,7 +119,7 @@ namespace Hero.Services
         public void RemoveAbility(IAbility ability)
         {
             foreach (IRole role in _roleRepository.Get<IRole>())
-                role.Abilities.Remove((Ability)ability);
+                role.Abilities.Remove((IAbility)ability);
             _abilityRepository.Delete(ability);
         }
 
@@ -149,7 +149,7 @@ namespace Hero.Services
             if (role.Abilities.Contains(ability))
                 return true;
 
-            foreach (Ability root in role.Abilities)
+            foreach (IAbility root in role.Abilities)
                 if (_Authorize(root, ability))
                     return true;
 
@@ -174,7 +174,7 @@ namespace Hero.Services
             if (root.Abilities.Contains(query))
                 return true;
 
-            foreach (Ability childAbility in root.Abilities)
+            foreach (IAbility childAbility in root.Abilities)
             {
                 if (_Authorize(childAbility, query))
                     return true;
@@ -206,7 +206,7 @@ namespace Hero.Services
 
         private void AddChildAbilities(IAbility root, HashSet<IAbility> abilities)
         {
-            foreach (Ability childAbility in root.Abilities)
+            foreach (IAbility childAbility in root.Abilities)
             {
                 abilities.Add(childAbility);
                 AddChildAbilities(childAbility, abilities);

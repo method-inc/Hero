@@ -45,9 +45,9 @@ namespace Hero.Configuration
         /// <param name="role">The role that is to be inspected and if nescessary configured</param>
         /// <param name="ability">The ability to assign the role if nescessary</param>
         public static void RegisterAbility(IRole role,
-                                           Ability ability)
+                                           IAbility ability)
         {
-            RegisterAbilities(role, new List<Ability> {ability});
+            RegisterAbilities(role, new List<IAbility> {ability});
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Hero.Configuration
         /// </summary>
         /// <param name="role">The role that is to be inspected and if nescessary configured</param>
         /// <param name="abilities">The abilities to assign the role if nescessary</param>
-        public static void RegisterAbilities(IRole role, IEnumerable<Ability> abilities)
+        public static void RegisterAbilities(IRole role, IEnumerable<IAbility> abilities)
         {
             // This method is intended to be used from the Global.asax.cs or
             // similar. It should only be done from there to encourage a centralized
@@ -73,9 +73,9 @@ namespace Hero.Configuration
             if (abilities == null)
                 throw new ArgumentNullException("abilities");
             if (role.Abilities == null)
-                role.Abilities = new List<Ability>();
+                role.Abilities = new List<IAbility>();
 
-            foreach (Ability ability in abilities)
+            foreach (IAbility ability in abilities)
                 role.Abilities.Add(ability);
 
             AuthorizationService.AddRole(role);
@@ -86,9 +86,9 @@ namespace Hero.Configuration
         /// </summary>
         /// <param name="role">The role that is to be inspected and if nescessary configured</param>
         /// <param name="ability">The abilities to assign the role if nescessary</param>
-        public static void UnregisterAbility(IRole role, Ability ability)
+        public static void UnregisterAbility(IRole role, IAbility ability)
         {
-            UnregisterAbilities(role, new List<Ability> {ability});
+            UnregisterAbilities(role, new List<IAbility> {ability});
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Hero.Configuration
         /// </summary>
         /// <param name="role">The role that is to be inspected and if nescessary configured</param>
         /// <param name="abilities">The abilities to assign the role if nescessary</param>
-        public static void UnregisterAbilities(IRole role, IEnumerable<Ability> abilities)
+        public static void UnregisterAbilities(IRole role, IEnumerable<IAbility> abilities)
         {
             // This method is intended to be used from the Global.asax.cs or
             // similar. It should only be done from there to encourage a centralized
@@ -114,9 +114,9 @@ namespace Hero.Configuration
             if (abilities == null)
                 throw new ArgumentNullException("abilities");
             if (role.Abilities == null)
-                role.Abilities = new List<Ability>();
+                role.Abilities = new List<IAbility>();
 
-            foreach (Ability ability in abilities)
+            foreach (IAbility ability in abilities)
                 role.Abilities.Remove(ability);
             AuthorizationService.UpdateRole(role);
         }
@@ -152,9 +152,9 @@ namespace Hero.Configuration
             if (roles == null)
                 throw new ArgumentNullException("roles");
             if (user.Roles == null)
-                user.Roles = new List<Role>();
+                user.Roles = new List<IRole>();
 
-            foreach (Role role in roles)
+            foreach (IRole role in roles)
                 user.Roles.Add(role);
             AuthorizationService.AddUser(user);
         }
@@ -190,9 +190,9 @@ namespace Hero.Configuration
             if (roles == null)
                 throw new ArgumentNullException("roles");
             if (user.Roles == null)
-                user.Roles = new List<Role>();
+                user.Roles = new List<IRole>();
 
-            foreach (Role role in roles)
+            foreach (IRole role in roles)
                 user.Roles.Remove(role);
             AuthorizationService.RemoveUser(user);
         }

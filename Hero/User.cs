@@ -11,12 +11,12 @@ namespace Hero
 
         public string Name { get; set; }
 
-        public IList<Ability> Abilities
+        public IList<IAbility> Abilities
         {
             get { return Roles.SelectMany(r => r.Abilities).ToList(); }
         }
 
-        public IList<Role> Roles { get; set; }
+        public IList<IRole> Roles { get; set; }
 
         public User() { }
 
@@ -24,14 +24,14 @@ namespace Hero
         {
             Name = name;
             Id = name;
-            Roles = new List<Role>();
+            Roles = new List<IRole>();
         }
 
         public User(string name, string id)
         {
             Name = name;
             Id = id;
-            Roles = new List<Role>();
+            Roles = new List<IRole>();
         }
 
         public bool Equals(User other)
