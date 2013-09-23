@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Hero</id>
+    <version>0.0.1</version>
+    <authors>skookum,elaforc,klaforce,ptfaulkner</authors>
+    <owners>skookum,elaforc,klaforce,ptfaulkner</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>http://skookum.github.io/Hero/</projectUrl>
+    <iconUrl>http://i.imgur.com/7CmygCd.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Ability based authorization</description>
+    <releaseNotes>Hero is an ability based authorization for .NET MVC and WepAPI projects inspired by the Rails project CanCan. Ability based authorization provides a more flexible approach to the traditional .NET authorization technique by decoupling the permissions and code.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>Authorization, Ability, Role, User</tags>
+    <dependencies>
+      <dependency id="DotNetStandard" />
+      <dependency id="Repositories" />
+      <dependency id="Twitter.Bootstrap" />
+      <dependency id="angularjs" />
+    </dependencies>
+  </metadata>
+</package>
