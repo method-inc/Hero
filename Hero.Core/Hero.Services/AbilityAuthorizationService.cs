@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Hero.Interfaces;
 using Hero.Repositories;
+using Hero.Repositories.Interfaces;
 using Hero.Services.Interfaces;
 
 namespace Hero.Services
@@ -31,32 +32,32 @@ namespace Hero.Services
 
         public IEnumerable<IUser> GetUsers()
         {
-            return _userRepository.Get<IUser>();
+            return _userRepository.Get();
         }
 
         public IEnumerable<IRole> GetRoles()
         {
-            return _roleRepository.Get<IRole>();
+            return _roleRepository.Get();
         }
 
         public IEnumerable<IAbility> GetAbilities()
         {
-            return _abilityRepository.Get<IAbility>();
+            return _abilityRepository.Get();
         }
 
         public IUser GetUser(string id)
         {
-            return _userRepository.Get<IUser>().FirstOrDefault(user => user.Id == id);
+            return _userRepository.Get().FirstOrDefault(user => user.Id == id);
         }
 
         public IRole GetRole(string id)
         {
-            return _roleRepository.Get<IRole>().FirstOrDefault(role => role.Id == id);
+            return _roleRepository.Get().FirstOrDefault(role => role.Id == id);
         }
 
         public IAbility GetAbility(string id)
         {
-            return _abilityRepository.Get<IAbility>().FirstOrDefault(ability => ability.Id == id);
+            return _abilityRepository.Get().FirstOrDefault(ability => ability.Id == id);
         }
 
         public IUser AddUser(IUser user)
@@ -105,7 +106,7 @@ namespace Hero.Services
 
         public void RemoveRole(IRole role)
         {
-            foreach (IUser user in _userRepository.Get<IUser>())
+            foreach (IUser user in _userRepository.Get())
                 user.Roles.Remove((IRole)role);
             _roleRepository.Delete(role);
         }
@@ -118,7 +119,7 @@ namespace Hero.Services
 
         public void RemoveAbility(IAbility ability)
         {
-            foreach (IRole role in _roleRepository.Get<IRole>())
+            foreach (IRole role in _roleRepository.Get())
                 role.Abilities.Remove((IAbility)ability);
             _abilityRepository.Delete(ability);
         }
@@ -185,7 +186,7 @@ namespace Hero.Services
 
         public IEnumerable<IAbility> GetAbilitiesForUser(string userName)
         {
-            return GetAbilitiesForUser(_userRepository.Get<IUser>().FirstOrDefault(user => user.Name.Equals(userName)));
+            return GetAbilitiesForUser(_userRepository.Get().FirstOrDefault(user => user.Name.Equals(userName)));
         }
 
         public IEnumerable<IAbility> GetAbilitiesForUser(IUser user)
