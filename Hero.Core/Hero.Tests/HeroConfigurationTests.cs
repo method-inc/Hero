@@ -5,10 +5,7 @@ using Hero.Configuration;
 using Hero.Interfaces;
 using Hero.Services;
 using Hero.Services.Interfaces;
-using Moq;
 using NUnit.Framework;
-using Repositories;
-using Repositories.Interfaces;
 
 namespace Hero.Tests
 {

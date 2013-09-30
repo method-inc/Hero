@@ -1,9 +1,24 @@
-﻿using Repositories;
-using Repositories.Interfaces;
+﻿using System.Linq;
+using Hero.Interfaces;
+using Hero.Repositories.Interfaces;
 
 namespace Hero.Repositories
 {
-    public interface IRoleRepository : IRepository { }
+    public class RoleRepository : InMemoryRepository, IRoleRepository
+    {
+        public IQueryable<IRole> Get()
+        {
+            return Get<IRole>();
+        }
 
-    public class RoleRepository : InMemoryRepository, IRoleRepository { }
+        public void Create(IRole role)
+        {
+            Create<IRole>(role);
+        }
+
+        public void Delete(IRole role)
+        {
+            Delete<IRole>(role);
+        }
+    }
 }
