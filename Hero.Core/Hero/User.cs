@@ -7,16 +7,16 @@ namespace Hero
 {
     public class User : IUser, IEquatable<User>
     {
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public IList<IAbility> Abilities
+        public virtual IList<IAbility> Abilities
         {
             get { return Roles.SelectMany(r => r.Abilities).ToList(); }
         }
 
-        public IList<IRole> Roles { get; set; }
+        public virtual IList<IRole> Roles { get; set; }
 
         public User() { }
 
@@ -34,7 +34,7 @@ namespace Hero
             Roles = new List<IRole>();
         }
 
-        public bool Equals(User other)
+        public virtual bool Equals(User other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;

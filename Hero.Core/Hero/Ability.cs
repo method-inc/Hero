@@ -6,11 +6,13 @@ namespace Hero
 {
     public class Ability : IAbility, IEquatable<Ability>
     {
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public IList<IAbility> Abilities { get; set; }
+        public virtual IAbility Parent { get; set; }
+
+        public virtual IList<IAbility> Abilities { get; set; }
 
         public Ability() { }
 
@@ -28,7 +30,7 @@ namespace Hero
             Abilities = new List<IAbility>();
 		}
 
-        public bool Equals(Ability other)
+        public virtual bool Equals(Ability other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
