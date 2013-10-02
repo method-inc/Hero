@@ -19,6 +19,7 @@ namespace Hero
             get { return Roles.SelectMany(r => r.Abilities).ToList(); }
         }
 
+        [JsonConverter(typeof(RoleListConverter))]
         public virtual IList<IRole> Roles { get; set; }
 
         public User() { }
