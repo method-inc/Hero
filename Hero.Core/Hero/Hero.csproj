@@ -45,6 +45,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DotNetStandard.0.1.2\lib\DotNetStandard.Vent.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
@@ -69,6 +72,9 @@
     <Compile Include="Interfaces\IAbility.cs" />
     <Compile Include="Interfaces\IRole.cs" />
     <Compile Include="Interfaces\IUser.cs" />
+    <Compile Include="JsonConverters\AbilityConverter.cs" />
+    <Compile Include="JsonConverters\RoleConverter.cs" />
+    <Compile Include="JsonConverters\UserConverter.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
