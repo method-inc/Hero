@@ -16,6 +16,7 @@
     <dependencies>
       <dependency id="DotNetStandard" />
       <dependency id="Repositories" />
+      <dependency id="Newtonsoft.Json" />
     </dependencies>
   </metadata>
 </package>
