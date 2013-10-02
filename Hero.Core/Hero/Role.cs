@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hero.Interfaces;
+using Hero.JsonConverters;
+using Newtonsoft.Json;
 
 namespace Hero
 {
@@ -10,6 +12,7 @@ namespace Hero
 
         public virtual string Name { get; set; }
 
+        [JsonConverter(typeof(AbilityListConverter))]
         public virtual IList<IAbility> Abilities { get; set; }
 
         public Role() { } 
