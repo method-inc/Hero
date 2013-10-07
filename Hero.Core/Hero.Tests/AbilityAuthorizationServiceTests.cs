@@ -184,7 +184,7 @@ namespace Hero.Tests
             Assert.AreEqual(_user2, users.Last());
 
             _user2.Name = "UserUpdate";
-            _authorizationService.UpdateUser(_user2);
+            _authorizationService.UpdateUser<User>(_user2);
             users = _authorizationService.GetUsers();
             Assert.AreEqual(2, users.Count());
             Assert.AreEqual(_user1, users.First());

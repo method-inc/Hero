@@ -26,7 +26,7 @@ namespace Hero.Services.Interfaces
         void RemoveUser(IUser user);
         void RemoveRole(IRole role);
         void RemoveAbility(IAbility ability);
-        IUser UpdateUser(IUser user);
+        IUser UpdateUser<T>(IUser user) where T : class, IUser;
         IRole UpdateRole(IRole role);
         IAbility UpdateAbility(IAbility ability);
     }

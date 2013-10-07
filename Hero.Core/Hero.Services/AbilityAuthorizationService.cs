@@ -123,11 +123,34 @@ namespace Hero.Services
             _abilityRepository.Delete(ability);
         }
 
-        public IUser UpdateUser(IUser user)
+        public IUser UpdateUser<T>(IUser user) where T : class, IUser
         {
-            RemoveUser(user.Id);
-            AddUser(user);
-            return GetUser(user.Name);
+            T userToEdit = _userRepository.Get<T>().FirstOrDefault(u => u.Id == user.Id);
+
+            if (userToEdit == null)
+            {
+                throw new Exception("Could not find user to update.");
+            }
+
+            List<string> currentRoleIds = userToEdit.Roles.Select(r => r.Id).ToList();
+            List<string> newRoleIds = user.Roles.Select(r => r.Id).ToList();
+
+            List<IRole> rolesToRemove = userToEdit.Roles.Where(r => !newRoleIds.Contains(r.Id)).ToList();
+            List<IRole> rolesToAdd = user.Roles.Where(r => !currentRoleIds.Contains(r.Id)).ToList();
+
+            foreach (IRole role in rolesToAdd)
+            {
+                userToEdit.Roles.Add(role);
+            }
+
+            foreach (IRole role in rolesToRemove)
+            {
+                userToEdit.Roles.Remove(role);
+            }
+
+            _userRepository.Update(userToEdit);
+
+            return userToEdit;
         }
 
         public IRole UpdateRole(IRole role)
