@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Hero.Interfaces;
 using Hero.Repositories;
 using Hero.Services;
 using Hero.Tests.Models;
@@ -45,7 +44,7 @@ namespace Hero.Tests
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddAbility(_ability1);
             _authorizationService.AddAbility(_ability2);
-            IAbility ability = _authorizationService.GetAbility("Ability1");
+            Ability ability = _authorizationService.GetAbility("Ability1");
             Assert.AreEqual(ability, _ability1);
         }
 
@@ -55,7 +54,7 @@ namespace Hero.Tests
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddAbility(_ability1);
             _authorizationService.AddAbility(_ability2);
-            IEnumerable<IAbility> abilitys = _authorizationService.GetAbilities();
+            IEnumerable<Ability> abilitys = _authorizationService.GetAbilities();
             Assert.AreEqual(2, abilitys.Count());
             Assert.AreEqual(_ability1, abilitys.First());
             Assert.AreEqual(_ability2, abilitys.Last());
@@ -67,7 +66,7 @@ namespace Hero.Tests
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddAbility(_ability1);
             _authorizationService.AddAbility(_ability2);
-            IEnumerable<IAbility> abilitys = _authorizationService.GetAbilities();
+            IEnumerable<Ability> abilitys = _authorizationService.GetAbilities();
             Assert.AreEqual(2, abilitys.Count());
             Assert.AreEqual(_ability1, abilitys.First());
             Assert.AreEqual(_ability2, abilitys.Last());
@@ -86,7 +85,7 @@ namespace Hero.Tests
             _role1.Abilities.Add(_ability2);
             _authorizationService.AddRole(_role1);
 
-            IEnumerable<IAbility> abilities = _authorizationService.GetAbilities();
+            IEnumerable<Ability> abilities = _authorizationService.GetAbilities();
             Assert.AreEqual(2, abilities.Count());
             Assert.AreEqual(_ability1, abilities.First());
             Assert.AreEqual(_ability2, abilities.Last());
@@ -96,7 +95,7 @@ namespace Hero.Tests
             Assert.AreEqual(1, abilities.Count());
             Assert.AreEqual(_ability2, abilities.First());
 
-            IEnumerable<IRole> roles = _authorizationService.GetRoles();
+            IEnumerable<Role> roles = _authorizationService.GetRoles();
             Assert.AreEqual(1, roles.Count());
             Assert.AreEqual(1, roles.FirstOrDefault().Abilities.Count);
             Assert.AreEqual(_ability2, roles.FirstOrDefault().Abilities.FirstOrDefault());
@@ -108,7 +107,7 @@ namespace Hero.Tests
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddAbility(_ability1);
             _authorizationService.AddAbility(_ability2);
-            IEnumerable<IAbility> abilitys = _authorizationService.GetAbilities();
+            IEnumerable<Ability> abilitys = _authorizationService.GetAbilities();
             Assert.AreEqual(2, abilitys.Count());
             Assert.AreEqual(_ability1, abilitys.First());
             Assert.AreEqual(_ability2, abilitys.Last());
@@ -127,7 +126,7 @@ namespace Hero.Tests
         {
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddAbility(_ability3);
-            IAbility ability = _authorizationService.GetAbility("Ability3");
+            Ability ability = _authorizationService.GetAbility("Ability3");
             Assert.AreEqual(ability, _ability3);
             Assert.AreEqual(2, _ability3.Abilities.Count);
             Assert.True(ability.Abilities.SequenceEqual(_ability3.Abilities));
@@ -139,7 +138,7 @@ namespace Hero.Tests
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddUser(_user1);
             _authorizationService.AddUser(_user2);
-            IUser user = _authorizationService.GetUser("User1");
+            User user = _authorizationService.GetUser("User1");
             Assert.AreEqual(user, _user1);
         }
 
@@ -149,7 +148,7 @@ namespace Hero.Tests
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddUser(_user1);
             _authorizationService.AddUser(_user2);
-            IEnumerable<IUser> users = _authorizationService.GetUsers();
+            IEnumerable<User> users = _authorizationService.GetUsers();
             Assert.AreEqual(2, users.Count());
             Assert.AreEqual(_user1, users.First());
             Assert.AreEqual(_user2, users.Last());
@@ -161,7 +160,7 @@ namespace Hero.Tests
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddUser(_user1);
             _authorizationService.AddUser(_user2);
-            IEnumerable<IUser> users = _authorizationService.GetUsers();
+            IEnumerable<User> users = _authorizationService.GetUsers();
             Assert.AreEqual(2, users.Count());
             Assert.AreEqual(_user1, users.First());
             Assert.AreEqual(_user2, users.Last());
@@ -178,7 +177,7 @@ namespace Hero.Tests
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddUser(_user1);
             _authorizationService.AddUser(_user2);
-            IEnumerable<IUser> users = _authorizationService.GetUsers();
+            IEnumerable<User> users = _authorizationService.GetUsers();
             Assert.AreEqual(2, users.Count());
             Assert.AreEqual(_user1, users.First());
             Assert.AreEqual(_user2, users.Last());
@@ -198,7 +197,7 @@ namespace Hero.Tests
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddRole(_role1);
             _authorizationService.AddRole(_role2);
-            IRole role = _authorizationService.GetRole("Role1");
+            Role role = _authorizationService.GetRole("Role1");
             Assert.AreEqual(role, _role1);
         }
 
@@ -208,7 +207,7 @@ namespace Hero.Tests
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddRole(_role1);
             _authorizationService.AddRole(_role2);
-            IEnumerable<IRole> roles = _authorizationService.GetRoles();
+            IEnumerable<Role> roles = _authorizationService.GetRoles();
             Assert.AreEqual(2, roles.Count());
             Assert.AreEqual(_role1, roles.First());
             Assert.AreEqual(_role2, roles.Last());
@@ -220,7 +219,7 @@ namespace Hero.Tests
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddRole(_role1);
             _authorizationService.AddRole(_role2);
-            IEnumerable<IRole> roles = _authorizationService.GetRoles();
+            IEnumerable<Role> roles = _authorizationService.GetRoles();
             Assert.AreEqual(2, roles.Count());
             Assert.AreEqual(_role1, roles.First());
             Assert.AreEqual(_role2, roles.Last());
@@ -237,7 +236,7 @@ namespace Hero.Tests
             _authorizationService = new AbilityAuthorizationService(new UserRepository(), new RoleRepository(), new AbilityRepository());
             _authorizationService.AddRole(_role1);
             _authorizationService.AddRole(_role2);
-            IEnumerable<IRole> roles = _authorizationService.GetRoles();
+            IEnumerable<Role> roles = _authorizationService.GetRoles();
             Assert.AreEqual(2, roles.Count());
             Assert.AreEqual(_role1, roles.First());
             Assert.AreEqual(_role2, roles.Last());
@@ -267,7 +266,7 @@ namespace Hero.Tests
             _user1.Roles.Add(_role2);
             _authorizationService.AddUser(_user1);
 
-            IEnumerable<IAbility> abilities = _authorizationService.GetAbilitiesForUser(_user1.Name);
+            IEnumerable<Ability> abilities = _authorizationService.GetAbilitiesForUser(_user1.Name);
             Assert.AreEqual(2, abilities.Count());
             Assert.AreEqual(_ability1, abilities.First());
             Assert.AreEqual(_ability2, abilities.Last());
@@ -303,7 +302,7 @@ namespace Hero.Tests
         [Test]
         public void TestIfUserNullReturnsEmptyListAbilities()
         {
-            IEnumerable<IAbility> abilities = _authorizationService.GetAbilitiesForUser((IUser) null);
+            IEnumerable<Ability> abilities = _authorizationService.GetAbilitiesForUser((User) null);
             Assert.AreEqual(0, abilities.Count());
         }
     }

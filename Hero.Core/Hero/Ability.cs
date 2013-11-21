@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hero.Interfaces;
-using Hero.JsonConverters;
-using Newtonsoft.Json;
 
 namespace Hero
 {
-    public class Ability : IAbility, IEquatable<Ability>
+    public class Ability : IEquatable<Ability>
     {
         public virtual string Id { get; set; }
 
         public virtual string Name { get; set; }
 
-        [JsonConverter(typeof(AbilityConverter))]
-        public virtual IAbility Parent { get; set; }
+        public virtual Ability Parent { get; set; }
 
-        [JsonConverter(typeof(AbilityListConverter))]
-        public virtual IList<IAbility> Abilities { get; set; }
+        public virtual IList<Ability> Abilities { get; set; }
 
         public Ability() { }
 
@@ -24,14 +19,14 @@ namespace Hero
         {
             Name = name;
             Id = name;
-            Abilities = new List<IAbility>();
+            Abilities = new List<Ability>();
         }
 
         public Ability(string name, string id)
         {
             Name = name;
             Id = id;
-            Abilities = new List<IAbility>();
+            Abilities = new List<Ability>();
 		}
 
         public virtual bool Equals(Ability other)

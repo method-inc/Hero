@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Hero.Configuration;
-using Hero.Interfaces;
 using Hero.Services;
 using Hero.Services.Interfaces;
 using Moq;
@@ -15,8 +14,8 @@ namespace Hero.Tests
     public class HeroConfigurationTests
     {
         private IAbilityAuthorizationService _authorizationService;
-        private IUser _user;
-        private IRole _adminRole;
+        private User _user;
+        private Role _adminRole;
         private IList<Ability> _adminAbilities;
 
         [SetUp]

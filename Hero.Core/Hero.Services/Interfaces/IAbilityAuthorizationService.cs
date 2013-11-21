@@ -1,33 +1,32 @@
-﻿using Hero.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Hero.Services.Interfaces
 {
     public interface IAbilityAuthorizationService
     {
-        bool Authorize(IRole role, IAbility ability);
+        bool Authorize(Role role, Ability ability);
         bool Authorize(string userName, string abilityName);
-        bool Authorize(IUser user, IAbility ability);
-        IEnumerable<IAbility> GetAbilitiesForUser(IUser user);
-        IEnumerable<IAbility> GetAbilitiesForUser(string userName);
+        bool Authorize(User user, Ability ability);
+        IEnumerable<Ability> GetAbilitiesForUser(User user);
+        IEnumerable<Ability> GetAbilitiesForUser(string userName);
 
-        IEnumerable<IUser> GetUsers();
-        IEnumerable<IRole> GetRoles();
-        IEnumerable<IAbility> GetAbilities();
-        IUser GetUser(string id);
-        IRole GetRole(string id);
-        IAbility GetAbility(string id);
-        IUser AddUser(IUser user);
-        IRole AddRole(IRole role);
-        IAbility AddAbility(IAbility ability);
+        IEnumerable<User> GetUsers();
+        IEnumerable<Role> GetRoles();
+        IEnumerable<Ability> GetAbilities();
+        User GetUser(string id);
+        Role GetRole(string id);
+        Ability GetAbility(string id);
+        User AddUser(User user);
+        Role AddRole(Role role);
+        Ability AddAbility(Ability ability);
         void RemoveUser(string id);
         void RemoveRole(string id);
         void RemoveAbility(string id);
-        void RemoveUser(IUser user);
-        void RemoveRole(IRole role);
-        void RemoveAbility(IAbility ability);
-        IUser UpdateUser(IUser user);
-        IRole UpdateRole(IRole role);
-        IAbility UpdateAbility(IAbility ability);
+        void RemoveUser(User user);
+        void RemoveRole(Role role);
+        void RemoveAbility(Ability ability);
+        User UpdateUser(User user);
+        Role UpdateRole(Role role);
+        Ability UpdateAbility(Ability ability);
     }
 }

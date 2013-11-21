@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Hero.Interfaces;
 using Hero.Repositories;
 using Hero.Services.Interfaces;
 
@@ -29,59 +28,59 @@ namespace Hero.Services
             _abilityRepository = abilityRepository;
         }
 
-        public IEnumerable<IUser> GetUsers()
+        public IEnumerable<User> GetUsers()
         {
-            return _userRepository.Get<IUser>();
+            return _userRepository.Get<User>();
         }
 
-        public IEnumerable<IRole> GetRoles()
+        public IEnumerable<Role> GetRoles()
         {
-            return _roleRepository.Get<IRole>();
+            return _roleRepository.Get<Role>();
         }
 
-        public IEnumerable<IAbility> GetAbilities()
+        public IEnumerable<Ability> GetAbilities()
         {
-            return _abilityRepository.Get<IAbility>();
+            return _abilityRepository.Get<Ability>();
         }
 
-        public IUser GetUser(string id)
+        public User GetUser(string id)
         {
-            return _userRepository.Get<IUser>().FirstOrDefault(user => user.Id == id);
+            return _userRepository.Get<User>().FirstOrDefault(user => user.Id == id);
         }
 
-        public IRole GetRole(string id)
+        public Role GetRole(string id)
         {
-            return _roleRepository.Get<IRole>().FirstOrDefault(role => role.Id == id);
+            return _roleRepository.Get<Role>().FirstOrDefault(role => role.Id == id);
         }
 
-        public IAbility GetAbility(string id)
+        public Ability GetAbility(string id)
         {
-            return _abilityRepository.Get<IAbility>().FirstOrDefault(ability => ability.Id == id);
+            return _abilityRepository.Get<Ability>().FirstOrDefault(ability => ability.Id == id);
         }
 
-        public IUser AddUser(IUser user)
+        public User AddUser(User user)
         {
-            foreach (IRole role in user.Roles)
+            foreach (Role role in user.Roles)
                 AddRole(role);
 
             _userRepository.Create(user);
             return GetUser(user.Name);
         }
 
-        public IRole AddRole(IRole role)
+        public Role AddRole(Role role)
         {
-            foreach (IAbility ability in role.Abilities)
+            foreach (Ability ability in role.Abilities)
                 AddAbility(ability);
 
             _roleRepository.Create(role);
             return GetRole(role.Name);
         }
 
-        public IAbility AddAbility(IAbility ability)
+        public Ability AddAbility(Ability ability)
         {
             _abilityRepository.Create(ability);
 
-            foreach (IAbility childAbility in ability.Abilities)
+            foreach (Ability childAbility in ability.Abilities)
                 AddAbility(childAbility);
 
             return GetAbility(ability.Name);
@@ -92,64 +91,64 @@ namespace Hero.Services
             RemoveUser((GetUser(id)));
         }
 
-        public void RemoveUser(IUser user)
+        public void RemoveUser(User user)
         {
             _userRepository.Delete(user);
         }
 
         public void RemoveRole(string id)
         {
-            IRole role = GetRole(id);
+            Role role = GetRole(id);
             RemoveRole(role);
         }
 
-        public void RemoveRole(IRole role)
+        public void RemoveRole(Role role)
         {
-            foreach (IUser user in _userRepository.Get<IUser>())
-                user.Roles.Remove((IRole)role);
+            foreach (User user in _userRepository.Get<User>())
+                user.Roles.Remove(role);
             _roleRepository.Delete(role);
         }
 
         public void RemoveAbility(string id)
         {
-            IAbility ability = GetAbility(id);
+            Ability ability = GetAbility(id);
             RemoveAbility(ability);
         }
 
-        public void RemoveAbility(IAbility ability)
+        public void RemoveAbility(Ability ability)
         {
-            foreach (IRole role in _roleRepository.Get<IRole>())
-                role.Abilities.Remove((IAbility)ability);
+            foreach (Role role in _roleRepository.Get<Role>())
+                role.Abilities.Remove(ability);
             _abilityRepository.Delete(ability);
         }
 
-        public IUser UpdateUser(IUser user)
+        public User UpdateUser(User user)
         {
             RemoveUser(user.Id);
             AddUser(user);
             return GetUser(user.Name);
         }
 
-        public IRole UpdateRole(IRole role)
+        public Role UpdateRole(Role role)
         {
             RemoveRole(role.Id);
             AddRole(role);
             return GetRole(role.Name);
         }
 
-        public IAbility UpdateAbility(IAbility ability)
+        public Ability UpdateAbility(Ability ability)
         {
             RemoveAbility(ability.Id);
             AddAbility(ability);
             return GetAbility(ability.Name);
         }
 
-        public bool Authorize(IRole role, IAbility ability)
+        public bool Authorize(Role role, Ability ability)
         {
             if (role.Abilities.Contains(ability))
                 return true;
 
-            foreach (IAbility root in role.Abilities)
+            foreach (Ability root in role.Abilities)
                 if (_Authorize(root, ability))
                     return true;
 
@@ -158,23 +157,23 @@ namespace Hero.Services
 
         public bool Authorize(string userName, string abilityName)
         {
-            IUser user = GetUser(userName);
-            IAbility ability = GetAbility(abilityName);
+            User user = GetUser(userName);
+            Ability ability = GetAbility(abilityName);
             return Authorize(user, ability);
         }
 
-        public bool Authorize(IUser user, IAbility ability)
+        public bool Authorize(User user, Ability ability)
         {
             if (user == null || ability == null) return false;
             return user.Roles.Any(role => Authorize(role, ability));
         }
 
-        private bool _Authorize(IAbility root, IAbility query)
+        private bool _Authorize(Ability root, Ability query)
         {
             if (root.Abilities.Contains(query))
                 return true;
 
-            foreach (IAbility childAbility in root.Abilities)
+            foreach (Ability childAbility in root.Abilities)
             {
                 if (_Authorize(childAbility, query))
                     return true;
@@ -183,17 +182,17 @@ namespace Hero.Services
             return false;
         }
 
-        public IEnumerable<IAbility> GetAbilitiesForUser(string userName)
+        public IEnumerable<Ability> GetAbilitiesForUser(string userName)
         {
-            return GetAbilitiesForUser(_userRepository.Get<IUser>().FirstOrDefault(user => user.Name.Equals(userName)));
+            return GetAbilitiesForUser(_userRepository.Get<User>().FirstOrDefault(user => user.Name.Equals(userName)));
         }
 
-        public IEnumerable<IAbility> GetAbilitiesForUser(IUser user)
+        public IEnumerable<Ability> GetAbilitiesForUser(User user)
         {
             if(user == null)
-                return new List<IAbility>();
+                return new List<Ability>();
 
-            var abilities = new HashSet<IAbility>();
+            var abilities = new HashSet<Ability>();
 
             foreach (var ability in user.Roles.SelectMany(role => role.Abilities))
             {
@@ -204,9 +203,9 @@ namespace Hero.Services
             return abilities;
         }
 
-        private void AddChildAbilities(IAbility root, HashSet<IAbility> abilities)
+        private void AddChildAbilities(Ability root, HashSet<Ability> abilities)
         {
-            foreach (IAbility childAbility in root.Abilities)
+            foreach (Ability childAbility in root.Abilities)
             {
                 abilities.Add(childAbility);
                 AddChildAbilities(childAbility, abilities);

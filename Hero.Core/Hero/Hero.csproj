@@ -69,12 +69,6 @@
       <Link>Properties\SolutionVersionInfo.cs</Link>
     </Compile>
     <Compile Include="Ability.cs" />
-    <Compile Include="Interfaces\IAbility.cs" />
-    <Compile Include="Interfaces\IRole.cs" />
-    <Compile Include="Interfaces\IUser.cs" />
-    <Compile Include="JsonConverters\AbilityConverter.cs" />
-    <Compile Include="JsonConverters\RoleConverter.cs" />
-    <Compile Include="JsonConverters\UserConverter.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
